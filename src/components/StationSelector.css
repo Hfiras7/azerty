@@ -1,0 +1,122 @@
+.station-selector {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.station-selector h2 {
+  color: #2c3e50;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+.stations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.station-card {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.station-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-color: #3498db;
+}
+
+.station-card.selected {
+  border-color: #3498db;
+  background: #e8f4fd;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.station-card h3 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+  font-size: 1.2em;
+}
+
+.station-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.station-info p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.station-info strong {
+  color: #3498db;
+  font-size: 1.1em;
+}
+
+.station-criteria-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.criterion-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 0.85em;
+}
+
+.criterion-preview span:first-child {
+  color: #34495e;
+}
+
+.criterion-preview .points {
+  font-weight: 600;
+  color: #3498db;
+  background: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.selected-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #27ae60;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .station-card {
+    padding: 15px;
+  }
+
+  .station-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
