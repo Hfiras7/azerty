@@ -113,8 +113,8 @@ function AuthLogin({ onLogin }) {
     <div className="auth-container">
       <div className="auth-box">
         <div className="auth-header">
-          <h1>🎓 CHAF - Notation ECOS</h1>
-          <p>Version 4.5 - Authentification Supabase</p>
+          <h1>🎓 CHAF - Système de Notation EPOS</h1>
+          <p>Version 5.0 - Intégration Supabase Complète</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -212,7 +212,7 @@ function AuthLogin({ onLogin }) {
           <p>
             🔒 Connexion sécurisée avec Supabase
             <span className="separator">•</span>
-            CHAF v4.5 - Auth réelle + Données locales
+            CHAF v5.0 - Intégration Complète
           </p>
         </div>
       </div>

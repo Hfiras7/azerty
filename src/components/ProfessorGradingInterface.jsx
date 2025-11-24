@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { calculateTotalScore, calculateCriterionScore } from '../config/stationConfigs';
+import { saveGrade } from '../config/supabase';
 import './ProfessorGradingInterface.css';
 
-const ProfessorGradingInterface = ({ professor, station, students, grades, setGrades }) => {
+const ProfessorGradingInterface = ({ professor, station, students, grades, onGradesSaved }) => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [currentGrades, setCurrentGrades] = useState({});
   const [autoSave, setAutoSave] = useState(true);
@@ -11,8 +12,11 @@ const ProfessorGradingInterface = ({ professor, station, students, grades, setGr
   // Charger les notes de l'étudiant sélectionné
   useEffect(() => {
     if (selectedStudent) {
-      const key = `${station.id}_${selectedStudent.id}`;
-      setCurrentGrades(grades[key] || {});
+      // Trouver les notes de cet étudiant pour cette station dans l'array Supabase
+      const existingGrade = grades.find(
+        g => g.student_id === selectedStudent.id && g.station_id === station.id
+      );
+      setCurrentGrades(existingGrade?.grades || {});
 
       // Vérifier quels étudiants ont été notés pour cette station
       updateGradedStudents();
@@ -22,8 +26,10 @@ const ProfessorGradingInterface = ({ professor, station, students, grades, setGr
   // Mettre à jour la liste des étudiants notés
   const updateGradedStudents = () => {
     const graded = students.filter(student => {
-      const key = `${station.id}_${student.id}`;
-      return grades[key] && Object.keys(grades[key]).length > 0;
+      const existingGrade = grades.find(
+        g => g.student_id === student.id && g.station_id === station.id
+      );
+      return existingGrade && Object.keys(existingGrade.grades || {}).length > 0;
     });
     setGradedStudents(graded);
   };
@@ -52,8 +58,10 @@ const ProfessorGradingInterface = ({ professor, station, students, grades, setGr
   // Aller au prochain étudiant non noté
   const goToNextStudent = () => {
     const ungradedStudents = students.filter(s => {
-      const key = `${station.id}_${s.id}`;
-      return !grades[key] || Object.keys(grades[key]).length === 0;
+      const existingGrade = grades.find(
+        g => g.student_id === s.id && g.station_id === station.id
+      );
+      return !existingGrade || Object.keys(existingGrade.grades || {}).length === 0;
     });
 
     if (ungradedStudents.length > 0) {
@@ -87,29 +95,40 @@ const ProfessorGradingInterface = ({ professor, station, students, grades, setGr
   };
 
   // Sauvegarder les notes actuelles
-  const saveCurrentGrades = () => {
+  const saveCurrentGrades = async () => {
     if (!selectedStudent) return;
 
-    const key = `${station.id}_${selectedStudent.id}`;
-    const newGrades = { ...grades };
-    newGrades[key] = currentGrades;
+    try {
+      // Calculer le score total
+      const totalScore = getTotalScore();
 
-    // Ajouter les métadonnées du professeur
-    if (!newGrades[`${key}_meta`]) {
-      newGrades[`${key}_meta`] = {
-        professorName: professor.name,
-        stationId: station.id,
-        gradedAt: new Date().toISOString()
-      };
+      // Sauvegarder dans Supabase
+      await saveGrade(
+        professor.examId,
+        station.id,
+        selectedStudent.id,
+        professor.email,
+        currentGrades,
+        totalScore
+      );
+
+      // Rafraîchir les données si callback fourni
+      if (onGradesSaved) {
+        await onGradesSaved();
+      }
+
+      updateGradedStudents();
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error);
+      alert('❌ Erreur lors de la sauvegarde des notes. Vérifiez votre connexion.');
     }
-
-    setGrades(newGrades);
-    updateGradedStudents();
   };
 
   // Réinitialiser les notes de l'étudiant actuel
   const resetCurrentGrades = () => {
-    if (window.confirm(`Êtes-vous sûr de vouloir réinitialiser toutes les notes de ${selectedStudent.firstName} ${selectedStudent.lastName} ?`)) {
+    const firstName = selectedStudent.first_name || selectedStudent.firstName;
+    const lastName = selectedStudent.last_name || selectedStudent.lastName;
+    if (window.confirm(`Êtes-vous sûr de vouloir réinitialiser toutes les notes de ${firstName} ${lastName} ?`)) {
       setCurrentGrades({});
     }
   };
@@ -174,12 +193,17 @@ const ProfessorGradingInterface = ({ professor, station, students, grades, setGr
           >
             <option value="">-- Sélectionnez un étudiant --</option>
             {students.map(student => {
-              const key = `${station.id}_${student.id}`;
-              const isGraded = grades[key] && Object.keys(grades[key]).length > 0;
+              const existingGrade = grades.find(
+                g => g.student_id === student.id && g.station_id === station.id
+              );
+              const isGraded = existingGrade && Object.keys(existingGrade.grades || {}).length > 0;
+              const firstName = student.first_name || student.firstName;
+              const lastName = student.last_name || student.lastName;
+              const number = student.student_number || student.number;
               return (
                 <option key={student.id} value={student.id}>
                   {isGraded ? '✓ ' : '○ '}
-                  {student.number} - {student.lastName} {student.firstName}
+                  {number} - {lastName} {firstName}
                 </option>
               );
             })}
@@ -214,9 +238,9 @@ const ProfessorGradingInterface = ({ professor, station, students, grades, setGr
           <div className="student-card">
             <div className="student-card-header">
               <h3>
-                {selectedStudent.firstName} {selectedStudent.lastName}
+                {selectedStudent.first_name || selectedStudent.firstName} {selectedStudent.last_name || selectedStudent.lastName}
               </h3>
-              <span className="student-number">N° {selectedStudent.number}</span>
+              <span className="student-number">N° {selectedStudent.student_number || selectedStudent.number}</span>
             </div>
             <div className="student-card-body">
               <div className="total-score-display">
