@@ -97,8 +97,8 @@ function AuthLogin({ onLogin }) {
     <div className="auth-container">
       <div className="auth-box">
         <div className="auth-header">
-          <h1>🎓 Système de Notation ECOS</h1>
-          <p>Version 3.0 - Multi-Rôles & Multi-Examens</p>
+          <h1>🎓 CHAF - Notation ECOS</h1>
+          <p>Version 4.0 - Système Multi-Rôles Complet</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -196,7 +196,7 @@ function AuthLogin({ onLogin }) {
           <p>
             🔒 Connexion sécurisée
             <span className="separator">•</span>
-            Version 3.0 (Demo Mode)
+            CHAF v4.0 - Tous les boutons fonctionnels
           </p>
         </div>
       </div>
