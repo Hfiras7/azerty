@@ -55,38 +55,85 @@ export const signOut = async () => {
   if (error) throw error;
 };
 
-// Helper pour créer un utilisateur
-export const createUser = async (email, password, displayName, role, examId = null) => {
-  // 1. Créer l'utilisateur dans auth
-  const { data: authData, error: authError } = await supabase.auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true
-  });
+// Helper pour créer un utilisateur (simplifié pour admin_master)
+export const createUserAccount = async (email, password, displayName, role) => {
+  try {
+    // Créer un client temporaire pour l'inscription sans affecter la session actuelle
+    const tempClient = createClient(supabaseConfig.url, supabaseConfig.anonKey);
 
-  if (authError) throw authError;
-
-  // 2. Créer le profil dans la table users
-  const { data: userData, error: userError } = await supabase
-    .from('users')
-    .insert({
-      auth_id: authData.user.id,
+    // 1. Créer l'utilisateur dans auth
+    const { data: authData, error: authError } = await tempClient.auth.signUp({
       email,
-      display_name: displayName,
-      role,
-      exam_id: examId
-    })
-    .select()
-    .single();
+      password,
+      options: {
+        data: {
+          display_name: displayName
+        }
+      }
+    });
 
-  if (userError) throw userError;
+    if (authError) throw authError;
+    if (!authData.user) throw new Error('Échec de la création du compte');
 
-  return userData;
+    // 2. Créer le profil dans la table users (avec le client principal)
+    const { data: userData, error: userError } = await supabase
+      .from('users')
+      .insert({
+        auth_id: authData.user.id,
+        email,
+        display_name: displayName,
+        role
+      })
+      .select()
+      .single();
+
+    if (userError) throw userError;
+
+    return userData;
+  } catch (error) {
+    console.error('Erreur création utilisateur:', error);
+    throw error;
+  }
 };
 
 // Helper pour écouter les changements d'authentification
 export const onAuthStateChange = (callback) => {
   return supabase.auth.onAuthStateChange(callback);
+};
+
+// ============================================
+// GESTION DES UTILISATEURS (pour admin_master)
+// ============================================
+
+export const getAllUsers = async () => {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+};
+
+export const updateUser = async (userId, updates) => {
+  const { data, error } = await supabase
+    .from('users')
+    .update(updates)
+    .eq('id', userId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteUser = async (userId) => {
+  const { error } = await supabase
+    .from('users')
+    .delete()
+    .eq('id', userId);
+
+  if (error) throw error;
 };
 
 // ============================================

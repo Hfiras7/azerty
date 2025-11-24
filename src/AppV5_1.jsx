@@ -6,6 +6,7 @@ import ProgressDashboard from './components/ProgressDashboard';
 import StationAdmin from './components/StationAdmin';
 import ExportResults from './components/ExportResults';
 import ExamManagement from './components/ExamManagement';
+import UserManagement from './components/UserManagement';
 import {
   getSubjects,
   getExams,
@@ -378,6 +379,7 @@ function AdminMasterDashboard({ user, subjects, exams, onNavigate, onRefresh }) 
   const [selectedExam, setSelectedExam] = useState(null);
   const [editingSubject, setEditingSubject] = useState(null);
   const [editingExam, setEditingExam] = useState(null);
+  const [showUserManagement, setShowUserManagement] = useState(false);
 
   // CRUD MATIÈRES
   const handleCreateSubject = async () => {
@@ -499,7 +501,7 @@ function AdminMasterDashboard({ user, subjects, exams, onNavigate, onRefresh }) 
   };
 
   const handleManageAdmins = () => {
-    alert('👥 Fonctionnalité "Gérer les admins" sera disponible prochainement !');
+    setShowUserManagement(true);
   };
 
   const handleViewStats = () => {
@@ -513,6 +515,16 @@ function AdminMasterDashboard({ user, subjects, exams, onNavigate, onRefresh }) 
   const handleExport = () => {
     alert('📥 Fonctionnalité "Export données" sera disponible prochainement !');
   };
+
+  // Si gestion des utilisateurs est activée
+  if (showUserManagement) {
+    return (
+      <UserManagement
+        currentUser={user}
+        onBack={() => setShowUserManagement(false)}
+      />
+    );
+  }
 
   // Si un examen est sélectionné pour gestion complète
   if (selectedExam) {
