@@ -36,18 +36,11 @@ import './App.css';
 function ChafLogo({ size = '40px' }) {
   return (
     <div className="chaf-logo" style={{ width: size, height: size }}>
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="45" fill="url(#grad1)" />
-        <text x="50" y="65" fontSize="45" fontWeight="800" fill="white" textAnchor="middle" fontFamily="Arial, sans-serif">
-          C
-        </text>
-        <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{ stopColor: '#667eea', stopOpacity: 1 }} />
-            <stop offset="100%" style={{ stopColor: '#764ba2', stopOpacity: 1 }} />
-          </linearGradient>
-        </defs>
-      </svg>
+      <img
+        src="/logo-chaf.png"
+        alt="CHAF Logo"
+        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+      />
     </div>
   );
 }
