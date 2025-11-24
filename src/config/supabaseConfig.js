@@ -3,11 +3,8 @@
 // Obtenez-les depuis: https://app.supabase.com/ > Settings > API
 
 const supabaseConfig = {
-  url: "VOTRE_SUPABASE_URL",
-  // Exemple: "https://xxxxxxxxxxxxx.supabase.co"
-
-  anonKey: "VOTRE_SUPABASE_ANON_KEY"
-  // Exemple: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  url: "https://hnjlakkqykbpedwrvzgg.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhuamxha2txeWticGVkd3J2emdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5Mzg2MzUsImV4cCI6MjA3OTUxNDYzNX0.GD1BOWT41r8n48m3HKRuyg55O4iefu7MhqWMdcgYULI"
 };
 
 export default supabaseConfig;

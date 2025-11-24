@@ -89,4 +89,210 @@ export const onAuthStateChange = (callback) => {
   return supabase.auth.onAuthStateChange(callback);
 };
 
+// ============================================
+// MATIÈRES (SUBJECTS)
+// ============================================
+
+export const getSubjects = async () => {
+  const { data, error } = await supabase
+    .from('subjects')
+    .select('*')
+    .order('name');
+
+  if (error) throw error;
+  return data || [];
+};
+
+export const createSubject = async (name, code, description, createdBy) => {
+  const { data, error } = await supabase
+    .from('subjects')
+    .insert([{ name, code, description, created_by: createdBy }])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+// ============================================
+// EXAMENS (EXAMS)
+// ============================================
+
+export const getExams = async () => {
+  const { data, error } = await supabase
+    .from('exams')
+    .select('*, subject:subjects(*)')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+};
+
+export const getExamById = async (examId) => {
+  const { data, error } = await supabase
+    .from('exams')
+    .select('*, subject:subjects(*)')
+    .eq('id', examId)
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+// ============================================
+// STATIONS
+// ============================================
+
+export const getStationsByExam = async (examId) => {
+  const { data, error} = await supabase
+    .from('stations')
+    .select('*')
+    .eq('exam_id', examId)
+    .order('order');
+
+  if (error) throw error;
+  return data || [];
+};
+
+// ============================================
+// ÉTUDIANTS (STUDENTS)
+// ============================================
+
+export const getStudentsByExam = async (examId) => {
+  const { data, error } = await supabase
+    .from('students')
+    .select('*')
+    .eq('exam_id', examId)
+    .order('last_name');
+
+  if (error) throw error;
+  return data || [];
+};
+
+export const createStudent = async (examId, firstName, lastName, studentNumber) => {
+  const { data, error } = await supabase
+    .from('students')
+    .insert([{
+      exam_id: examId,
+      first_name: firstName,
+      last_name: lastName,
+      student_number: studentNumber
+    }])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const importStudents = async (examId, studentsArray) => {
+  const studentsData = studentsArray.map(s => ({
+    exam_id: examId,
+    first_name: s.firstName,
+    last_name: s.lastName,
+    student_number: s.studentNumber
+  }));
+
+  const { data, error } = await supabase
+    .from('students')
+    .insert(studentsData)
+    .select();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteStudent = async (studentId) => {
+  const { error } = await supabase
+    .from('students')
+    .delete()
+    .eq('id', studentId);
+
+  if (error) throw error;
+};
+
+// ============================================
+// NOTES (GRADES)
+// ============================================
+
+export const getGradesByExam = async (examId) => {
+  const { data, error } = await supabase
+    .from('grades')
+    .select('*, student:students(*), station:stations(*)')
+    .eq('exam_id', examId);
+
+  if (error) throw error;
+  return data || [];
+};
+
+export const saveGrade = async (examId, stationId, studentId, userId, grades, totalScore) => {
+  // Vérifier si une note existe déjà
+  const { data: existing } = await supabase
+    .from('grades')
+    .select('id')
+    .eq('student_id', studentId)
+    .eq('station_id', stationId)
+    .single();
+
+  if (existing) {
+    // Mettre à jour
+    const { data, error } = await supabase
+      .from('grades')
+      .update({
+        grades,
+        total_score: totalScore,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', existing.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } else {
+    // Créer
+    const { data, error } = await supabase
+      .from('grades')
+      .insert([{
+        exam_id: examId,
+        station_id: stationId,
+        student_id: studentId,
+        user_id: userId,
+        grades,
+        total_score: totalScore
+      }])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+};
+
+// ============================================
+// TEMPS RÉEL (REAL-TIME)
+// ============================================
+
+export const subscribeToGrades = (examId, callback) => {
+  const channel = supabase
+    .channel('grades-changes')
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'grades',
+        filter: `exam_id=eq.${examId}`
+      },
+      (payload) => callback(payload)
+    )
+    .subscribe();
+
+  return channel;
+};
+
+export const unsubscribe = async (channel) => {
+  await supabase.removeChannel(channel);
+};
+
 export default supabase;
