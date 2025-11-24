@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { signIn, getUserProfile } from '../config/supabase';
 import './AuthLogin.css';
 
 /**
@@ -44,7 +45,7 @@ function AuthLogin({ onLogin }) {
     }
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -54,18 +55,24 @@ function AuthLogin({ onLogin }) {
       return;
     }
 
-    // Rechercher le compte
-    const account = demoAccounts.find(
-      acc => acc.email === email && acc.password === password
-    );
+    try {
+      // Tentative de connexion avec Supabase
+      await signIn(email, password);
 
-    if (account) {
+      // Récupérer le profil utilisateur
+      const profile = await getUserProfile();
+
+      if (!profile) {
+        setError('Profil utilisateur introuvable');
+        return;
+      }
+
       // Connexion réussie
       const userData = {
-        email: account.email,
-        role: account.role,
-        displayName: account.displayName,
-        examId: account.examId,
+        email: profile.email,
+        role: profile.role,
+        displayName: profile.display_name,
+        examId: profile.exam_id,
         loginTime: new Date().toISOString()
       };
 
@@ -74,8 +81,17 @@ function AuthLogin({ onLogin }) {
 
       // Appeler le callback
       onLogin(userData);
-    } else {
-      setError('Email ou mot de passe incorrect');
+    } catch (error) {
+      console.error('Erreur de connexion:', error);
+
+      // Messages d'erreur personnalisés
+      if (error.message.includes('Invalid login credentials')) {
+        setError('Email ou mot de passe incorrect');
+      } else if (error.message.includes('Email not confirmed')) {
+        setError('Veuillez confirmer votre email avant de vous connecter');
+      } else {
+        setError('Erreur de connexion. Vérifiez votre connexion internet.');
+      }
     }
   };
 
@@ -98,7 +114,7 @@ function AuthLogin({ onLogin }) {
       <div className="auth-box">
         <div className="auth-header">
           <h1>🎓 CHAF - Notation ECOS</h1>
-          <p>Version 4.0 - Système Multi-Rôles Complet</p>
+          <p>Version 4.5 - Authentification Supabase</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -184,9 +200,9 @@ function AuthLogin({ onLogin }) {
 
             <div className="demo-info">
               <p>
-                <strong>ℹ️ Mode Démonstration :</strong> Ces comptes utilisent
-                le stockage local. En production, l'authentification sera gérée
-                par Supabase avec sécurité renforcée.
+                <strong>ℹ️ Authentification Supabase :</strong> Pour tester, créez
+                ces comptes dans Supabase (Authentication → Users). L'authentification
+                est maintenant réelle et sécurisée !
               </p>
             </div>
           </div>
@@ -194,9 +210,9 @@ function AuthLogin({ onLogin }) {
 
         <div className="auth-footer">
           <p>
-            🔒 Connexion sécurisée
+            🔒 Connexion sécurisée avec Supabase
             <span className="separator">•</span>
-            CHAF v4.0 - Tous les boutons fonctionnels
+            CHAF v4.5 - Auth réelle + Données locales
           </p>
         </div>
       </div>
