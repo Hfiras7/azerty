@@ -298,15 +298,13 @@ export const deleteSubject = async (subjectId) => {
 // CRUD COMPLET - EXAMENS
 // ============================================
 
-export const createExam = async (subjectId, name, code, startDate, endDate, active = true) => {
+export const createExam = async (subjectId, name, code, active = true) => {
   const { data, error } = await supabase
     .from('exams')
     .insert([{
       subject_id: subjectId,
       name,
       code,
-      start_date: startDate,
-      end_date: endDate,
       active
     }])
     .select('*, subject:subjects(*)')

@@ -448,19 +448,13 @@ function AdminMasterDashboard({ user, subjects, exams, onNavigate, onRefresh }) 
     const name = prompt('Nom de l\'examen:');
     if (!name) return;
 
-    const code = prompt('Code d\'accès:');
+    const code = prompt('Code d\'accès (utilisé par les notateurs):');
     if (!code) return;
-
-    const startDate = prompt('Date de début (YYYY-MM-DD):', new Date().toISOString().split('T')[0]);
-    if (!startDate) return;
-
-    const endDate = prompt('Date de fin (YYYY-MM-DD):', new Date().toISOString().split('T')[0]);
-    if (!endDate) return;
 
     try {
       setIsCreating(true);
-      await createExam(selectedSubject.id, name, code, startDate, endDate, true);
-      alert('✅ Examen créé avec succès !');
+      await createExam(selectedSubject.id, name, code, true);
+      alert('✅ Examen créé avec succès ! Vous pouvez maintenant ajouter des stations et des étudiants.');
       await onRefresh();
     } catch (error) {
       console.error('Erreur:', error);
@@ -573,13 +567,21 @@ function AdminMasterDashboard({ user, subjects, exams, onNavigate, onRefresh }) 
                     <div className="list-item-info">
                       <strong>{exam.name}</strong>
                       <span className="text-sm">
-                        Code: {exam.code} • Dates: {exam.start_date} → {exam.end_date}
+                        Code: {exam.code}
                       </span>
                     </div>
                     <div className="list-item-actions">
                       <span className={`badge ${exam.active ? 'badge-success' : 'badge-secondary'}`}>
                         {exam.active ? 'Actif' : 'Inactif'}
                       </span>
+                      <button
+                        className="btn btn-sm btn-primary"
+                        title="Gérer cet examen (stations, étudiants, notation)"
+                        onClick={() => alert(`🚧 Vue de gestion complète pour "${exam.name}" en construction...\n\nCette vue contiendra:\n- Gestion des stations\n- Gestion des étudiants\n- Tableau de bord des notes\n\nEn attendant, connectez-vous en tant qu'admin_teacher pour gérer l'examen.`)}
+                        style={{ marginRight: '5px' }}
+                      >
+                        ⚙️ Gérer
+                      </button>
                       <button
                         className="btn-icon"
                         title="Modifier"
