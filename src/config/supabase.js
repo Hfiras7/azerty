@@ -270,6 +270,138 @@ export const saveGrade = async (examId, stationId, studentId, userId, grades, to
 };
 
 // ============================================
+// CRUD COMPLET - MATIÈRES
+// ============================================
+
+export const updateSubject = async (subjectId, name, code, description) => {
+  const { data, error } = await supabase
+    .from('subjects')
+    .update({ name, code, description })
+    .eq('id', subjectId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteSubject = async (subjectId) => {
+  const { error } = await supabase
+    .from('subjects')
+    .delete()
+    .eq('id', subjectId);
+
+  if (error) throw error;
+};
+
+// ============================================
+// CRUD COMPLET - EXAMENS
+// ============================================
+
+export const createExam = async (subjectId, name, code, startDate, endDate, active = true) => {
+  const { data, error } = await supabase
+    .from('exams')
+    .insert([{
+      subject_id: subjectId,
+      name,
+      code,
+      start_date: startDate,
+      end_date: endDate,
+      active
+    }])
+    .select('*, subject:subjects(*)')
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const updateExam = async (examId, updates) => {
+  const { data, error } = await supabase
+    .from('exams')
+    .update(updates)
+    .eq('id', examId)
+    .select('*, subject:subjects(*)')
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteExam = async (examId) => {
+  const { error } = await supabase
+    .from('exams')
+    .delete()
+    .eq('id', examId);
+
+  if (error) throw error;
+};
+
+// ============================================
+// CRUD COMPLET - STATIONS
+// ============================================
+
+export const createStation = async (examId, name, criteria, maxScore, order) => {
+  const { data, error } = await supabase
+    .from('stations')
+    .insert([{
+      exam_id: examId,
+      name,
+      criteria,
+      max_score: maxScore,
+      order
+    }])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const updateStation = async (stationId, updates) => {
+  const { data, error } = await supabase
+    .from('stations')
+    .update(updates)
+    .eq('id', stationId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteStation = async (stationId) => {
+  const { error } = await supabase
+    .from('stations')
+    .delete()
+    .eq('id', stationId);
+
+  if (error) throw error;
+};
+
+// ============================================
+// CRUD COMPLET - ÉTUDIANTS (déjà implémenté ci-dessus)
+// ============================================
+
+// createStudent, importStudents, deleteStudent déjà définis
+
+export const updateStudent = async (studentId, firstName, lastName, studentNumber) => {
+  const { data, error } = await supabase
+    .from('students')
+    .update({
+      first_name: firstName,
+      last_name: lastName,
+      student_number: studentNumber
+    })
+    .eq('id', studentId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+// ============================================
 // TEMPS RÉEL (REAL-TIME)
 // ============================================
 
