@@ -5,6 +5,7 @@ import StudentManagement from './components/StudentManagement';
 import ProgressDashboard from './components/ProgressDashboard';
 import StationAdmin from './components/StationAdmin';
 import ExportResults from './components/ExportResults';
+import ExamManagement from './components/ExamManagement';
 import {
   getSubjects,
   getExams,
@@ -374,6 +375,7 @@ function getRoleLabel(role) {
 function AdminMasterDashboard({ user, subjects, exams, onNavigate, onRefresh }) {
   const [isCreating, setIsCreating] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedExam, setSelectedExam] = useState(null);
   const [editingSubject, setEditingSubject] = useState(null);
   const [editingExam, setEditingExam] = useState(null);
 
@@ -512,6 +514,17 @@ function AdminMasterDashboard({ user, subjects, exams, onNavigate, onRefresh }) 
     alert('📥 Fonctionnalité "Export données" sera disponible prochainement !');
   };
 
+  // Si un examen est sélectionné pour gestion complète
+  if (selectedExam) {
+    return (
+      <ExamManagement
+        exam={selectedExam}
+        onBack={() => setSelectedExam(null)}
+        onRefresh={onRefresh}
+      />
+    );
+  }
+
   // Si une matière est sélectionnée, afficher ses examens
   if (selectedSubject) {
     const subjectExams = exams.filter(e => e.subject_id === selectedSubject.id);
@@ -577,7 +590,7 @@ function AdminMasterDashboard({ user, subjects, exams, onNavigate, onRefresh }) 
                       <button
                         className="btn btn-sm btn-primary"
                         title="Gérer cet examen (stations, étudiants, notation)"
-                        onClick={() => alert(`🚧 Vue de gestion complète pour "${exam.name}" en construction...\n\nCette vue contiendra:\n- Gestion des stations\n- Gestion des étudiants\n- Tableau de bord des notes\n\nEn attendant, connectez-vous en tant qu'admin_teacher pour gérer l'examen.`)}
+                        onClick={() => setSelectedExam(exam)}
                         style={{ marginRight: '5px' }}
                       >
                         ⚙️ Gérer
