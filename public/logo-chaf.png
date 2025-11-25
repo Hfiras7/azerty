@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280" width="200" height="280">
+  <!-- Flamme stylisée (3 courbes) -->
+  <g id="flame">
+    <!-- Flamme extérieure -->
+    <path d="M 100 50 Q 80 80 85 120 Q 88 150 100 165 Q 112 150 115 120 Q 120 80 100 50 Z"
+          fill="none" stroke="#455A64" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Flamme milieu -->
+    <path d="M 100 65 Q 88 90 92 120 Q 94 140 100 150 Q 106 140 108 120 Q 112 90 100 65 Z"
+          fill="none" stroke="#455A64" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Flamme intérieure -->
+    <path d="M 100 80 Q 94 100 96 120 Q 98 132 100 138 Q 102 132 104 120 Q 106 100 100 80 Z"
+          fill="none" stroke="#455A64" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Texte CHAF -->
+  <g id="text" fill="#455A64">
+    <!-- C -->
+    <path d="M 35 200 Q 25 200 25 210 L 25 240 Q 25 250 35 250 L 50 250 Q 55 250 55 245 L 55 240 L 45 240 L 45 242 Q 45 245 42 245 L 38 245 Q 35 245 35 242 L 35 208 Q 35 205 38 205 L 42 205 Q 45 205 45 208 L 45 210 L 55 210 L 55 205 Q 55 200 50 200 Z" />
+
+    <!-- H -->
+    <path d="M 65 200 L 65 250 L 75 250 L 75 230 L 90 230 L 90 250 L 100 250 L 100 200 L 90 200 L 90 220 L 75 220 L 75 200 Z" />
+
+    <!-- A -->
+    <path d="M 110 250 L 115 230 L 130 230 L 135 250 L 145 250 L 130 200 L 115 200 L 100 250 Z M 118 223 L 122.5 207 L 127 223 Z" />
+
+    <!-- F -->
+    <path d="M 155 200 L 155 250 L 165 250 L 165 230 L 180 230 L 180 220 L 165 220 L 165 210 L 185 210 L 185 200 Z" />
+  </g>
+</svg>
