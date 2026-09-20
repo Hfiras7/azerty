@@ -1,0 +1,56 @@
+
+.avatarKBody{
+	position : absolute;
+	left : 0px;
+	top : 0px;
+	width : 110px;
+	height : 320px;
+	border : dotted 0px gray;
+	-webkit-transform-origin: 0px 0px;
+    -moz-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+    -o-transform-origin: 0px 0px;
+    transform-origin: 0px 0px;
+	transform : scale(1);
+	overflow : hidden;
+}
+
+.isoAvatarBodySprite{
+	position : absolute;
+	-webkit-transform-origin: 0px 0px;
+    -moz-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+    -o-transform-origin: 0px 0px;
+    transform-origin: 0px 0px;
+	left : 0px;
+	top :  0px;
+	width : 110px;
+	height : 320px;
+	background-position-y : 0px;
+	background-position-x : 0px;
+}
+
+.runBodySprite{
+    -webkit-animation: walkbasecycle 1s steps(7) infinite; 
+    -moz-animation: walkbasecycle 1s steps(7) infinite;
+	-ms-animation: walkbasecycle 1s steps(7) infinite;
+    -o-animation: walkbasecycle 1s steps(7) infinite;
+    animation: walkbasecycle 1s steps(7) infinite;
+}
+
+@keyframes walkbasecycle{
+	from{background-position-x : -110px;}
+	to{background-position-x : -880px;}
+}
+@-o-keyframes walkbasecycle{
+	from{background-position-x:-110px;}
+	to{background-position-x: -880px;}
+}
+@-ms-keyframes walkbasecycle{
+	from{background-position-x: -110px;}
+	to{background-position-x: -880px;}
+}
+@-webkit-keyframes walkbasecycle{
+	from{background-position-x: -110px;}
+	to{background-position-x: -880px;}
+}

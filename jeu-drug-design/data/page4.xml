@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<prefond><data><![CDATA[images/iso-campus-int-1.jpg]]></data></prefond>
+<title><n>4</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>40</data></nbpages>
+<domainesliste><data><![CDATA[Notions de base doking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Prorpri&eacute;t&eacute;s pharmaco-cin&eacute;tiques|Pharmaco-modulation|||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<param><d><![CDATA[flatright]]></d></param>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d><cp></cp></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>text</type><fts>17</fts><fts2>16</fts2>
+<ids></ids><st></st><x>60</x><y>133</y><w>854</w><h>528</h><x2>-187</x2><y2>123</y2><w2>854</w2><h2>484</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<B>⏱️ Un temps limit&eacute;</B> <BR>Chaque activit&eacute; est r&eacute;alis&eacute;e dans un temps limit&eacute;. <BR>Vous disposez d’environ <b>1 minute</b> pour r&eacute;pondre à chaque question. <BR>Le temps restant vous est indiqu&eacute; pendant l’activit&eacute;. <BR><BR><B>⭐ Des points à gagner</B> <BR>Chaque r&eacute;ponse correcte vous permet de gagner des points. <BR>Les points obtenus sont cumul&eacute;s tout au long du parcours. <BR><BR><B>🧩 4 stations</B> <BR>Le jeu est organis&eacute; en <b>4 stations</b>, chacune consacr&eacute;e à un aspect du Drug Design. <br>Votre score progresse au fur et à mesure de votre parcours. <BR><BR><B>📚 Apprendre en jouant</B> <BR>Après les activit&eacute;s, des feedbacks p&eacute;dagogiques vous permettent de comprendre les notions abord&eacute;es et de corriger vos erreurs. <BR><BR><B>🏆 R&eacute;sultat final</B> <BR>À la fin des 4 stations, votre score cumul&eacute; repr&eacute;sente votre performance sur l’ensemble du parcours.<BR><br>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
+<css>border: solid 0px #808080;background-color:#FFF7CE;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/imgubsatv345696.png</src>
+<ids></ids><st></st><x>752</x><y>5</y><w>197</w><h>124</h><x2>142</x2><y2>5</y2><w2>197</w2><h2>124</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>text</type>
+<fts>23</fts><fts2>25</fts2>
+<ids></ids><st></st><x>4</x><y>4</y><w>430</w><h>41</h><x2>25</x2><y2>4</y2><w2>430</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p ><span style="font-weight:bold;"><span>COMMENT SE D&Eacute;ROULE LE JEU ?</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
+<css>padding-left:0.8em;border-bottom: solid 2px #0B243B;</css><ind>2</ind></bloc><bloc><type>material-button</type><ids></ids><st></st><x>882</x><y>642</y><w>56</w><h>56</h><x2>212</x2><y2>642</y2><w2>56</w2><h2>56</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><url>data/page5.xml</url>
+<text><![CDATA[]]></text><contenu2><![CDATA[mat-right.png]]></contenu2><data><![CDATA[]]></data><color>White</color>
+<selectcolor>#0097A9</selectcolor>
+<ind>3</ind>
+</bloc><bloc><type>text</type>
+<fontsize>13</fontsize>
+<x>-2</x><y>-2</y><w>230</w><h>28</h><x2>-2</x2><y2>-2</y2><w2>230</w2><h2>28</h2><align>Center</align><text><![CDATA[<a target='_blank' href='https://www.ludiscape.com/tarifs.php' style='color:white;' >Ludiscape</a> version demo]]></text>
+<data></data><src></src>
+<color>white</color>
+<css>background-color:#0489B1;border:solid 0px black;border-radius:2px;</css>
+<ind>4</ind>
+<cssadd></cssadd><an>3</an><de>5000</de><domaine></domaine>
+</bloc>
+</d>
