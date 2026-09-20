@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>3</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>40</data></nbpages>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<param><d><![CDATA[flatright]]></d></param>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d><cp></cp></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>text</type><fts>18</fts><fts2>17</fts2>
+<ids></ids><st></st><x>40</x><y>144</y><w>888</w><h>386</h><x2>-190</x2><y2>112</y2><w2>860</w2><h2>484</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<B>🧪 Station 1 — Propri&eacute;t&eacute;s physico-chimiques</B> <BR><SPAN style=&rsquo;FONT-SIZE: 14pt; FONT-FAMILY: "Times New Roman",serif; LINE-HEIGHT: 107%; mso-fareast-font-family: Calibri; mso-fareast-theme-font: minor-latin; mso-ansi-language: FR; mso-fareast-language: EN-US; mso-bidi-language: AR-SA&rsquo;>&Eacute;valuer la maîtrise des outils web de pr&eacute;diction des propri&eacute;t&eacute;s physico-chimiques, ainsi que l&rsquo;interpr&eacute;tation de leurs r&eacute;sultats (cas de l’acide salicylique). </SPAN><BR><BR><BR><B>💊 Station 2 — Propri&eacute;t&eacute;s pharmacocin&eacute;tiques <BR></B><SPAN style=&rsquo;FONT-SIZE: 14pt; FONT-FAMILY: "Times New Roman",serif; LINE-HEIGHT: 107%; mso-fareast-font-family: Calibri; mso-fareast-theme-font: minor-latin; mso-ansi-language: FR; mso-fareast-language: EN-US; mso-bidi-language: AR-SA&rsquo;>&Eacute;valuer l&rsquo;interpr&eacute;tation des r&eacute;sultats des outils web de pr&eacute;diction des propri&eacute;t&eacute;s pharmacocin&eacute;tiques (cas de l’acide salicylique). </SPAN><BR><BR><BR><B>⚗️ Station 3 — Pharmacomodulation</B> <BR><SPAN style=&rsquo;FONT-SIZE: 14pt; FONT-FAMILY: "Times New Roman",serif; LINE-HEIGHT: 107%; mso-fareast-font-family: Calibri; mso-fareast-theme-font: minor-latin; mso-ansi-language: FR; mso-fareast-language: EN-US; mso-bidi-language: AR-SA&rsquo;><SPAN style=&rsquo;FONT-SIZE: 14pt; FONT-FAMILY: "Times New Roman",serif; LINE-HEIGHT: 107%; mso-fareast-font-family: Calibri; mso-fareast-theme-font: minor-latin; mso-ansi-language: FR; mso-fareast-language: EN-US; mso-bidi-language: AR-SA&rsquo;>&Eacute;valuer </SPAN>l’int&eacute;rêt de la pharmacomodulation de l’aspirine en ac&eacute;tylsalicylate de lysine.</SPAN><BR><BR><BR><B>🎯 Station 4 — Docking mol&eacute;culaire</B> <BR><SPAN style=&rsquo;FONT-SIZE: 14pt; FONT-FAMILY: "Times New Roman",serif; LINE-HEIGHT: 107%; mso-fareast-font-family: Calibri; mso-fareast-theme-font: minor-latin; mso-ansi-language: FR; mso-fareast-language: EN-US; mso-bidi-language: AR-SA&rsquo;>&Eacute;valuer le niveau de connaissances sur quelques notions de base de «&nbsp;docking mol&eacute;culaire&nbsp;».</SPAN><BR><BR><BR><BR>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
+<css>border: solid 0px #808080;background-color:#FFF7CE;font-family: Verdana, Geneva, sans-serif !important;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/imguhvlkb384994.png</src>
+<ids></ids><st></st><x>777</x><y>3</y><w>176</w><h>128</h><x2>152</x2><y2>3</y2><w2>176</w2><h2>128</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>text</type>
+<fts>34</fts><fts2>24</fts2>
+<ids></ids><st></st><x>1</x><y>3</y><w>430</w><h>41</h><x2>25</x2><y2>3</y2><w2>430</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p ><span style="font-weight:bold;"><span>À propos des stations</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
+<css>padding-left:0.8em;border-bottom: solid 2px #0B243B;</css><ind>2</ind></bloc><bloc><type>material-button</type><ids></ids><st></st><x>882</x><y>642</y><w>56</w><h>56</h><x2>212</x2><y2>642</y2><w2>56</w2><h2>56</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><url>data/page4.xml</url>
+<text><![CDATA[]]></text><contenu2><![CDATA[mat-right.png]]></contenu2><data><![CDATA[]]></data><color>White</color>
+<selectcolor>#0097A9</selectcolor>
+<ind>3</ind>
+</bloc><bloc><type>text</type>
+<fontsize>13</fontsize>
+<x>-2</x><y>-2</y><w>230</w><h>28</h><x2>-2</x2><y2>-2</y2><w2>230</w2><h2>28</h2><align>Center</align><text><![CDATA[<a target='_blank' href='https://www.ludiscape.com/tarifs.php' style='color:white;' >Ludiscape</a> version demo]]></text>
+<data></data><src></src>
+<color>white</color>
+<css>background-color:#0489B1;border:solid 0px black;border-radius:2px;</css>
+<ind>4</ind>
+<cssadd></cssadd><an>3</an><de>5000</de><domaine></domaine>
+</bloc>
+</d>

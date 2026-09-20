@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/iso-campus-int-1.jpg]]></data>
+</fond>
+<prefond><data><![CDATA[images/cartoon-soft-06.jpg]]></data></prefond>
+<title><n>5</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>40</data></nbpages>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<param><d><![CDATA[flatright]]></d></param>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d><cp></cp></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>img</type>
+<src>images/Women-0.gif</src>
+<ids></ids><st><![CDATA[ onMouseDown="LaScr=true;LUDI.sound('data/170514989426454ug42kcvoicemaker.inspeech.mp3');LUDI.ra();" ]]></st><x>396</x><y>316</y><w>157</w><h>216</h><x2>162</x2><y2>270</y2><w2>157</w2><h2>216</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>gamezoneaction</type>
+<fts>20</fts><fts2>20</fts2>
+<ids></ids><st><![CDATA[LaScr=true;LUDI.nextPage();LUDI.ra();]]></st><x>535</x><y>201</y><w>90</w><h>50</h><x2>195</x2><y2>201</y2><w2>90</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<tx><![CDATA[images/elipse.png]]></tx>
+<tx2><![CDATA[images/elipsehover.png]]></tx2>
+<color>#000000</color>
+<css>border: solid 0px #808080;</css>
+<ind>1</ind>
+</bloc>
+<bloc><type>img</type>
+<src>images/calltoaction.png</src>
+<ids></ids><st><![CDATA[ onMouseDown="LaScr=true;LUDI.sound('data/1706008503834v9ne3p7jvoicemaker.inspeechp1p.mp3');alertm('Aller vers la porte à la fin du message vocale!');LUDI.ra();" ]]></st><x>535</x><y>316</y><w>75</w><h>65</h><x2>197</x2><y2>30</y2><w2>86</w2><h2>86</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>gamehero</type>
+<fts>20</fts><fts2>20</fts2>
+<x>74,5</x><y>534</y><w>133</w><h>204</h><x2>0</x2><y2>0</y2><w2>0</w2><h2>0</h2><ids>hero</ids><text><![CDATA[images/man_bat_pose.png]]></text>
+<data><![CDATA[images/man_bat_right.gif]]></data>
+<src><![CDATA[images/man_bat_left.gif]]></src>
+<contenu2><![CDATA[images/man_bat_up.gif]]></contenu2>
+<contenu3><![CDATA[images/man_bat_down.gif]]></contenu3>
+<color>#000000</color>
+<css>border: solid 0px #808080;</css>
+<ind>2</ind>
+<border>10</border>
+<cssadd></cssadd><an>1</an><de>0</de><domaine>0</domaine>
+<field1>1</field1>
+<o>0</o></bloc>
+<bloc><type>text</type><fts>16</fts><fts2>16</fts2>
+<ids></ids><st></st><x>144</x><y>412</y><w>300</w><h>150</h><x2>90</x2><y2>140</y2><w2>300</w2><h2>150</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bbullewhite</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Bienvenue ! Aujourd&rsquo;hui, vous passerez un post-test comprenant 4 stations. Vous devrez r&eacute;pondre à un total de 18 questions portant sur l&rsquo;initiation au Drug Design. Chaque question dispose d&rsquo;une dur&eacute;e d&rsquo;une minute.</p>]]></text><contentpath>bulle4b30b-1b46b4b2b20b46b-16777216.png;428;381;50</contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Center</align>
+<css>border: solid 2px #000000;background-color:White;</css><ind>3</ind></bloc><bloc><type>text</type>
+<fontsize>13</fontsize>
+<x>-2</x><y>-2</y><w>230</w><h>28</h><x2>-2</x2><y2>-2</y2><w2>230</w2><h2>28</h2><align>Center</align><text><![CDATA[<a target='_blank' href='https://www.ludiscape.com/tarifs.php' style='color:white;' >Ludiscape</a> version demo]]></text>
+<data></data><src></src>
+<color>white</color>
+<css>background-color:#0489B1;border:solid 0px black;border-radius:2px;</css>
+<ind>4</ind>
+<cssadd></cssadd><an>3</an><de>2500</de><domaine></domaine>
+</bloc>
+</d>

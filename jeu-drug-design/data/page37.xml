@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>37</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>40</data></nbpages>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<param><d><![CDATA[flatright]]></d></param>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d><cp></cp></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>material-top50</type><ids>system-bartop</ids><st></st><x>-1</x><y>-1</y><w>511</w><h>65</h><x2>-16</x2><y2>-1</y2><w2>511</w2><h2>65</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><src></src>
+<tx><![CDATA[Station 4 : notions de base du docking moléculaire]]></tx><tx2><![CDATA[]]></tx2><tx7>4</tx7><fts>16</fts><fts2>16</fts2>
+<data><![CDATA[]]></data><color>White</color>
+<selectcolor>#0097A9</selectcolor>
+<ind>2</ind>
+</bloc><bloc><type>tcm</type><fontsize>16</fontsize><fontsize2>16</fontsize2><note>1</note><negnote>0</negnote><remarque><![CDATA[]]></remarque><ids></ids><st></st><x>275</x><y>-136</y><w>350</w><h>300</h><x2>65</x2><y2>-136</y2><w2>350</w2><h2>300</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><text><![CDATA[<p style='line-height:150%;' >Ceci est un <select style='font-size:16px;' id='tcmqav863' class='reponseholetext selecttcm' data-rep="texte a trous" ><option value='' ></option><option value='est un' >est un</option><option value='texte a trous' >texte a trous</option></select> Ceci <select style='font-size:16px;' id='tcmxdu370' class='reponseholetext selecttcm' data-rep="est un" ><option value='' ></option><option value='est un' >est un</option><option value='texte a trous' >texte a trous</option></select> texte a trous</p>]]></text><data><![CDATA[#D8BFD8;#AFEEEE;#FFE4C4;#90EE90;#DEB887;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;]]></data><src>4</src><css>border: solid 0px #808080;background-color:White;text-align:left;vertical-align:top;</css><o7>0</o7><color>#000000</color><selectcolor>5</selectcolor><ind>1</ind></bloc><bloc><type>text</type><fts>16</fts><fts2>16</fts2>
+<ids></ids><st></st><x>518</x><y>270</y><w>274</w><h>50</h><x2>140</x2><y2>325</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Logiciel de visualisation</p>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>LeftCenter</align>
+<css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>text</type><fts>16</fts><fts2>16</fts2>
+<ids></ids><st></st><x>518</x><y>436</y><w>280</w><h>50</h><x2>140</x2><y2>380</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Logiciel de docking</p>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>LeftCenter</align>
+<css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>text</type><fts>16</fts><fts2>16</fts2>
+<ids></ids><st></st><x>518</x><y>381</y><w>278</w><h>48</h><x2>140</x2><y2>435</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Banque de donn&eacute;es</p>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>LeftCenter</align>
+<css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>text</type><fts>16</fts><fts2>16</fts2>
+<ids></ids><st></st><x>518</x><y>324</y><w>276</w><h>50</h><x2>140</x2><y2>545</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Logiciel d&rsquo;&eacute;tudes d&rsquo;interactions</p>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>LeftCenter</align>
+<css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>timer</type>
+<fts>40</fts><fts2>40</fts2>
+<color>#000000</color>
+<ids></ids><st></st><x>796</x><y>54</y><w>100</w><h>100</h><x2>190</x2><y2>54</y2><w2>100</w2><h2>100</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>b</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<url>data/page38.xml</url>
+<text><![CDATA[60000]]></text>
+<contenu4><![CDATA[]]></contenu4>
+<ind>1</ind>
+<align>LeftTop</align>
+<css>border: solid 0px #808080;</css>
+</bloc>
+<bloc><type>img</type>
+<src>images/imgbvvimt255970.png</src>
+<ids></ids><st></st><x>396</x><y>549</y><w>292</w><h>135</h><x2>94</x2><y2>549</y2><w2>292</w2><h2>135</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>text</type><fts>21</fts><fts2>21</fts2>
+<ids></ids><st></st><x>48</x><y>170</y><w>876</w><h>100</h><x2>15</x2><y2>210</y2><w2>450</w2><h2>100</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<B>Faire correspondre chaque outil (logiciel ou web-logiciel) à son utilit&eacute; lors du docking.</B>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>LeftCenter</align>
+<css>border: solid 0px #808080;</css><ind>2</ind></bloc><bloc><type>drop</type>
+<fts>16</fts><fts2>16</fts2>
+<note>0,25</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids>linkdd</ids><st></st><x>314</x><y>268</y><w>200</w><h>50</h><x2>140</x2><y2>325</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>?</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>#000000</color>
+<align>Center</align>
+<data>u7u1p3p4r91202483wjo29896gik134109kqp198</data>
+<css>border: solid 1px #808080;background-color:#F5F5DC;</css>
+<ind>2</ind>
+</bloc>
+<bloc><type>drop</type>
+<fts>16</fts><fts2>16</fts2>
+<note>0,25</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids>linkdd</ids><st></st><x>314</x><y>325</y><w>200</w><h>50</h><x2>140</x2><y2>380</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>?</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>#000000</color>
+<align>Center</align>
+<data>y8l8l1g4n81202483wjo29896gik134109kqp198</data>
+<css>border: solid 1px #808080;background-color:#F5F5DC;</css>
+<ind>2</ind>
+</bloc>
+<bloc><type>drop</type>
+<fts>16</fts><fts2>16</fts2>
+<note>0,5</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids>linkdd</ids><st></st><x>314</x><y>380</y><w>200</w><h>50</h><x2>140</x2><y2>435</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>?</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>#000000</color>
+<align>Center</align>
+<data>k9c9w4v6q81202483wjo29896gik134109kqp198</data>
+<css>border: solid 1px #808080;background-color:#F5F5DC;</css>
+<ind>2</ind>
+</bloc>
+<bloc><type>drop</type>
+<fts>16</fts><fts2>16</fts2>
+<note>0,25</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids>linkdd</ids><st></st><x>314</x><y>435</y><w>200</w><h>54</h><x2>140</x2><y2>545</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>?</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>#000000</color>
+<align>Center</align>
+<data>c4t6g7f2s21202483wjo29896gik134109kqp198</data>
+<css>border: solid 1px #808080;background-color:#F5F5DC;</css>
+<ind>2</ind>
+</bloc>
+<bloc><type>drag</type>
+<fts>16</fts><fts2>16</fts2>
+<ids>linkdd</ids><st></st><x>36</x><y>325</y><w>200</w><h>50</h><x2>140</x2><y2>380</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>UCSF Chimera</p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>UCSF Chimera -> ?</li>]]></contenu5>
+<contenu6><![CDATA[]]></contenu6>
+<o4>0</o4><color>#000000</color>
+<data>u7u1p3p4r91202483wjo29896gik134109kqp198</data>
+<align>Center</align>
+<css>border: solid 1px blue;background-color:#F5F5DC;</css>
+<src></src>
+<ind>3</ind>
+</bloc>
+<bloc><type>drag</type>
+<fts>16</fts><fts2>16</fts2>
+<ids>linkdd</ids><st></st><x>36</x><y>435</y><w>200</w><h>50</h><x2>140</x2><y2>490</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>Biovia Discovery Studio</p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>Biovia Discovery Studio -> ?</li>]]></contenu5>
+<contenu6><![CDATA[]]></contenu6>
+<o4>0</o4><color>#000000</color>
+<data>y8l8l1g4n81202483wjo29896gik134109kqp198</data>
+<align>Center</align>
+<css>border: solid 1px blue;background-color:#F5F5DC;</css>
+<src></src>
+<ind>3</ind>
+</bloc>
+<bloc><type>drag</type>
+<fts>16</fts><fts2>16</fts2>
+<ids>linkdd</ids><st></st><x>36</x><y>268</y><w>200</w><h>50</h><x2>140</x2><y2>325</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>ZINC</p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>ZINC -> ?</li>]]></contenu5>
+<contenu6><![CDATA[]]></contenu6>
+<o4>0</o4><color>#000000</color>
+<data>k9c9w4v6q81202483wjo29896gik134109kqp198</data>
+<align>Center</align>
+<css>border: solid 1px blue;background-color:#F5F5DC;</css>
+<src></src>
+<ind>3</ind>
+</bloc>
+<bloc><type>drag</type>
+<fts>16</fts><fts2>16</fts2>
+<ids>linkdd</ids><st></st><x>36</x><y>380</y><w>200</w><h>50</h><x2>140</x2><y2>435</y2><w2>200</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>AutoDock Vina</p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>AutoDock Vina -> ?</li>]]></contenu5>
+<contenu6><![CDATA[]]></contenu6>
+<o4>0</o4><color>#000000</color>
+<data>c4t6g7f2s21202483wjo29896gik134109kqp198</data>
+<align>Center</align>
+<css>border: solid 1px blue;background-color:#F5F5DC;</css>
+<src></src>
+<ind>3</ind>
+</bloc>
+<bloc><type>button</type>
+<url>data/page38.xml</url>
+<fts>16</fts><fts2>16</fts2>
+<ids></ids><st></st><x>780</x><y>606</y><w>156</w><h>34</h><x2>162</x2><y2>606</y2><w2>156</w2><h2>34</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>neoCssGray</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[Page suivante]]></text>
+<contenu5>1</contenu5>
+<color>#808080</color>
+<ind>3</ind>
+</bloc>
+<bloc><type>img</type>
+<src>images/imguprmzn150481.png</src>
+<ids></ids><st></st><x>36</x><y>576</y><w>192</w><h>59</h><x2>144</x2><y2>576</y2><w2>192</w2><h2>59</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>3</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>img</type>
+<src>images/imgttknvb204455.png</src>
+<ids></ids><st></st><x>292</x><y>530</y><w>149</w><h>147</h><x2>166</x2><y2>549</y2><w2>149</w2><h2>147</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>3</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>img</type>
+<src>images/imgrhffeh883693.png</src>
+<ids></ids><st></st><x>666</x><y>549</y><w>114</w><h>125</h><x2>183</x2><y2>549</y2><w2>114</w2><h2>125</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>3</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>text</type>
+<fontsize>13</fontsize>
+<x>-2</x><y>-2</y><w>230</w><h>28</h><x2>-2</x2><y2>-2</y2><w2>230</w2><h2>28</h2><align>Center</align><text><![CDATA[<a target='_blank' href='https://www.ludiscape.com/tarifs.php' style='color:white;' >Ludiscape</a> version demo]]></text>
+<data></data><src></src>
+<color>white</color>
+<css>background-color:#0489B1;border:solid 0px black;border-radius:2px;</css>
+<ind>4</ind>
+<cssadd></cssadd><an>3</an><de>2500</de><domaine></domaine>
+</bloc>
+</d>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/cartoon-soft-06.jpg]]></data>
+</fond>
+<title><n>16</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>40</data></nbpages>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<param><d><![CDATA[flatright]]></d></param>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d><cp></cp></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>material-top50</type><ids>system-bartop</ids><st></st><x>-1</x><y>-1</y><w>511</w><h>65</h><x2>-16</x2><y2>-1</y2><w2>511</w2><h2>65</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><src></src>
+<tx><![CDATA[Station 2 : détermination des propriétés pharmacocinétiques de l’acide salicylique]]></tx><tx2><![CDATA[]]></tx2><tx7>1</tx7><fts>16</fts><fts2>16</fts2>
+<data><![CDATA[icon04.png]]></data><color>White</color>
+<selectcolor>#0097A9</selectcolor>
+<ind>2</ind>
+</bloc><bloc><type>text</type><fts>26</fts><fts2>17</fts2>
+<ids></ids><st></st><x>136</x><y>366</y><w>78</w><h>57</h><x2>201</x2><y2>366</y2><w2>78</w2><h2>57</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bcbullewhite</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<font color=#ff8080><b>1</b></font>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Center</align>
+<css>border: solid 2px #A5A5A5;background-color:White;</css><ind>1</ind></bloc><bloc><type>text</type><fts>26</fts><fts2>17</fts2>
+<ids></ids><st></st><x>492</x><y>366</y><w>78</w><h>57</h><x2>201</x2><y2>424</y2><w2>78</w2><h2>57</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bcbullewhite</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>3</p>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Center</align>
+<css>border: solid 2px #A5A5A5;background-color:White;</css><ind>1</ind></bloc><bloc><type>text</type><fts>26</fts><fts2>17</fts2>
+<ids></ids><st></st><x>302</x><y>394</y><w>78</w><h>57</h><x2>201</x2><y2>424</y2><w2>78</w2><h2>57</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bcbullewhite</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>2</p>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Center</align>
+<css>border: solid 2px #A5A5A5;background-color:White;</css><ind>1</ind></bloc><bloc><type>text</type>
+<fts>24</fts><fts2>24</fts2>
+<ids></ids><st></st><x>67</x><y>105</y><w>625</w><h>50</h><x2>25</x2><y2>114</y2><w2>430</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p ><span style="font-weight:bold;"><span>Cette station &eacute;value 3 concepts :</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
+<css>padding-left:0.8em;border-bottom: solid 2px #0B243B;</css><ind>2</ind></bloc><bloc><type>gameherotarget</type>
+<fts>20</fts><fts2>20</fts2>
+<x>800,5</x><y>523,5</y><w>241</w><h>371</h><x2>0</x2><y2>0</y2><w2>0</w2><h2>0</h2><ids>hero</ids><data><![CDATA[]]></data>
+<contentpathsecond><![CDATA[]]></contentpathsecond>
+<text><![CDATA[images/man_bat_pose.png]]></text>
+<contenu5><![CDATA[images/man_bat_left.gif]]></contenu5>
+<contenu4><![CDATA[images/man_bat_right.gif]]></contenu4>
+<contenu2><![CDATA[images/man_bat_up.gif]]></contenu2>
+<contenu3><![CDATA[images/man_bat_down.gif]]></contenu3>
+<color>#000000</color>
+<css>border: solid 1px #808080;</css>
+<ind>2</ind>
+<border>0</border>
+<align>8</align>
+<cssadd></cssadd><an>1</an><de>0</de><domaine>0</domaine>
+<o>0</o><field1>0</field1>
+</bloc>
+<bloc><type>text</type><fts>19</fts><fts2>17</fts2>
+<ids></ids><st></st><x>82</x><y>540</y><w>190</w><h>41</h><x2>145</x2><y2>540</y2><w2>190</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<B>Solubilit&eacute;</B>&nbsp;]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Center</align>
+<css>border: solid 0px #808080;</css><ind>2</ind></bloc><bloc><type>buttonarea</type>
+<url>data/page17.xml</url>
+<fts>16</fts><fts2>16</fts2>
+<ids></ids><st></st><x>82</x><y>356</y><w>192</w><h>224</h><x2>215</x2><y2>436</y2><w2>50</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[]]></text>
+<contenu5>1</contenu5>
+<color>White</color>
+<ind>3</ind>
+</bloc>
+<bloc><type>text</type>
+<fontsize>13</fontsize>
+<x>-2</x><y>-2</y><w>230</w><h>28</h><x2>-2</x2><y2>-2</y2><w2>230</w2><h2>28</h2><align>Center</align><text><![CDATA[<a target='_blank' href='https://www.ludiscape.com/tarifs.php' style='color:white;' >Ludiscape</a> version demo]]></text>
+<data></data><src></src>
+<color>white</color>
+<css>background-color:#0489B1;border:solid 0px black;border-radius:2px;</css>
+<ind>4</ind>
+<cssadd></cssadd><an>3</an><de>2500</de><domaine></domaine>
+</bloc>
+</d>

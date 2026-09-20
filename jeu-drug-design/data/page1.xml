@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>1</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>40</data></nbpages>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<param><d><![CDATA[flatright]]></d></param>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d><cp></cp></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>text</type><fts>24</fts><fts2>17</fts2>
+<ids></ids><st></st><x>17</x><y>150</y><w>917</w><h>392</h><x2>-218</x2><y2>150</y2><w2>917</w2><h2>392</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[🔬 Analyser les propri&eacute;t&eacute;s physico-chimiques d’une mol&eacute;cule<BR><BR>💻 Utiliser des outils num&eacute;riques de <i>Drug Design<BR></i><BR>🧬 Interpr&eacute;ter des propri&eacute;t&eacute;s pharmacocin&eacute;tiques pr&eacute;dites in silico<BR><BR>⚗️ Expliquer le principe de la pharmacomodulation<BR><BR>🎯 Comprendre les bases du docking mol&eacute;culaire <BR><BR>🧠 D&eacute;velopper un raisonnement scientifique appliqu&eacute; au <i>Drug Design</i>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
+<css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/imgvdkvpu669537.png</src>
+<ids></ids><st></st><x>788</x><y>5</y><w>161</w><h>130</h><x2>160</x2><y2>5</y2><w2>161</w2><h2>130</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>text</type>
+<fts>34</fts><fts2>25</fts2>
+<ids></ids><st></st><x>2</x><y>5</y><w>430</w><h>41</h><x2>25</x2><y2>5</y2><w2>430</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p style="data-size:35.333333333333329;"><span style="font-weight:bold;"><span>Objectifs</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
+<css>padding-left:0.8em;border-bottom: solid 2px #0B243B;</css><ind>2</ind></bloc><bloc><type>material-button</type><ids></ids><st></st><x>882</x><y>642</y><w>56</w><h>56</h><x2>212</x2><y2>642</y2><w2>56</w2><h2>56</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><url>data/page2.xml</url>
+<text><![CDATA[]]></text><contenu2><![CDATA[mat-right.png]]></contenu2><data><![CDATA[]]></data><color>White</color>
+<selectcolor>#0097A9</selectcolor>
+<ind>3</ind>
+</bloc></d>
