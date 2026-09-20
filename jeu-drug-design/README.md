@@ -19,9 +19,15 @@ le plus simple est donc de servir le dossier :
 python3 -m http.server 8000     # puis http://localhost:8000/
 ```
 
-Le paquet reste diffusable tel quel dans une plateforme SCORM 1.2 : les
-fichiers `javascript/scorm*.js` et l'appel `ScormStartCom()` n'ont pas été
-touchés.
+Un double-clic sur `index.html` fonctionne également : le moteur embarque
+une copie des diapositives dans `javascript/page.js` et n'a donc pas besoin
+de lire les fichiers `data/*.xml` par requête réseau.
+
+L'export fourni est la version « web » : il ne contient pas d'`imsmanifest.xml`
+et n'est donc pas un paquet SCORM prêt à téléverser. La couche de
+communication SCORM 1.2 est en revanche intacte (`javascript/scorm*.js`,
+appel `ScormStartCom()`), de sorte qu'un manifeste ajouté autour du dossier
+suffirait à le déposer dans une plateforme.
 
 ## Organisation des fichiers
 
