@@ -6,7 +6,7 @@
 <scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
 <scriptloop><data><![CDATA[]]></data></scriptloop>
 <nbpages><data>40</data></nbpages>
-<domainesliste><data><![CDATA[Notions de base doking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Prorpri&eacute;t&eacute;s pharmaco-cin&eacute;tiques|Pharmaco-modulation|||||||||||||||||]]></data></domainesliste>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
 <bq><d></d></bq>
 <param><d><![CDATA[flatright]]></d></param>
 <pq><d>1</d></pq>
@@ -19,7 +19,7 @@
 <tunik><d>0</d></tunik>
 <bloc><type>text</type><fts>18</fts><fts2>16</fts2>
 <ids></ids><st></st><x>66</x><y>172</y><w>704</w><h>406</h><x2>90</x2><y2>82</y2><w2>300</w2><h2>150</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<ul>  <li>Chaque outil a son rôle, il faut savoir lequel utiliser. </li></ul>&nbsp;<BR><ul>  <li>La <i>druglikeness</i> pr&eacute;dit le potentiel oral, pas l&rsquo;efficacit&eacute;. </li></ul>&nbsp;<BR><ul>  <li>Modifier une mol&eacute;cule, c&rsquo;est arbitrer entre propri&eacute;t&eacute;s. </li></ul>&nbsp;<BR><ul>  <li>Le docking &eacute;tudie les interactions ligand-cible. </li></ul>&nbsp;<BR><ul>  <li>Une pr&eacute;diction in silico n&rsquo;est pas une preuve.</li></ul>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
-<css>border: solid 0px #808080;background-color:#FFF7CE;font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;</css><ind>1</ind></bloc><bloc><type>text</type><fts>26</fts><fts2>17</fts2>
+<css>border: solid 0px #808080;background-color:#FFF7CE;</css><ind>1</ind></bloc><bloc><type>text</type><fts>26</fts><fts2>17</fts2>
 <ids></ids><st></st><x>30</x><y>60</y><w>450</w><h>30</h><x2>15</x2><y2>60</y2><w2>450</w2><h2>30</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>24</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<B><font color=red>Take home message</font></B>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
 <css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>img</type>
 <src>images/images.jpg</src>

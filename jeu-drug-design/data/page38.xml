@@ -6,7 +6,7 @@
 <scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
 <scriptloop><data><![CDATA[]]></data></scriptloop>
 <nbpages><data>40</data></nbpages>
-<domainesliste><data><![CDATA[Notions de base doking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Prorpri&eacute;t&eacute;s pharmaco-cin&eacute;tiques|Pharmaco-modulation|||||||||||||||||]]></data></domainesliste>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
 <bq><d></d></bq>
 <param><d><![CDATA[flatright]]></d></param>
 <pq><d>1</d></pq>
@@ -21,13 +21,13 @@
 <type>bilanresult</type>
 <fts>14</fts><fts2>14</fts2>
 <ids></ids><st></st><x>66</x><y>74</y><w>232</w><h>232</h><x2>144</x2><y2>48</y2><w2>192</w2><h2>192</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>0</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
-<text><![CDATA[Notions de base doking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Prorpri&eacute;t&eacute;s pharmaco-cin&eacute;tiques|Pharmaco-modulation|||||||||||||||||]]></text>
+<text><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></text>
 <data><![CDATA[#D8BFD8;#AFEEEE;#FFE4C4;#90EE90;#DEB887;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;]]></data>
 <src>4</src>
 <border>0</border>
 <note>0</note>
 <contenu2><![CDATA[images/bilan.png]]></contenu2>
-<contenu3><![CDATA[Resume du parcours]]></contenu3>
+<contenu3><![CDATA[R&eacute;sum&eacute; du parcours]]></contenu3>
 <contenu4>0</contenu4>
 <contenu5></contenu5>
 <contenu6>0</contenu6>
@@ -41,7 +41,7 @@
 <type>ludirpt2</type>
 <fts>17</fts><fts2>17</fts2>
 <ids></ids><st></st><x>110</x><y>386</y><w>300</w><h>300</h><x2>90</x2><y2>307</y2><w2>300</w2><h2>300</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
-<text><![CDATA[Notions de base doking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Prorpri&eacute;t&eacute;s pharmaco-cin&eacute;tiques|Pharmaco-modulation|||||||||||||||||]]></text>
+<text><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></text>
 <data><![CDATA[#D8BFD8;#AFEEEE;#FFE4C4;#90EE90;#DEB887;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;]]></data>
 <contenu2><![CDATA[<div class='RptvertiBar0' style='background-color:#D8BFD8;width:15%;left:16%;' ></div><div class='RptvertiBar1' style='background-color:#AFEEEE;width:15%;left:32%;' ></div><div class='RptvertiBar2' style='background-color:#FFE4C4;width:15%;left:48%;' ></div><div class='RptvertiBar3' style='background-color:#90EE90;width:15%;left:64%;' ></div>]]></contenu2>
 <src>4</src>

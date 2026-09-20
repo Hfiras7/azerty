@@ -6,7 +6,7 @@
 <scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
 <scriptloop><data><![CDATA[]]></data></scriptloop>
 <nbpages><data>40</data></nbpages>
-<domainesliste><data><![CDATA[Notions de base doking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Prorpri&eacute;t&eacute;s pharmaco-cin&eacute;tiques|Pharmaco-modulation|||||||||||||||||]]></data></domainesliste>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
 <bq><d></d></bq>
 <param><d><![CDATA[flatright]]></d></param>
 <pq><d>1</d></pq>
@@ -18,7 +18,7 @@
 <footer><data>0</data></footer>
 <tunik><d>0</d></tunik>
 <bloc><type>material-top50</type><ids>system-bartop</ids><st></st><x>-1</x><y>-1</y><w>511</w><h>65</h><x2>-16</x2><y2>-1</y2><w2>511</w2><h2>65</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><src></src>
-<tx><![CDATA[Station 3: pharmacomodulation de l'aspirine en acétylsalicylate de lysine]]></tx><tx2><![CDATA[]]></tx2><tx7>4</tx7><fts>16</fts><fts2>16</fts2>
+<tx><![CDATA[Station 3 : pharmacomodulation de l’aspirine en acétylsalicylate de lysine]]></tx><tx2><![CDATA[]]></tx2><tx7>4</tx7><fts>16</fts><fts2>16</fts2>
 <data><![CDATA[]]></data><color>White</color>
 <selectcolor>#0097A9</selectcolor>
 <ind>2</ind>
@@ -34,7 +34,7 @@
 <css>border: solid 0px #808080;</css>
 </bloc>
 <bloc><type>text</type><fts>20</fts><fts2>17</fts2>
-<ids></ids><st></st><x>44</x><y>161</y><w>870</w><h>66</h><x2>-171</x2><y2>161</y2><w2>822</w2><h2>66</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<B>Selon les deux radars de biodisponibilit&eacute; de l’acide ac&eacute;tylsalicylique (AAS) et de l’acetylsalicylate de lysine (ASL),</B>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
+<ids></ids><st></st><x>44</x><y>161</y><w>870</w><h>66</h><x2>-171</x2><y2>161</y2><w2>822</w2><h2>66</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<B>Selon les deux radars de biodisponibilit&eacute; de l’acide ac&eacute;tylsalicylique (AAS) et de l’ac&eacute;tylsalicylate de lysine (ASL),</B>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
 <css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>img</type>
 <src>images/imgvaazbu298488.png</src>
 <ids></ids><st></st><x>532</x><y>224</y><w>258</w><h>229</h><x2>111</x2><y2>224</y2><w2>258</w2><h2>229</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>

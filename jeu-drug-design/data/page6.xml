@@ -7,7 +7,7 @@
 <scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
 <scriptloop><data><![CDATA[]]></data></scriptloop>
 <nbpages><data>40</data></nbpages>
-<domainesliste><data><![CDATA[Notions de base doking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Prorpri&eacute;t&eacute;s pharmaco-cin&eacute;tiques|Pharmaco-modulation|||||||||||||||||]]></data></domainesliste>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
 <bq><d></d></bq>
 <param><d><![CDATA[flatright]]></d></param>
 <pq><d>1</d></pq>
@@ -19,7 +19,7 @@
 <footer><data>0</data></footer>
 <tunik><d>0</d></tunik>
 <bloc><type>material-top50</type><ids>system-bartop</ids><st></st><x>-1</x><y>-1</y><w>511</w><h>65</h><x2>-16</x2><y2>-1</y2><w2>511</w2><h2>65</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><src></src>
-<tx><![CDATA[Station 1: détermination des propriétés physico-chimiques de l'acide salicylique]]></tx><tx2><![CDATA[]]></tx2><tx7>4</tx7><fts>16</fts><fts2>16</fts2>
+<tx><![CDATA[Station 1 : détermination des propriétés physico-chimiques de l’acide salicylique]]></tx><tx2><![CDATA[]]></tx2><tx7>4</tx7><fts>16</fts><fts2>16</fts2>
 <data><![CDATA[]]></data><color>White</color>
 <selectcolor>#0097A9</selectcolor>
 <ind>2</ind>
@@ -31,7 +31,7 @@
 <ids></ids><st></st><x>490</x><y>341</y><w>81</w><h>58</h><x2>200</x2><y2>341</y2><w2>81</w2><h2>58</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bcbullewhite</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<font color=black>3</font><BR>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>Red</color><align>Center</align>
 <css>border: solid 1px #487BA8;background-color:#A5A5A5;</css><ind>1</ind></bloc><bloc><type>text</type>
 <fts>24</fts><fts2>24</fts2>
-<ids></ids><st></st><x>89</x><y>104</y><w>530</w><h>68</h><x2>-25</x2><y2>104</y2><w2>530</w2><h2>68</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p ><span style="font-weight:bold;"><span>Cette station &eacute;value 6 concepts:</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
+<ids></ids><st></st><x>89</x><y>104</y><w>530</w><h>68</h><x2>-25</x2><y2>104</y2><w2>530</w2><h2>68</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p ><span style="font-weight:bold;"><span>Cette station &eacute;value 6 concepts :</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
 <css>padding-left:0.8em;border-bottom: solid 2px #0B243B;</css><ind>2</ind></bloc><bloc><type>gameherotarget</type>
 <fts>20</fts><fts2>20</fts2>
 <x>800,5</x><y>523,5</y><w>241</w><h>371</h><x2>0</x2><y2>0</y2><w2>0</w2><h2>0</h2><ids>hero</ids><data><![CDATA[]]></data>

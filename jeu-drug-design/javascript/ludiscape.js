@@ -19479,7 +19479,7 @@ sendRapportWMail(MEMmkript,MEMsrelai);
 }
 }
 function dialogErrorPostLudiGet(typ){
-var inn='<p class="dialogDownTitle" >Une erreur a été rencontré lors de l\'envoi.<br/>Merci de réessayer dans quelques secondes.</p>';
+var inn='<p class="dialogDownTitle" >Une erreur a été rencontrée lors de l\'envoi.<br/>Merci de réessayer dans quelques secondes.</p>';
 inn +=  '<p><a href="#" class="buttonDialogDownNo"  onCLick="addL();closeYNDown();" >Non</a>&nbsp;';
 inn +=  '<a href="#" class="buttonDialogDownYes"  onCLick="addL();';
 if(typ==1){

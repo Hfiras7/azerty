@@ -6,7 +6,7 @@
 <scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
 <scriptloop><data><![CDATA[]]></data></scriptloop>
 <nbpages><data>40</data></nbpages>
-<domainesliste><data><![CDATA[Notions de base doking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Prorpri&eacute;t&eacute;s pharmaco-cin&eacute;tiques|Pharmaco-modulation|||||||||||||||||]]></data></domainesliste>
+<domainesliste><data><![CDATA[Notions de base du docking mol&eacute;culaire|Propri&eacute;t&eacute;s physico-chimiques|Propri&eacute;t&eacute;s pharmacocin&eacute;tiques|Pharmacomodulation|||||||||||||||||]]></data></domainesliste>
 <bq><d></d></bq>
 <param><d><![CDATA[flatright]]></d></param>
 <pq><d>1</d></pq>
@@ -30,7 +30,7 @@
 <ids></ids><st></st><x>40</x><y>151</y><w>846</w><h>445</h><x2>-134</x2><y2>152</y2><w2>748</w2><h2>444</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[L’&eacute;tudiant doit disposer de connaissances de base en : <BR><BR>🧪 Chimie organique <BR><BR>⚗️ Chimie th&eacute;rapeutique <BR><BR>💊 Pharmacologie et pharmacocin&eacute;tique <BR><BR>🧬 Propri&eacute;t&eacute;s physico-chimiques des m&eacute;dicaments <BR><BR>💻 Recherche et utilisation de ressources scientifiques num&eacute;riques]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
 <css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>text</type>
 <fts>34</fts><fts2>25</fts2>
-<ids></ids><st></st><x>2</x><y>4</y><w>430</w><h>41</h><x2>25</x2><y2>4</y2><w2>430</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p style="data-size:35.333333333333329;"><span style="font-weight:bold;"><span>Pr&eacute;-requis:</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
+<ids></ids><st></st><x>2</x><y>4</y><w>430</w><h>41</h><x2>25</x2><y2>4</y2><w2>430</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p style="data-size:35.333333333333329;"><span style="font-weight:bold;"><span>Pr&eacute;requis</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
 <css>padding-left:0.8em;border-bottom: solid 2px #0B243B;</css><ind>2</ind></bloc><bloc><type>material-button</type><ids></ids><st></st><x>882</x><y>642</y><w>56</w><h>56</h><x2>212</x2><y2>642</y2><w2>56</w2><h2>56</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><url>data/page3.xml</url>
 <text><![CDATA[]]></text><contenu2><![CDATA[mat-right.png]]></contenu2><data><![CDATA[]]></data><color>White</color>
 <selectcolor>#0097A9</selectcolor>
