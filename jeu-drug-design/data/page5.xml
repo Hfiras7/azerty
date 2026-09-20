@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?><d>
-<fond><data><![CDATA[images/iso-campus-int-1.jpg]]></data>
+<fond><data><![CDATA[images/labo-accueil.jpg]]></data>
 </fond>
-<prefond><data><![CDATA[images/cartoon-soft-06.jpg]]></data></prefond>
+<prefond><data><![CDATA[images/labo-station.jpg]]></data></prefond>
 <title><n>5</n><data><![CDATA[]]></data></title>
 <transition><data><![CDATA[Direct]]></data></transition>
 <messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
@@ -20,7 +20,7 @@
 <footer><data>0</data></footer>
 <tunik><d>0</d></tunik>
 <bloc><type>img</type>
-<src>images/Women-0.gif</src>
+<src>images/pharmacienne-presente.png</src>
 <ids></ids><st><![CDATA[ onMouseDown="LaScr=true;LUDI.sound('data/170514989426454ug42kcvoicemaker.inspeech.mp3');LUDI.ra();" ]]></st><x>396</x><y>316</y><w>157</w><h>216</h><x2>162</x2><y2>270</y2><w2>157</w2><h2>216</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
 <cssadd></cssadd>
 <ind>1</ind>
@@ -38,7 +38,7 @@
 <ind>1</ind>
 </bloc>
 <bloc><type>img</type>
-<src>images/calltoaction.png</src>
+<src>images/icone-action.png</src>
 <ids></ids><st><![CDATA[ onMouseDown="LaScr=true;LUDI.sound('data/1706008503834v9ne3p7jvoicemaker.inspeechp1p.mp3');alertm('Aller vers la porte à la fin du message vocale!');LUDI.ra();" ]]></st><x>535</x><y>316</y><w>75</w><h>65</h><x2>197</x2><y2>30</y2><w2>86</w2><h2>86</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
 <cssadd></cssadd>
 <ind>1</ind>
@@ -48,11 +48,11 @@
 </bloc>
 <bloc><type>gamehero</type>
 <fts>20</fts><fts2>20</fts2>
-<x>74,5</x><y>534</y><w>133</w><h>204</h><x2>0</x2><y2>0</y2><w2>0</w2><h2>0</h2><ids>hero</ids><text><![CDATA[images/man_bat_pose.png]]></text>
-<data><![CDATA[images/man_bat_right.gif]]></data>
-<src><![CDATA[images/man_bat_left.gif]]></src>
-<contenu2><![CDATA[images/man_bat_up.gif]]></contenu2>
-<contenu3><![CDATA[images/man_bat_down.gif]]></contenu3>
+<x>74,5</x><y>534</y><w>133</w><h>204</h><x2>0</x2><y2>0</y2><w2>0</w2><h2>0</h2><ids>hero</ids><text><![CDATA[images/pharmacien-pose.png]]></text>
+<data><![CDATA[images/pharmacien-droite.png]]></data>
+<src><![CDATA[images/pharmacien-gauche.png]]></src>
+<contenu2><![CDATA[images/pharmacien-haut.png]]></contenu2>
+<contenu3><![CDATA[images/pharmacien-bas.png]]></contenu3>
 <color>#000000</color>
 <css>border: solid 0px #808080;</css>
 <ind>2</ind>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?><d>
-<fond><data><![CDATA[images/cartoon-soft-06.jpg]]></data>
+<fond><data><![CDATA[images/labo-station.jpg]]></data>
 </fond>
 <title><n>20</n><data><![CDATA[]]></data></title>
 <transition><data><![CDATA[Direct]]></data></transition>
@@ -36,11 +36,11 @@
 <fts>20</fts><fts2>20</fts2>
 <x>800,5</x><y>523,5</y><w>241</w><h>371</h><x2>0</x2><y2>0</y2><w2>0</w2><h2>0</h2><ids>hero</ids><data><![CDATA[]]></data>
 <contentpathsecond><![CDATA[]]></contentpathsecond>
-<text><![CDATA[images/man_bat_pose.png]]></text>
-<contenu5><![CDATA[images/man_bat_left.gif]]></contenu5>
-<contenu4><![CDATA[images/man_bat_right.gif]]></contenu4>
-<contenu2><![CDATA[images/man_bat_up.gif]]></contenu2>
-<contenu3><![CDATA[images/man_bat_down.gif]]></contenu3>
+<text><![CDATA[images/pharmacien-pose.png]]></text>
+<contenu5><![CDATA[images/pharmacien-gauche.png]]></contenu5>
+<contenu4><![CDATA[images/pharmacien-droite.png]]></contenu4>
+<contenu2><![CDATA[images/pharmacien-haut.png]]></contenu2>
+<contenu3><![CDATA[images/pharmacien-bas.png]]></contenu3>
 <color>#000000</color>
 <css>border: solid 1px #808080;</css>
 <ind>2</ind>
@@ -51,7 +51,7 @@
 </bloc>
 <bloc><type>text</type><fts>19</fts><fts2>17</fts2>
 <ids></ids><st></st><x>414</x><y>546</y><w>234</w><h>41</h><x2>123</x2><y2>546</y2><w2>234</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<B>M&eacute;tabolisme</B><br>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Center</align>
-<css>border: solid 0px #808080;</css><ind>2</ind></bloc><bloc><type>buttonarea</type>
+<css>border: solid 0px #808080;background-color:rgba(255,255,255,.93);border-radius:12px;box-shadow:0 10px 24px -16px rgba(8,22,38,.85);</css><ind>2</ind></bloc><bloc><type>buttonarea</type>
 <url>data/page21.xml</url>
 <fts>16</fts><fts2>16</fts2>
 <ids></ids><st></st><x>424</x><y>366</y><w>216</w><h>178</h><x2>215</x2><y2>436</y2><w2>50</w2><h2>50</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>

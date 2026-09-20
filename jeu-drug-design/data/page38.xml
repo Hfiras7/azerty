@@ -55,11 +55,11 @@
 <fts>20</fts><fts2>20</fts2>
 <x>690,5</x><y>519,5</y><w>241</w><h>371</h><x2>0</x2><y2>0</y2><w2>0</w2><h2>0</h2><ids>hero</ids><data><![CDATA[]]></data>
 <contentpathsecond><![CDATA[]]></contentpathsecond>
-<text><![CDATA[images/man_bat_pose.png]]></text>
-<contenu5><![CDATA[images/man_bat_left.gif]]></contenu5>
-<contenu4><![CDATA[images/man_bat_right.gif]]></contenu4>
-<contenu2><![CDATA[images/man_bat_up.gif]]></contenu2>
-<contenu3><![CDATA[images/man_bat_down.gif]]></contenu3>
+<text><![CDATA[images/pharmacien-pose.png]]></text>
+<contenu5><![CDATA[images/pharmacien-gauche.png]]></contenu5>
+<contenu4><![CDATA[images/pharmacien-droite.png]]></contenu4>
+<contenu2><![CDATA[images/pharmacien-haut.png]]></contenu2>
+<contenu3><![CDATA[images/pharmacien-bas.png]]></contenu3>
 <color>#000000</color>
 <css>border: solid 1px #808080;</css>
 <ind>2</ind>

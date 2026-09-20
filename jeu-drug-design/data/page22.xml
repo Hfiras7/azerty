@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?><d>
 <fond><data><![CDATA[images/fond-white.png]]></data></fond>
-<prefond><data><![CDATA[images/cartoon-soft-06.jpg]]></data></prefond>
+<prefond><data><![CDATA[images/labo-station.jpg]]></data></prefond>
 <title><n>22</n><data><![CDATA[]]></data></title>
 <transition><data><![CDATA[Direct]]></data></transition>
 <messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
@@ -19,7 +19,7 @@
 <footer><data>0</data></footer>
 <tunik><d>0</d></tunik>
 <bloc><type>img</type>
-<src>images/128189971interieurdebureauavecordinateurtableetchaisedessindaffairesalecranrendu3d.jpg</src>
+<src>images/transition-station3.jpg</src>
 <ids></ids><st></st><x>0</x><y>-1</y><w>964</w><h>720</h><x2>-239</x2><y2>66</y2><w2>958</w2><h2>654</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
 <cssadd></cssadd>
 <ind>1</ind>
@@ -28,7 +28,7 @@
 <contenu7></contenu7>
 </bloc>
 <bloc><type>img</type>
-<src>images/calltoaction.png</src>
+<src>images/icone-action.png</src>
 <ids></ids><st><![CDATA[ onMouseDown="LaScr=true;LUDI.sound('data/1706259501242vumbjtmwvoicemaker.inspeech.mp3');LUDI.ra();" ]]></st><x>10</x><y>80</y><w>90</w><h>90</h><x2>195</x2><y2>80</y2><w2>90</w2><h2>90</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
 <cssadd></cssadd>
 <ind>1</ind>
@@ -38,7 +38,7 @@
 </bloc>
 <bloc><type>text</type>
 <fts>24</fts><fts2>24</fts2>
-<ids></ids><st></st><x>68</x><y>151</y><w>560</w><h>41</h><x2>-40</x2><y2>151</y2><w2>560</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p ><span style="font-weight:bold;"><span>Nous passons maintenant à la station 3</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
+<ids></ids><st></st><x>68</x><y>151</y><w>560</w><h>41</h><x2>-40</x2><y2>151</y2><w2>560</w2><h2>41</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#FFFFFF;text-shadow:0 2px 12px rgba(2,14,26,.92), 0 1px 3px rgba(2,14,26,.9);"><p ><span style="font-weight:bold;"><span>Nous passons maintenant à la station 3</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#FFFFFF</color><align>LeftBottom</align>
 <css>padding-left:0.8em;border-bottom: solid 2px #0B243B;</css><ind>2</ind></bloc><bloc><type>buttonarea</type>
 <url>data/page23.xml</url>
 <fts>16</fts><fts2>16</fts2>
