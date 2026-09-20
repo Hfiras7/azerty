@@ -142,7 +142,10 @@ body{
    normalement et restent prioritaires. */
 #main td.inner{
   color:var(--epos-texte);
-  line-height:1.45;
+  /* L'interlignage reste proche de celui du moteur : les blocs de texte
+     ont une hauteur fixée en pixels par l'auteur, un interlignage plus
+     généreux les ferait déborder sur les éléments voisins. */
+  line-height:1.2;
 }
 #main td.inner b,#main td.inner strong{ font-weight:700; letter-spacing:-.005em; }
 #main td.inner i,#main td.inner em{ color:var(--epos-teal-sombre); font-style:italic; }
@@ -195,10 +198,10 @@ table.barBody td{ background-clip:padding-box; }
 tr.barSty{ transition:background-color .16s ease; }
 td.selectqcmline{
   color:var(--epos-texte) !important;
-  padding:.5em .9em .5em .6em !important;
+  padding:0 0 0 .6em !important;
   line-height:1.4;
   border-left:.18em solid transparent;
-  transition:border-color .16s ease,color .16s ease,padding-left .16s ease;
+  transition:border-color .16s ease,color .16s ease;
 }
 td.selectqcmline:hover,td.selectqcmline:active{
   text-decoration:none !important;
@@ -217,9 +220,10 @@ img.cocheimg:hover{ transform:scale(1.06); }
   }
   tr.barSty:has(img.cocheimg[src$="carre1.png"]) td.selectqcmline,
   tr.barSty:has(img.cocheimg[src$="check1.png"]) td.selectqcmline{
+    /* pas de changement de graisse : la largeur du texte resterait
+       identique, l'énoncé ne doit pas se replier à la sélection */
     border-left-color:var(--epos-teal) !important;
     color:var(--epos-teal-sombre) !important;
-    font-weight:700;
   }
 }
 
@@ -381,7 +385,7 @@ img[class*="clocktimer"]{
 .flatrightmessageinner{
   font-family:var(--epos-sans) !important;
   color:var(--epos-texte) !important;
-  line-height:1.45;
+  line-height:1.3;
 }
 
 /* ================================================================
