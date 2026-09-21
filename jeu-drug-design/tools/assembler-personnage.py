@@ -35,8 +35,13 @@ def main():
             raise SystemExit('images manquantes pour la direction ' + direction)
         images = [Image.open(f).convert('RGBA') for f in fichiers]
         chemin = os.path.join(DST, sortie)
+        # optimize=True découpe chaque image en sous-rectangle ; combiné à
+        # disposal=2 (effacement du fond), les parties immobiles — les
+        # jambes — disparaissaient dès la deuxième image. On écrit donc des
+        # images pleines qui remplacent intégralement la précédente.
         images[0].save(chemin, save_all=True, append_images=images[1:],
-                       duration=DUREE, loop=0, disposal=2, optimize=True)
+                       duration=DUREE, loop=0, optimize=False,
+                       disposal=1, blend=0)
         taille = os.path.getsize(chemin)
         print(f'{sortie:24s} {len(images)} images, {images[0].size}, {taille//1024} Kio')
     presentation()
@@ -49,7 +54,7 @@ def presentation():
     images = [Image.open(f).convert('RGBA') for f in fichiers]
     chemin = os.path.join(DST, 'pharmacienne-presente.png')
     images[0].save(chemin, save_all=True, append_images=images[1:],
-                   duration=140, loop=0, disposal=2, optimize=True)
+                   duration=140, loop=0, optimize=False, disposal=1, blend=0)
     print(f"pharmacienne-presente.png {len(images)} images, {images[0].size}, "
           f"{os.path.getsize(chemin)//1024} Kio")
 

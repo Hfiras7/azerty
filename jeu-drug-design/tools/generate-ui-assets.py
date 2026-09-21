@@ -232,6 +232,37 @@ def libelles_domaines():
     return reduire(im, L, H)
 
 
+def chargeur():
+    """
+    Visuel affiché pendant le chargement (css/ludiScapeLoad.*).
+
+    L'export affichait le logo de l'outil auteur ; on le remplace par un
+    repère neutre aux couleurs du jeu. Mêmes dimensions que l'original.
+    """
+    L, H = 157, 51
+    im, d = toile(L, H)
+    T = H * SS
+
+    # molécule : trois atomes reliés
+    cx, cy = int(24 * SS), T // 2
+    noeuds = [(cx, cy - int(11 * SS)), (cx + int(13 * SS), cy + int(5 * SS)),
+              (cx - int(13 * SS), cy + int(5 * SS))]
+    for i in range(3):
+        d.line([noeuds[i], noeuds[(i + 1) % 3]], fill=melange(TEAL, BLANC, .25),
+               width=int(2.4 * SS))
+    for i, n in enumerate(noeuds):
+        r = int(5 * SS) if i == 0 else int(4 * SS)
+        d.ellipse([n[0] - r, n[1] - r, n[0] + r, n[1] + r],
+                  fill=TEAL if i != 1 else AMBRE)
+
+    f = police(int(22 * SS))
+    d.text((int(46 * SS), T // 2), "EPOS", font=f, fill=ENCRE, anchor="lm")
+    fp = police(int(8 * SS), gras=False)
+    d.text((int(47 * SS), T // 2 + int(13 * SS)), "DRUG DESIGN", font=fp,
+           fill=melange(ENCRE, BLANC, .45), anchor="lm")
+    return reduire(im, L, H)
+
+
 def main():
     os.chdir(ROOT)
     os.makedirs("fx/qcm", exist_ok=True)
@@ -244,6 +275,10 @@ def main():
         for i in range(25):
             minuteur(i, taille=taille, accent_froid=accent).save(f"fx/time/time{prefixe}{i}.png")
 
+    ch = chargeur()
+    ch.save("css/ludiScapeLoad.png")
+    ch.convert("P", palette=Image.ADAPTIVE, colors=255).save(
+        "css/ludiScapeLoad.gif", transparency=255)
     bilan_icone().save("images/bilan.png")
     libelles_domaines().save("images/LibellesDomaines.png")
     barre_fond().save("images/progress-bar-fond.png")

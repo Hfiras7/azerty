@@ -64,12 +64,64 @@ PAR_PAGE = {
 }
 
 
+# Fil d'Ariane des stations, incrusté dans les écrans de transition :
+# l'étudiant voit d'un coup d'œil où il en est dans le parcours.
+ETAPES = {'transition-station2.jpg': 2,
+          'transition-station3.jpg': 3,
+          'transition-station4.jpg': 4}
+
+
+def incruster_fil_ariane(im, station, total=4):
+    from PIL import ImageDraw, ImageFont
+    S = 4                       # suréchantillonnage du calque
+    L, H = im.size
+    calque = Image.new('RGBA', (L * S, H * S), (0, 0, 0, 0))
+    d = ImageDraw.Draw(calque)
+    police = ImageFont.truetype(
+        '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', int(26 * S * L / 1920))
+
+    marge_x, base_y = int(L * 0.052 * S), int(H * 0.875 * S)
+    pas = int(L * 0.052 * S)
+    r_actif, r_autre = int(L * 0.0132 * S), int(L * 0.0088 * S)
+
+    for i in range(1, total + 1):
+        cx = marge_x + (i - 1) * pas
+        if i < station:                      # étapes franchies
+            d.ellipse([cx - r_autre, base_y - r_autre, cx + r_autre, base_y + r_autre],
+                      fill=(34, 197, 214, 210))
+        elif i == station:                   # étape en cours
+            d.ellipse([cx - r_actif - int(5 * S), base_y - r_actif - int(5 * S),
+                       cx + r_actif + int(5 * S), base_y + r_actif + int(5 * S)],
+                      outline=(34, 197, 214, 150), width=int(2 * S))
+            d.ellipse([cx - r_actif, base_y - r_actif, cx + r_actif, base_y + r_actif],
+                      fill=(34, 197, 214, 255))
+            d.text((cx, base_y), str(i), font=police, fill=(6, 22, 34, 255), anchor='mm')
+        else:                                # étapes à venir
+            d.ellipse([cx - r_autre, base_y - r_autre, cx + r_autre, base_y + r_autre],
+                      outline=(150, 190, 210, 130), width=int(2 * S))
+        if i < total:                        # trait de liaison
+            d.line([(cx + r_actif + int(9 * S), base_y), (cx + pas - r_actif - int(9 * S), base_y)],
+                   fill=(120, 170, 195, 90), width=int(2 * S))
+
+    petite = ImageFont.truetype(
+        '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', int(17 * S * L / 1920))
+    d.text((marge_x - r_autre, base_y - r_actif - int(26 * S)),
+           f'STATION {station} SUR {total}', font=petite, fill=(190, 218, 232, 220), anchor='ls')
+
+    calque = calque.resize((L, H), Image.LANCZOS)
+    fusion = im.convert('RGBA')
+    fusion.alpha_composite(calque)
+    return fusion.convert('RGB')
+
+
 def installer():
     for src, dst, fmt, q in DECORS:
         chemin = os.path.join(REND, src)
         if not os.path.exists(chemin):
             raise SystemExit('rendu manquant : ' + chemin)
         im = Image.open(chemin).convert('RGB')
+        if dst in ETAPES:
+            im = incruster_fil_ariane(im, ETAPES[dst])
         sortie = os.path.join(IMG, dst)
         im.save(sortie, fmt, quality=q, optimize=True, progressive=True)
         print(f'{dst:30s} {im.size[0]}x{im.size[1]}  {os.path.getsize(sortie)//1024} Kio')

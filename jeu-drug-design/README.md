@@ -98,6 +98,18 @@ python3 tools/sync-page-js.py              # répercute dans la copie hors ligne
 python3 tools/formule-acide-salicylique.py # formule développée haute résolution
 ```
 
+### Scripts de correction
+
+| Script | Rôle |
+| --- | --- |
+| `tools/retirer-filigrane.py` | retire le bloc « version demo » des diapositives |
+| `tools/corriger-contraste.py` | éclaircit les titres posés sur un fond devenu sombre |
+| `tools/corriger-scene-accueil.py` | zone d'action au sol, collision, repère d'entrée |
+| `tools/transitions.py` | remet les diapositives en transition « Direct » |
+
+Tous sont idempotents : les relancer après une modification des données ne
+produit pas d'effet de bord. Penser à `tools/sync-page-js.py` ensuite.
+
 Scènes disponibles dans `tools/render/scenes.js` : `transition-2`,
 `transition-3`, `transition-4`, `labo-accueil`, `icone-objectifs`,
 `icone-prerequis`, `icone-stations`, `icone-deroulement`,
@@ -124,6 +136,12 @@ visible aussi bien sur les fonds clairs que sur les fonds sombres.
 * Personnages : un pharmacien et une pharmacienne en blouse, modélisés et
   animés en 3D, qui remplacent l'ouvrier au casque jaune et la scène
   isométrique d'origine.
+* Enchaînement : l'apparition de chaque diapositive est animée par la
+  surcouche (`#main.epos-entree`). La transition native du moteur n'est
+  pas utilisée : elle emprunte un chemin de code qui appelle `amplify`,
+  bibliothèque absente de cet export.
+* Lisibilité : aucun texte du jeu ne descend sous un écart de luminance de
+  60 niveaux avec son fond, mesuré sur le rendu réel des 40 diapositives.
 * L'animation du décor s'arrête si le système déclare
   `prefers-reduced-motion`.
 
@@ -135,10 +153,10 @@ visible aussi bien sur les fonds clairs que sur les fonds sombres.
   des questions aux domaines évalués.
 * Le minutage (60 s par question), la navigation, le déplacement du
   personnage et le calcul du score.
-* Le filigrane « Ludiscape version demo » présent sur les diapositives : il
-  signale que l'export provient d'une version de démonstration de l'outil
-  auteur. Il relève de la licence de Ludiscape et n'a pas été retiré ; il
-  disparaît en réexportant le jeu depuis une version sous licence.
+* Le filigrane « Ludiscape version demo » a été retiré des diapositives à
+  la demande de l'auteur du jeu. Il signalait que l'export provenait d'une
+  version de démonstration de l'outil auteur : la conformité vis-à-vis de
+  la licence Ludiscape relève de l'auteur.
 * Les captures d'écran scientifiques (SwissADME, pkCSM, radars de
   biodisponibilité, schéma de la réaction de pharmacomodulation, logos des
   outils) : ce sont les données sur lesquelles portent les questions.

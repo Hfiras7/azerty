@@ -19,13 +19,4 @@
 <tunik><d>0</d></tunik>
 <bloc><type>text</type><fts>18</fts><fts2>18</fts2>
 <ids></ids><st></st><x>50</x><y>50</y><w>862</w><h>622</h><x2>-191</x2><y2>50</y2><w2>862</w2><h2>622</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><cssadd>border-radius: 20px;</cssadd><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>...</p>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>SlateGray</color><align>Center</align>
-<css>border: solid 1px SlateGray;</css><ind>1</ind></bloc><bloc><type>text</type>
-<fontsize>13</fontsize>
-<x>-2</x><y>-2</y><w>230</w><h>28</h><x2>-2</x2><y2>-2</y2><w2>230</w2><h2>28</h2><align>Center</align><text><![CDATA[<a target='_blank' href='https://www.ludiscape.com/tarifs.php' style='color:white;' >Ludiscape</a> version demo]]></text>
-<data></data><src></src>
-<color>white</color>
-<css>background-color:#0489B1;border:solid 0px black;border-radius:2px;</css>
-<ind>4</ind>
-<cssadd></cssadd><an>3</an><de>2500</de><domaine></domaine>
-</bloc>
-</d>
+<css>border: solid 1px SlateGray;</css><ind>1</ind></bloc></d>

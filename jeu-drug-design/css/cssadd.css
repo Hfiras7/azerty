@@ -107,6 +107,34 @@ body{
 #game,#globaltransition,#globalcurtain,#loaddiv,#loaddivbarre,#lightbox{
   border-radius:20px !important;
 }
+/* Le calque de chargement du moteur est blanc : entre deux diapositives
+   sombres il produisait un éclair. On le repeint dans le bleu nuit. */
+#loaddiv{
+  background-color:#0B2239 !important;
+  background-image:
+    radial-gradient(60% 60% at 50% 45%, rgba(34,197,214,.16), transparent 70%) !important;
+}
+#loaddivbarre{ background-color:transparent !important; }
+
+/* Enchaînement des diapositives.
+   Le fondu natif du moteur emprunte un chemin de code qui dépend d'une
+   bibliothèque absente de l'export : l'apparition est donc animée ici,
+   sur l'opacité seule — pas de transform, qui décalerait brièvement la
+   correspondance entre le clic et les coordonnées du personnage. */
+@keyframes epos-entree{
+  from{ opacity:0; }
+  to  { opacity:1; }
+}
+@keyframes epos-entree-contenu{
+  from{ opacity:0; }
+  to  { opacity:1; }
+}
+#main.epos-entree{ animation:epos-entree .34s ease-out both; }
+#main.epos-entree #colorfond{ animation:epos-entree-contenu .46s ease-out both; }
+@media (prefers-reduced-motion:reduce){
+  #main.epos-entree,
+  #main.epos-entree #colorfond{ animation:none !important; }
+}
 /* fine ligne lumineuse en haut de la scène : effet « verre » */
 #main::after{
   content:"";
@@ -446,7 +474,9 @@ div[class^="RptvertiBar"]{
 /* histogramme du bilan : palette cohérente avec l'interface */
 .blocbarre1{ border-bottom-color:rgba(11,34,57,.18) !important; }
 .rptColHorizon{
-  color:var(--epos-texte-doux) !important;
+  /* graduations de l'histogramme : le gris moyen passait tout juste le
+     seuil de lisibilité sur le fond blanc du bilan */
+  color:var(--epos-encre) !important;
   border-color:rgba(11,34,57,.09) !important;
   font-family:var(--epos-mono) !important;
   font-size:10px !important;

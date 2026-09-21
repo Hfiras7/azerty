@@ -204,13 +204,4 @@
 <field2></field2>
 <contenu7></contenu7>
 </bloc>
-<bloc><type>text</type>
-<fontsize>13</fontsize>
-<x>-2</x><y>-2</y><w>230</w><h>28</h><x2>-2</x2><y2>-2</y2><w2>230</w2><h2>28</h2><align>Center</align><text><![CDATA[<a target='_blank' href='https://www.ludiscape.com/tarifs.php' style='color:white;' >Ludiscape</a> version demo]]></text>
-<data></data><src></src>
-<color>white</color>
-<css>background-color:#0489B1;border:solid 0px black;border-radius:2px;</css>
-<ind>4</ind>
-<cssadd></cssadd><an>3</an><de>2500</de><domaine></domaine>
-</bloc>
 </d>

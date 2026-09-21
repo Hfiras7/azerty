@@ -31,7 +31,7 @@
 <ids></ids><st></st><x>490</x><y>341</y><w>81</w><h>58</h><x2>200</x2><y2>341</y2><w2>81</w2><h2>58</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bcbullewhite</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<font color=black>3</font><BR>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>Red</color><align>Center</align>
 <css>border: solid 1px #487BA8;background-color:#A5A5A5;</css><ind>1</ind></bloc><bloc><type>text</type>
 <fts>24</fts><fts2>24</fts2>
-<ids></ids><st></st><x>89</x><y>104</y><w>530</w><h>68</h><x2>-25</x2><y2>104</y2><w2>530</w2><h2>68</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#000000;"><p ><span style="font-weight:bold;"><span>Cette station &eacute;value 6 concepts :</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#393939</color><align>LeftBottom</align>
+<ids></ids><st></st><x>89</x><y>104</y><w>530</w><h>68</h><x2>-25</x2><y2>104</y2><w2>530</w2><h2>68</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><boite>bdbulleTitle</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><tx><![CDATA[<div style="font-style:normal;font-weight:normal;color:#FFFFFF;text-shadow:0 2px 12px rgba(2,14,26,.92), 0 1px 3px rgba(2,14,26,.9);"><p ><span style="font-weight:bold;"><span>Cette station &eacute;value 6 concepts :</span></span></p></div>]]></tx><tx3>txneo21</tx3><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#FFFFFF</color><align>LeftBottom</align>
 <css>padding-left:0.8em;border-bottom: solid 2px #0B243B;</css><ind>2</ind></bloc><bloc><type>gameherotarget</type>
 <fts>20</fts><fts2>20</fts2>
 <x>800,5</x><y>523,5</y><w>241</w><h>371</h><x2>0</x2><y2>0</y2><w2>0</w2><h2>0</h2><ids>hero</ids><data><![CDATA[]]></data>
@@ -68,14 +68,5 @@
 <contenu5>1</contenu5>
 <color>White</color>
 <ind>3</ind>
-</bloc>
-<bloc><type>text</type>
-<fontsize>13</fontsize>
-<x>-2</x><y>-2</y><w>230</w><h>28</h><x2>-2</x2><y2>-2</y2><w2>230</w2><h2>28</h2><align>Center</align><text><![CDATA[<a target='_blank' href='https://www.ludiscape.com/tarifs.php' style='color:white;' >Ludiscape</a> version demo]]></text>
-<data></data><src></src>
-<color>white</color>
-<css>background-color:#0489B1;border:solid 0px black;border-radius:2px;</css>
-<ind>4</ind>
-<cssadd></cssadd><an>3</an><de>2500</de><domaine></domaine>
 </bloc>
 </d>

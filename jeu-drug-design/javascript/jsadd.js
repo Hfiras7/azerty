@@ -285,6 +285,27 @@ LUDIguid='pxzmzfc36860120241';
     nettoyerBilan();
   }
 
+  /* =====================================================================
+     3. Enchaînement des diapositives
+     Le moteur reconstruit entièrement #main à chaque changement de page.
+     On repère cette reconstruction et on relance une courte apparition
+     en fondu : le passage d'une diapositive à l'autre devient continu,
+     sans solliciter la transition native du moteur.
+     ===================================================================== */
+  var minuterieEntree = null;
+
+  function jouerEntree(principal) {
+    if (reduitLeMouvement) return;
+    principal.className = principal.className.replace(/\bepos-entree\b/g, '').trim();
+    // forcer un reflux pour que l'animation reparte à zéro
+    void principal.offsetWidth;
+    principal.className = (principal.className + ' epos-entree').trim();
+    if (minuterieEntree) window.clearTimeout(minuterieEntree);
+    minuterieEntree = window.setTimeout(function () {
+      principal.className = principal.className.replace(/\bepos-entree\b/g, '').trim();
+    }, 520);
+  }
+
   function demarrer() {
     installerDecor();
     surveiller();
@@ -292,7 +313,15 @@ LUDIguid='pxzmzfc36860120241';
     if (window.MutationObserver) {
       var principal = document.getElementById('main');
       if (principal) {
-        new MutationObserver(surveiller).observe(principal,
+        new MutationObserver(function (mutations) {
+          surveiller();
+          // une reconstruction de page ajoute plusieurs éléments d'un coup ;
+          // un simple changement d'attribut n'en ajoute aucun
+          var reconstruction = mutations.some(function (m) {
+            return m.type === 'childList' && m.addedNodes.length >= 3;
+          });
+          if (reconstruction) jouerEntree(principal);
+        }).observe(principal,
           { childList: true, subtree: false, attributes: true, attributeFilter: ['style'] });
       }
     }

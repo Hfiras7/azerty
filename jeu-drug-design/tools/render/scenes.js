@@ -288,6 +288,59 @@ function construireLabo(scene, renderer, L, H) {
   // Pas de mur latéral : vu sous cet angle il n'apparaît que par la
   // tranche, en aplat noir. Le dégradé de fond ferme mieux le cadrage.
 
+  /* ---- porte d'entrée du laboratoire ----
+     Elle donne sa logique spatiale à la diapositive d'accueil : le
+     pharmacien apparaît devant elle, puis rejoint le poste de travail.
+     Placée à gauche, hors de l'emprise de la paillasse. */
+  const porte = new THREE.Group();
+  const PX = -15.5, PZ = -8.6;
+
+  const chambranle = new THREE.Mesh(new THREE.BoxGeometry(3.5, 5.6, 0.34),
+    new THREE.MeshStandardMaterial({ color: 0x0D2B40, metalness: 0.3, roughness: 0.6 }));
+  chambranle.position.set(0, 2.8, 0);
+  chambranle.castShadow = true; chambranle.receiveShadow = true;
+  porte.add(chambranle);
+
+  const vantail = new THREE.Mesh(new THREE.BoxGeometry(2.9, 5.1, 0.16),
+    new THREE.MeshStandardMaterial({ color: 0xD3E2EC, metalness: 0.1, roughness: 0.62 }));
+  vantail.position.set(0, 2.55, 0.16);
+  vantail.castShadow = true;
+  porte.add(vantail);
+
+  // hublot vitré, typique d'une porte de laboratoire
+  const hublot = new THREE.Mesh(new THREE.BoxGeometry(1.5, 2.1, 0.06),
+    new THREE.MeshStandardMaterial({ color: 0x8FC9DA, metalness: 0.1, roughness: 0.1,
+      transparent: true, opacity: 0.55 }));
+  hublot.position.set(0, 3.45, 0.24);
+  porte.add(hublot);
+  const cadreHublot = new THREE.Mesh(new THREE.BoxGeometry(1.7, 2.3, 0.05),
+    new THREE.MeshStandardMaterial({ color: 0x9FB4C2, metalness: 0.4, roughness: 0.4 }));
+  cadreHublot.position.set(0, 3.45, 0.2);
+  porte.add(cadreHublot);
+
+  const poignee = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.5, 14),
+    new THREE.MeshStandardMaterial({ color: 0x9CB2C0, metalness: 0.75, roughness: 0.28 }));
+  poignee.position.set(1.15, 2.4, 0.3);
+  poignee.rotation.z = Math.PI / 2;
+  porte.add(poignee);
+
+  // plaque de signalisation
+  const plaque = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.42, 0.04),
+    new THREE.MeshStandardMaterial({ color: PALETTE.teal, metalness: 0.3, roughness: 0.45 }));
+  plaque.position.set(0, 1.5, 0.25);
+  porte.add(plaque);
+
+  porte.position.set(PX, 0, PZ);
+  porte.rotation.y = 0.06;
+  scene.add(porte);
+
+  // filet de lumière au sol devant la porte : indique le point d'entrée
+  const seuil = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 2.6),
+    new THREE.MeshBasicMaterial({ color: PALETTE.tealClair, transparent: true, opacity: 0.09 }));
+  seuil.rotation.x = -Math.PI / 2;
+  seuil.position.set(PX, 0.02, PZ + 1.9);
+  scene.add(seuil);
+
   // bandeau lumineux mural
   const bandeau = new THREE.Mesh(new THREE.BoxGeometry(26, 0.16, 0.1),
     new THREE.MeshBasicMaterial({ color: PALETTE.tealClair, transparent: true, opacity: 0.55 }));
