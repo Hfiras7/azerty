@@ -22,7 +22,7 @@ window.__rendu = function (nom, L, H, transparent) {
 window.__perso = function (L, H, direction, phase, repos) {
   const scene = new THREE.Scene();
   const renderer = creerRendu(L, H, true);
-  bancEclairage(scene, { intensite: 1.05 });
+  bancPersonnage(scene);
   const p = pharmacien(window.__variante || {});
   poserPharmacien(p, phase, repos);
   // orientation : 0 = face, 1 = dos, 2 = gauche, 3 = droite
@@ -40,22 +40,25 @@ window.__perso = function (L, H, direction, phase, repos) {
 window.__presente = function (L, H, phase) {
   const scene = new THREE.Scene();
   const renderer = creerRendu(L, H, true);
-  bancEclairage(scene, { intensite: 1.05 });
+  bancPersonnage(scene);
   const p = pharmacien({ feminin: true, cheveux: 0x4A2F22,
                          chemise: 0x6D5FE0, pantalon: 0x1C3348 });
   const u = p.userData;
   const a = phase * Math.PI * 2;
   poserPharmacien(p, 0, true);
-  // geste d'explication : bras droit qui accompagne la parole
-  u.brasD.rotation.x = -0.55 - Math.sin(a) * 0.18;
-  u.brasD.rotation.z = -0.42;
-  u.brasD.userData.coude.rotation.x = -1.15 - Math.cos(a) * 0.22;
-  u.brasG.rotation.x = 0.16;
-  u.brasG.userData.coude.rotation.x = -0.35;
-  u.tete.rotation.y = Math.sin(a) * 0.09;
-  u.tete.rotation.x = Math.sin(a * 2 + 1) * 0.035;
-  u.torse.rotation.y = 0.12 + Math.sin(a) * 0.03;
-  p.rotation.y = -0.22;
+  // geste d'explication : l'avant-bras s'ouvre vers le joueur, paume
+  // offerte. Une rotation z négative ramenait la main devant la poitrine.
+  u.brasD.rotation.x = -0.42 - Math.sin(a) * 0.12;
+  u.brasD.rotation.z = 0.26 + Math.sin(a) * 0.05;
+  u.brasD.userData.coude.rotation.x = -0.95 - Math.cos(a) * 0.16;
+  u.brasD.userData.coude.rotation.z = -0.2;
+  u.brasG.rotation.x = 0.14 + Math.sin(a) * 0.04;
+  u.brasG.rotation.z = 0.07;
+  u.brasG.userData.coude.rotation.x = -0.38;
+  u.tete.rotation.y = 0.06 + Math.sin(a) * 0.07;
+  u.tete.rotation.x = Math.sin(a * 2 + 1) * 0.03;
+  u.torse.rotation.y = 0.1 + Math.sin(a) * 0.03;
+  p.rotation.y = -0.2;
   scene.add(p);
   const cam = new THREE.PerspectiveCamera(26, L / H, 0.1, 40);
   cam.position.set(0, 1.05, 5.65);

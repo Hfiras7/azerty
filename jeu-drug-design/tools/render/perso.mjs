@@ -6,7 +6,8 @@ import { dirname, resolve } from 'node:path';
 const ICI = dirname(new URL(import.meta.url).pathname);
 const L = parseInt(process.argv[2] || '482', 10);   // 2x 241
 const H = parseInt(process.argv[3] || '742', 10);   // 2x 371
-const IMAGES = parseInt(process.argv[4] || '8', 10);
+const IMAGES = parseInt(process.argv[4] || '12', 10);  // 12 images : la marche
+                                                      // reste fluide sans alourdir
 
 const navigateur = await chromium.launch({
   args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader']
@@ -34,7 +35,7 @@ for (const dir of ['bas', 'haut', 'gauche', 'droite']) {
 }
 // pharmacienne : boucle de présentation pour la diapositive d'accueil
 {
-  const nb = 10;
+  const nb = 14;
   for (let i = 0; i < nb; i++) {
     // cadre plus large que celui de la marche : le bloc de la diapositive
     // d'accueil a un rapport 157x216, on évite ainsi toute déformation

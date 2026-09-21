@@ -420,7 +420,7 @@ function arrierePlanMoleculaire(scene, def, nb, rayon, yBase) {
 function surfaceProteique(opts) {
   opts = opts || {};
   const rayon = opts.rayon || 2.2;
-  const geo = new THREE.IcosahedronGeometry(rayon, 6);
+  const geo = new THREE.SphereGeometry(rayon, 128, 88);
   const pos = geo.attributes.position;
   const pocheDir = (opts.poche || new THREE.Vector3(0.15, 0.9, 0.4)).clone().normalize();
   const v = new THREE.Vector3();
@@ -456,18 +456,28 @@ function surfaceProteique(opts) {
   g.add(externe);
 
   // cœur opaque : donne du corps à la surface translucide
-  const coeur = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(rayon * 0.82, 3),
-    new THREE.MeshStandardMaterial({ color: 0x113D52, metalness: 0.2, roughness: 0.75 }));
+  const geoCoeur = new THREE.SphereGeometry(rayon * 0.8, 72, 48);
+  const pc = geoCoeur.attributes.position, vc = new THREE.Vector3();
+  for (let i = 0; i < pc.count; i++) {
+    vc.fromBufferAttribute(pc, i);
+    const n = vc.clone().normalize();
+    const d = 0.18 * Math.sin(n.x * 3.1 + 0.7) * Math.cos(n.y * 2.7)
+            + 0.1 * Math.sin(n.y * 5.3 + 1.9) * Math.cos(n.z * 4.1);
+    vc.setLength(rayon * 0.8 + d);
+    pc.setXYZ(i, vc.x, vc.y, vc.z);
+  }
+  geoCoeur.computeVertexNormals();
+  const coeur = new THREE.Mesh(geoCoeur,
+    new THREE.MeshStandardMaterial({ color: 0x0D3145, metalness: 0.15, roughness: 0.82 }));
   g.add(coeur);
 
   // quelques hélices affleurantes, pour la lecture « protéine »
   if (opts.helices !== 0) {
     for (let k = 0; k < 3; k++) {
-      const h = rubanHelice({ tours: 1.6, rayon: 0.42, pas: 0.58,
-                              epaisseur: 0.14, couleur: PALETTE.tealClair });
+      const h = rubanHelice({ tours: 1.3, rayon: 0.3, pas: 0.44,
+                              epaisseur: 0.09, couleur: PALETTE.tealClair });
       const a = k * 2.1 + 0.6;
-      h.position.set(Math.cos(a) * rayon * 0.72, -rayon * 0.15 + k * 0.3, Math.sin(a) * rayon * 0.72);
+      h.position.set(Math.cos(a) * rayon * 0.5, -rayon * 0.12 + k * 0.26, Math.sin(a) * rayon * 0.5);
       h.rotation.set(0.5 + k * 0.3, a, 0.4);
       g.add(h);
     }
@@ -492,4 +502,347 @@ function cheminPointille(points, couleur, rayon, nb) {
     g.add(m);
   }
   return g;
+}
+
+/* =====================================================================
+   Textures procédurales
+   Dessinées sur une toile 2D puis utilisées comme carte de couleur et de
+   rugosité. Elles suffisent à casser l'aspect « plastique » des aplats,
+   sans dépendre d'aucun fichier externe. Les scènes étant calculées hors
+   ligne puis exportées en image, leur coût n'existe pas au moment du jeu.
+   ===================================================================== */
+
+function _toile2D(taille) {
+  const c = document.createElement('canvas');
+  c.width = c.height = taille;
+  return c;
+}
+
+function _grain(ctx, taille, intensite, densite) {
+  const img = ctx.getImageData(0, 0, taille, taille);
+  const d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    if (Math.random() > densite) continue;
+    const v = (Math.random() - 0.5) * intensite;
+    d[i] = Math.max(0, Math.min(255, d[i] + v));
+    d[i + 1] = Math.max(0, Math.min(255, d[i + 1] + v));
+    d[i + 2] = Math.max(0, Math.min(255, d[i + 2] + v));
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+function _finaliser(canvas, repetitions) {
+  const t = new THREE.CanvasTexture(canvas);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(repetitions[0], repetitions[1]);
+  t.anisotropy = 8;
+  return t;
+}
+
+/* Sol : résine coulée, dalles larges, joints discrets, reflets irréguliers. */
+function textureSol(repetitions) {
+  const T = 512, c = _toile2D(T), x = c.getContext('2d');
+  x.fillStyle = '#0C2438'; x.fillRect(0, 0, T, T);
+  // marbrures
+  for (let i = 0; i < 90; i++) {
+    const g = x.createRadialGradient(Math.random() * T, Math.random() * T, 2,
+                                     Math.random() * T, Math.random() * T, 40 + Math.random() * 90);
+    g.addColorStop(0, 'rgba(38,84,116,0.20)');
+    g.addColorStop(1, 'rgba(38,84,116,0)');
+    x.fillStyle = g; x.fillRect(0, 0, T, T);
+  }
+  _grain(x, T, 16, 0.5);
+  // joints de dalles
+  x.strokeStyle = 'rgba(6,18,30,0.55)'; x.lineWidth = 2;
+  x.beginPath(); x.moveTo(0, T / 2); x.lineTo(T, T / 2);
+  x.moveTo(T / 2, 0); x.lineTo(T / 2, T); x.stroke();
+
+  const r = _toile2D(T), xr = r.getContext('2d');
+  xr.fillStyle = '#4a4a4a'; xr.fillRect(0, 0, T, T);
+  for (let i = 0; i < 60; i++) {
+    const g = xr.createRadialGradient(Math.random() * T, Math.random() * T, 4,
+                                      Math.random() * T, Math.random() * T, 60 + Math.random() * 110);
+    g.addColorStop(0, 'rgba(150,150,150,0.5)');
+    g.addColorStop(1, 'rgba(150,150,150,0)');
+    xr.fillStyle = g; xr.fillRect(0, 0, T, T);
+  }
+  return { map: _finaliser(c, repetitions), roughnessMap: _finaliser(r, repetitions) };
+}
+
+/* Plan de travail : stratifié minéral sombre, finement moucheté. */
+function texturePlanTravail(repetitions) {
+  const T = 512, c = _toile2D(T), x = c.getContext('2d');
+  x.fillStyle = '#12304A'; x.fillRect(0, 0, T, T);
+  for (let i = 0; i < 2600; i++) {
+    const r = 0.6 + Math.random() * 1.9;
+    x.fillStyle = ['rgba(180,205,222,0.30)', 'rgba(30,64,92,0.55)',
+                   'rgba(120,160,190,0.22)'][i % 3];
+    x.beginPath(); x.arc(Math.random() * T, Math.random() * T, r, 0, 6.3); x.fill();
+  }
+  _grain(x, T, 10, 0.6);
+  const r = _toile2D(T), xr = r.getContext('2d');
+  xr.fillStyle = '#3c3c3c'; xr.fillRect(0, 0, T, T);
+  _grain(xr, T, 40, 0.8);
+  return { map: _finaliser(c, repetitions), roughnessMap: _finaliser(r, repetitions) };
+}
+
+/* Mur : peinture satinée, très légère variation verticale. */
+function textureMur(repetitions) {
+  const T = 512, c = _toile2D(T), x = c.getContext('2d');
+  const g = x.createLinearGradient(0, 0, 0, T);
+  g.addColorStop(0, '#0E2E45'); g.addColorStop(1, '#0A2537');
+  x.fillStyle = g; x.fillRect(0, 0, T, T);
+  _grain(x, T, 7, 0.35);
+  return { map: _finaliser(c, repetitions) };
+}
+
+/* Façade de meuble : laqué clair, reflet doux. */
+function textureMeuble(repetitions) {
+  const T = 256, c = _toile2D(T), x = c.getContext('2d');
+  const g = x.createLinearGradient(0, 0, 0, T);
+  g.addColorStop(0, '#D6E3EC'); g.addColorStop(0.6, '#C6D6E1'); g.addColorStop(1, '#B9CBD8');
+  x.fillStyle = g; x.fillRect(0, 0, T, T);
+  _grain(x, T, 5, 0.3);
+  return { map: _finaliser(c, repetitions) };
+}
+
+/* Dalle d'écran : interface de modélisation moléculaire. */
+function textureEcranDocking(largeur, hauteur) {
+  const W = largeur || 1024, H = hauteur || 640;
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const x = c.getContext('2d');
+
+  const fond = x.createLinearGradient(0, 0, 0, H);
+  fond.addColorStop(0, '#07243A'); fond.addColorStop(1, '#041A2B');
+  x.fillStyle = fond; x.fillRect(0, 0, W, H);
+
+  // barre d'outils
+  x.fillStyle = '#0C3550'; x.fillRect(0, 0, W, H * 0.09);
+  for (let i = 0; i < 7; i++) {
+    x.fillStyle = i === 2 ? '#22C5D6' : '#2A5E7E';
+    x.fillRect(W * 0.02 + i * W * 0.045, H * 0.028, W * 0.032, H * 0.035);
+  }
+  // panneau latéral
+  x.fillStyle = 'rgba(12,53,80,0.85)'; x.fillRect(W * 0.72, H * 0.09, W * 0.28, H * 0.91);
+  for (let i = 0; i < 9; i++) {
+    x.fillStyle = 'rgba(150,190,215,0.35)';
+    x.fillRect(W * 0.745, H * 0.15 + i * H * 0.075, W * 0.2 * (0.4 + Math.random() * 0.6), H * 0.02);
+  }
+  // grille de docking
+  x.strokeStyle = 'rgba(34,197,214,0.22)'; x.lineWidth = 1;
+  for (let i = 0; i <= 12; i++) {
+    x.beginPath(); x.moveTo(W * 0.05 + i * W * 0.052, H * 0.16);
+    x.lineTo(W * 0.05 + i * W * 0.052, H * 0.92); x.stroke();
+  }
+  for (let i = 0; i <= 8; i++) {
+    x.beginPath(); x.moveTo(W * 0.05, H * 0.16 + i * H * 0.095);
+    x.lineTo(W * 0.68, H * 0.16 + i * H * 0.095); x.stroke();
+  }
+  // molécule schématique au centre
+  const cx = W * 0.36, cy = H * 0.54, R = H * 0.19;
+  const noeuds = [];
+  for (let i = 0; i < 6; i++) {
+    const a = i * Math.PI / 3;
+    noeuds.push([cx + Math.cos(a) * R, cy + Math.sin(a) * R * 0.92]);
+  }
+  x.strokeStyle = '#BFD9E8'; x.lineWidth = Math.max(2, H * 0.008);
+  x.beginPath();
+  noeuds.forEach(function (n, i) { i ? x.lineTo(n[0], n[1]) : x.moveTo(n[0], n[1]); });
+  x.closePath(); x.stroke();
+  noeuds.forEach(function (n, i) {
+    x.fillStyle = i % 3 === 0 ? '#22C5D6' : (i === 2 ? '#E8686C' : '#9FB6C9');
+    x.beginPath(); x.arc(n[0], n[1], H * 0.032, 0, 6.3); x.fill();
+  });
+  // isosurface suggérée
+  x.strokeStyle = 'rgba(109,95,224,0.5)'; x.lineWidth = Math.max(1, H * 0.005);
+  x.beginPath(); x.ellipse(cx, cy, R * 1.7, R * 1.45, 0.3, 0, 6.3); x.stroke();
+
+  const t = new THREE.CanvasTexture(c);
+  t.encoding = THREE.sRGBEncoding;
+  return t;
+}
+
+/* Dalle d'écran : courbes et indicateurs ADMET. */
+function textureEcranAnalyse(largeur, hauteur) {
+  const W = largeur || 1024, H = hauteur || 640;
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const x = c.getContext('2d');
+  const fond = x.createLinearGradient(0, 0, 0, H);
+  fond.addColorStop(0, '#08283D'); fond.addColorStop(1, '#051B2B');
+  x.fillStyle = fond; x.fillRect(0, 0, W, H);
+  x.fillStyle = '#0C3550'; x.fillRect(0, 0, W, H * 0.1);
+  x.fillStyle = '#22C5D6'; x.fillRect(W * 0.03, H * 0.035, W * 0.16, H * 0.03);
+
+  // histogramme
+  const couleurs = ['#22C5D6', '#6D5FE0', '#E8971A', '#23A572', '#4E8FC0'];
+  for (let i = 0; i < 5; i++) {
+    const h = H * (0.18 + Math.abs(Math.sin(i * 1.8)) * 0.42);
+    x.fillStyle = couleurs[i];
+    x.fillRect(W * 0.08 + i * W * 0.085, H * 0.86 - h, W * 0.055, h);
+  }
+  // courbe
+  x.strokeStyle = '#8FD4E4'; x.lineWidth = Math.max(2, H * 0.006);
+  x.beginPath();
+  for (let i = 0; i <= 40; i++) {
+    const px = W * 0.56 + (i / 40) * W * 0.38;
+    const py = H * 0.62 - Math.sin(i * 0.32) * H * 0.16 - i * H * 0.004;
+    i ? x.lineTo(px, py) : x.moveTo(px, py);
+  }
+  x.stroke();
+  // lignes de texte
+  for (let i = 0; i < 6; i++) {
+    x.fillStyle = 'rgba(150,190,215,0.32)';
+    x.fillRect(W * 0.56, H * 0.72 + i * H * 0.04, W * 0.32 * (0.45 + Math.random() * 0.55), H * 0.016);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.encoding = THREE.sRGBEncoding;
+  return t;
+}
+
+/* Affiche scientifique encadrée : schéma d'amarrage ou d'étude SAR.
+   Les libellés restent courts et génériques : ce sont des éléments de
+   décor, jamais du contenu pédagogique. */
+function textureAffiche(variante) {
+  const W = 700, H = 980;
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const x = c.getContext('2d');
+
+  const fond = x.createLinearGradient(0, 0, 0, H);
+  fond.addColorStop(0, '#0B2F48'); fond.addColorStop(1, '#072133');
+  x.fillStyle = fond; x.fillRect(0, 0, W, H);
+  x.strokeStyle = 'rgba(34,197,214,0.35)'; x.lineWidth = 6;
+  x.strokeRect(18, 18, W - 36, H - 36);
+
+  x.fillStyle = '#22C5D6';
+  x.font = 'bold 44px DejaVu Sans, sans-serif';
+  x.textAlign = 'center';
+
+  if (variante === 'sar') {
+    x.fillText('STRUCTURE', W / 2, 108);
+    x.fillText('ACTIVITÉ', W / 2, 158);
+    // série de molécules schématiques en colonnes
+    for (let r = 0; r < 3; r++) {
+      for (let k = 0; k < 3; k++) {
+        const cx = 160 + k * 190, cy = 300 + r * 210, R = 52;
+        x.strokeStyle = 'rgba(200,222,236,0.85)'; x.lineWidth = 5;
+        x.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const a = i * Math.PI / 3;
+          const px = cx + Math.cos(a) * R, py = cy + Math.sin(a) * R;
+          i ? x.lineTo(px, py) : x.moveTo(px, py);
+        }
+        x.closePath(); x.stroke();
+        x.fillStyle = ['#22C5D6', '#E8971A', '#6D5FE0'][(r + k) % 3];
+        x.beginPath(); x.arc(cx + R, cy, 15, 0, 6.3); x.fill();
+        // barre d'activité sous chaque analogue
+        x.fillStyle = 'rgba(35,165,114,0.75)';
+        x.fillRect(cx - 52, cy + 72, 104 * (0.35 + ((r * 3 + k) % 4) * 0.2), 12);
+      }
+    }
+  } else {
+    x.fillText('AMARRAGE', W / 2, 108);
+    x.fillText('MOLÉCULAIRE', W / 2, 158);
+    // poche de liaison en courbes de niveau, ligand au centre
+    const cx = W / 2, cy = 520;
+    for (let i = 7; i >= 1; i--) {
+      x.strokeStyle = 'rgba(34,197,214,' + (0.10 + i * 0.045) + ')';
+      x.lineWidth = 3;
+      x.beginPath();
+      for (let a = 0; a <= 64; a++) {
+        const t = a / 64 * Math.PI * 2;
+        const rr = i * 34 * (1 + 0.22 * Math.sin(t * 3 + i) + 0.12 * Math.cos(t * 5));
+        const px = cx + Math.cos(t) * rr, py = cy + Math.sin(t) * rr * 0.8;
+        a ? x.lineTo(px, py) : x.moveTo(px, py);
+      }
+      x.closePath(); x.stroke();
+    }
+    const n = [[0, -50], [44, -25], [44, 25], [0, 50], [-44, 25], [-44, -25]];
+    x.strokeStyle = '#DCEAF4'; x.lineWidth = 7;
+    x.beginPath();
+    n.forEach(function (p, i) { i ? x.lineTo(cx + p[0], cy + p[1]) : x.moveTo(cx + p[0], cy + p[1]); });
+    x.closePath(); x.stroke();
+    n.forEach(function (p, i) {
+      x.fillStyle = i === 1 ? '#E8686C' : (i === 4 ? '#22C5D6' : '#B9CCDC');
+      x.beginPath(); x.arc(cx + p[0], cy + p[1], 20, 0, 6.3); x.fill();
+    });
+    // barre d'énergie de liaison
+    x.fillStyle = 'rgba(150,190,215,0.28)'; x.fillRect(90, 820, W - 180, 20);
+    x.fillStyle = '#E8971A'; x.fillRect(90, 820, (W - 180) * 0.68, 20);
+  }
+
+  const t = new THREE.CanvasTexture(c);
+  t.encoding = THREE.sRGBEncoding;
+  t.anisotropy = 8;
+  return t;
+}
+
+/* Banc d'éclairage dédié aux personnages.
+   Le banc générique, réglé pour des objets brillants, brûlait la blouse
+   et le visage. Ici la clé est plus douce, le remplissage plus présent,
+   et deux contre-jours détachent la silhouette du décor sur lequel elle
+   sera incrustée. */
+function bancPersonnage(scene) {
+  scene.add(new THREE.HemisphereLight(0xC3D9E8, 0x16232F, 0.48));
+
+  const cle = new THREE.DirectionalLight(0xFFF6EC, 0.82);
+  cle.position.set(-3.4, 5.2, 5.0);
+  cle.castShadow = true;
+  cle.shadow.mapSize.set(2048, 2048);
+  cle.shadow.camera.near = 0.5; cle.shadow.camera.far = 20;
+  cle.shadow.camera.left = -2.5; cle.shadow.camera.right = 2.5;
+  cle.shadow.camera.top = 3; cle.shadow.camera.bottom = -1;
+  cle.shadow.bias = -0.0015;
+  cle.shadow.radius = 3;
+  scene.add(cle);
+
+  const remplissage = new THREE.DirectionalLight(0xBBD3E4, 0.34);
+  remplissage.position.set(4.2, 1.6, 3.6);
+  scene.add(remplissage);
+
+  const rimTeal = new THREE.DirectionalLight(PALETTE.tealClair, 0.52);
+  rimTeal.position.set(3.6, 3.0, -4.2);
+  scene.add(rimTeal);
+
+  const rimViolet = new THREE.DirectionalLight(PALETTE.violet, 0.3);
+  rimViolet.position.set(-3.8, 2.2, -3.6);
+  scene.add(rimViolet);
+
+  const sol = new THREE.DirectionalLight(0x86A6BE, 0.14);
+  sol.position.set(0, -4, 2.5);
+  scene.add(sol);
+}
+
+/* Halo doux : disque dégradé utilisé pour les points de lumière hors mise
+   au point des écrans de transition. */
+let _texHalo = null;
+function textureHalo() {
+  if (_texHalo) return _texHalo;
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, 'rgba(255,255,255,1)');
+  g.addColorStop(0.45, 'rgba(255,255,255,0.35)');
+  g.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  _texHalo = new THREE.CanvasTexture(c);
+  return _texHalo;
+}
+
+/* Points de lumière hors mise au point : ils donnent de la profondeur à
+   un fond qui, sans eux, reste une surface vide. */
+function bokeh(scene, taches) {
+  const tex = textureHalo();
+  const geo = new THREE.PlaneGeometry(1, 1);
+  taches.forEach(function (t) {
+    const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+      map: tex, color: t.c, transparent: true, opacity: t.o,
+      blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
+    m.position.set(t.x, t.y, t.z);
+    m.scale.setScalar(t.r);
+    scene.add(m);
+  });
 }

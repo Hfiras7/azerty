@@ -14,7 +14,7 @@ from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'tools', 'render', 'out', 'perso')
 DST = os.path.join(ROOT, 'images')
-DUREE = 120  # ms par image, valeur d'origine du jeu
+CYCLE = 960  # durée d'un cycle de marche (ms), valeur d'origine du jeu
 
 
 def charger(nom):
@@ -39,8 +39,11 @@ def main():
         # disposal=2 (effacement du fond), les parties immobiles — les
         # jambes — disparaissaient dès la deuxième image. On écrit donc des
         # images pleines qui remplacent intégralement la précédente.
+        # la cadence s'adapte au nombre d'images : le cycle garde la même
+        # durée, quel que soit le nombre de poses rendues
+        duree = max(40, round(CYCLE / len(images)))
         images[0].save(chemin, save_all=True, append_images=images[1:],
-                       duration=DUREE, loop=0, optimize=False,
+                       duration=duree, loop=0, optimize=False,
                        disposal=1, blend=0)
         taille = os.path.getsize(chemin)
         print(f'{sortie:24s} {len(images)} images, {images[0].size}, {taille//1024} Kio')
@@ -54,7 +57,8 @@ def presentation():
     images = [Image.open(f).convert('RGBA') for f in fichiers]
     chemin = os.path.join(DST, 'pharmacienne-presente.png')
     images[0].save(chemin, save_all=True, append_images=images[1:],
-                   duration=140, loop=0, optimize=False, disposal=1, blend=0)
+                   duration=max(40, round(1400 / len(images))), loop=0,
+                   optimize=False, disposal=1, blend=0)
     print(f"pharmacienne-presente.png {len(images)} images, {images[0].size}, "
           f"{os.path.getsize(chemin)//1024} Kio")
 
