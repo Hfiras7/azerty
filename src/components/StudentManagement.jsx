@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react';
 import { importFromCSV, importFromExcel } from '../utils/exportUtils';
+import { createStudent, importStudents, deleteStudent } from '../config/supabase';
 import './StudentManagement.css';
 
-const StudentManagement = ({ students, setStudents }) => {
+const StudentManagement = ({ examId, students, onRefresh }) => {
   const [newStudent, setNewStudent] = useState({
     lastName: '',
     firstName: '',
@@ -13,7 +14,7 @@ const StudentManagement = ({ students, setStudents }) => {
   const fileInputRef = useRef(null);
 
   // Ajouter un étudiant manuellement
-  const handleAddStudent = (e) => {
+  const handleAddStudent = async (e) => {
     e.preventDefault();
 
     if (!newStudent.lastName || !newStudent.firstName) {
@@ -21,21 +22,42 @@ const StudentManagement = ({ students, setStudents }) => {
       return;
     }
 
-    const student = {
-      id: Date.now(),
-      lastName: newStudent.lastName.trim(),
-      firstName: newStudent.firstName.trim(),
-      number: newStudent.number.trim() || `${students.length + 1}`
-    };
+    try {
+      await createStudent(
+        examId,
+        newStudent.firstName.trim(),
+        newStudent.lastName.trim(),
+        newStudent.number.trim() || `${students.length + 1}`
+      );
 
-    setStudents([...students, student]);
-    setNewStudent({ lastName: '', firstName: '', number: '' });
+      alert('✅ Étudiant ajouté avec succès !');
+      setNewStudent({ lastName: '', firstName: '', number: '' });
+
+      // Rafraîchir la liste
+      if (onRefresh) {
+        await onRefresh();
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout:', error);
+      alert('❌ Erreur lors de l\'ajout de l\'étudiant: ' + error.message);
+    }
   };
 
   // Supprimer un étudiant
-  const handleDeleteStudent = (studentId) => {
+  const handleDeleteStudent = async (studentId) => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?')) {
-      setStudents(students.filter(s => s.id !== studentId));
+      try {
+        await deleteStudent(studentId);
+        alert('✅ Étudiant supprimé avec succès !');
+
+        // Rafraîchir la liste
+        if (onRefresh) {
+          await onRefresh();
+        }
+      } catch (error) {
+        console.error('Erreur lors de la suppression:', error);
+        alert('❌ Erreur lors de la suppression: ' + error.message);
+      }
     }
   };
 
@@ -60,8 +82,14 @@ const StudentManagement = ({ students, setStudents }) => {
       }
 
       if (importedStudents.length > 0) {
-        setStudents([...students, ...importedStudents]);
-        alert(`${importedStudents.length} étudiant(s) importé(s) avec succès`);
+        // Importer dans Supabase
+        await importStudents(examId, importedStudents);
+        alert(`✅ ${importedStudents.length} étudiant(s) importé(s) avec succès`);
+
+        // Rafraîchir la liste
+        if (onRefresh) {
+          await onRefresh();
+        }
       } else {
         alert('Aucun étudiant trouvé dans le fichier');
       }
@@ -77,16 +105,23 @@ const StudentManagement = ({ students, setStudents }) => {
   };
 
   // Filtrer les étudiants par recherche
-  const filteredStudents = students.filter(student =>
-    student.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.number.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredStudents = students.filter(student => {
+    const lastName = (student.last_name || student.lastName || '').toLowerCase();
+    const firstName = (student.first_name || student.firstName || '').toLowerCase();
+    const number = (student.student_number || student.number || '').toLowerCase();
+    const search = searchTerm.toLowerCase();
+    return lastName.includes(search) || firstName.includes(search) || number.includes(search);
+  });
 
   // Exporter la liste des étudiants
   const handleExportStudents = () => {
     const csvContent = 'Nom,Prénom,Numéro\n' +
-      students.map(s => `${s.lastName},${s.firstName},${s.number}`).join('\n');
+      students.map(s => {
+        const lastName = s.last_name || s.lastName;
+        const firstName = s.first_name || s.firstName;
+        const number = s.student_number || s.number;
+        return `${lastName},${firstName},${number}`;
+      }).join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
@@ -188,9 +223,9 @@ const StudentManagement = ({ students, setStudents }) => {
             <tbody>
               {filteredStudents.map(student => (
                 <tr key={student.id}>
-                  <td>{student.number}</td>
-                  <td>{student.lastName}</td>
-                  <td>{student.firstName}</td>
+                  <td>{student.student_number || student.number}</td>
+                  <td>{student.last_name || student.lastName}</td>
+                  <td>{student.first_name || student.firstName}</td>
                   <td>
                     <button
                       className="btn btn-danger btn-sm"

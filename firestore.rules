@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Fonction pour vérifier le rôle
+    function hasRole(role) {
+      return request.auth != null &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+    }
+
+    // Fonction pour vérifier si l'utilisateur est admin master
+    function isAdminMaster() {
+      return hasRole('admin_master');
+    }
+
+    // Fonction pour vérifier si l'utilisateur est admin enseignant
+    function isAdminTeacher() {
+      return hasRole('admin_teacher');
+    }
+
+    // Fonction pour vérifier si l'utilisateur est un utilisateur standard
+    function isUser() {
+      return hasRole('user');
+    }
+
+    // Utilisateurs - Lecture pour tous authentifiés, écriture pour admins
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if isAdminMaster();
+    }
+
+    // Matières - Admin master seulement
+    match /subjects/{subjectId} {
+      allow read: if request.auth != null;
+      allow write: if isAdminMaster();
+    }
+
+    // Examens - Admin master et admin teacher
+    match /exams/{examId} {
+      allow read: if request.auth != null;
+      allow create: if isAdminMaster();
+      allow update, delete: if isAdminMaster() ||
+                               (isAdminTeacher() && resource.data.adminId == request.auth.uid);
+    }
+
+    // Stations - Admin master et admin teacher de l'examen
+    match /stations/{stationId} {
+      allow read: if request.auth != null;
+      allow write: if isAdminMaster() ||
+                      (isAdminTeacher() && get(/databases/$(database)/documents/exams/$(resource.data.examId)).data.adminId == request.auth.uid);
+    }
+
+    // Étudiants - Tous peuvent lire, admins peuvent écrire
+    match /students/{studentId} {
+      allow read: if request.auth != null;
+      allow write: if isAdminMaster() || isAdminTeacher();
+    }
+
+    // Notes - Tous peuvent lire et écrire (avec authentification)
+    match /grades/{gradeId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+  }
+}
