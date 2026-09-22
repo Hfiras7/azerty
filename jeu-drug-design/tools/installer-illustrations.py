@@ -26,6 +26,11 @@ DECORS = [
     ('labo-station.png', 'labo-station.jpg', 'JPEG', 92),
     ('illus-molecule.png', 'illustration-molecule.jpg', 'JPEG', 92),
     ('accueil-identite.png', 'accueil-identite.jpg', 'JPEG', 90),
+] + [
+    # écran de résultat : cinq niveaux x deux personnages
+    (f'final-{n}-{p}.png', f'resultat-{n}-{p}.jpg', 'JPEG', 90)
+    for n in ('100', '80', '60', '45', '0') for p in ('h', 'f')
+] + [
 ]
 ICONES = [
     ('ico-objectifs.png',   'icone-objectifs.png'),
@@ -136,7 +141,7 @@ def installer():
         # transition entre diapositives montre un cadre vide.
         # le fond de l'écran d'identité n'est pas un fond de diapositive :
         # le moteur ne lui demande jamais de vignette basse définition
-        if dst.endswith('.jpg') and dst != 'accueil-identite.jpg':
+        if dst.endswith('.jpg') and not dst.startswith(('accueil-identite', 'resultat-')):
             basse = im.resize((256, 256), Image.LANCZOS)
             chemin_basse = os.path.join(IMG, 'low-' + dst)
             basse.save(chemin_basse, 'JPEG', quality=62, optimize=True)

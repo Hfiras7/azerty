@@ -1064,6 +1064,166 @@ SCENES['labo-station'] = function (scene, renderer, L, H) {
 };
 
 /* =====================================================================
+   Écrans de résultat
+   Cinq niveaux, deux personnages : dix images qui partagent le même
+   laboratoire, le même banc d'éclairage, la même échelle et le même
+   cadrage. Seuls la posture, un accessoire et la teinte d'appoint
+   changent — c'est ce qui les fait appartenir au même jeu.
+   ===================================================================== */
+
+// Le laboratoire est à l'échelle d'une pièce réelle : le plan de travail
+// est à 2,6 unités, soit 0,90 m. Le modèle du personnage mesure 2,05
+// unités ; il faut donc l'agrandir pour qu'il fasse 1,70 m dans la pièce.
+const ECHELLE_PERSO = 2.39;
+
+/* Ardoise de laboratoire : support de lecture des données. */
+function ardoise() {
+  const g = new THREE.Group();
+  const corps = new THREE.Mesh(new THREE.BoxGeometry(0.30, 0.41, 0.022),
+    new THREE.MeshStandardMaterial({ color: 0x1B3242, metalness: 0.5, roughness: 0.35 }));
+  corps.castShadow = true;
+  g.add(corps);
+  const dalle = new THREE.Mesh(new THREE.PlaneGeometry(0.265, 0.365),
+    new THREE.MeshBasicMaterial({ map: textureEcranAnalyse(440, 620) }));
+  dalle.position.z = 0.013;
+  g.add(dalle);
+  return g;
+}
+
+/* Cinq postures. Aucune ne crée ni ne supprime de membre : ce sont les
+   mêmes articulations que pendant la marche, à des angles différents. */
+function poseFinale(perso, niveau) {
+  const u = perso.userData;
+  poserPharmacien(perso, 0, true);
+  const accessoire = { objet: null, bras: null };
+
+  if (niveau === '100') {
+    // aisance : buste droit, tête haute, une main ouverte en présentation
+    u.torse.rotation.y = 0.08;
+    u.tete.rotation.y = -0.1;
+    u.tete.rotation.x = -0.05;
+    u.brasD.rotation.x = -0.62; u.brasD.rotation.z = 0.34;
+    u.brasD.userData.coude.rotation.x = -0.55;
+    u.brasD.userData.coude.rotation.z = -0.28;
+    u.brasG.rotation.x = 0.08; u.brasG.rotation.z = 0.1;
+    u.brasG.userData.coude.rotation.x = -0.26;
+    u.jambeD.rotation.x = -0.07; u.jambeG.rotation.x = 0.05;
+  } else if (niveau === '80') {
+    // confiance tranquille : bras détendus, léger appui sur une jambe
+    u.torse.rotation.y = 0.14;
+    u.tete.rotation.y = -0.16;
+    u.brasG.rotation.x = -0.2; u.brasG.rotation.z = 0.16;
+    u.brasG.userData.coude.rotation.x = -0.62;
+    u.brasD.rotation.x = 0.1; u.brasD.rotation.z = -0.08;
+    u.brasD.userData.coude.rotation.x = -0.3;
+    u.bassin.rotation.z = 0.04;
+    u.jambeG.rotation.x = 0.05; u.jambeD.rotation.x = -0.05;
+  } else if (niveau === '60') {
+    // en activité : le bras tendu vers l'écran de modélisation
+    u.torse.rotation.y = -0.34;
+    u.tete.rotation.y = -0.26;
+    u.brasD.rotation.x = -1.24; u.brasD.rotation.z = 0.1;
+    u.brasD.userData.coude.rotation.x = -0.24;
+    u.brasG.rotation.x = 0.16;
+    u.brasG.userData.coude.rotation.x = -0.34;
+    u.jambeG.rotation.x = 0.1; u.jambeD.rotation.x = -0.1;
+  } else if (niveau === '45') {
+    // étude : l'ardoise tenue à deux mains, regard sur les données
+    u.torse.rotation.x = 0.07;
+    u.torse.rotation.y = 0.08;
+    u.tete.rotation.x = 0.3;
+    u.tete.rotation.y = -0.08;
+    u.brasG.rotation.x = -0.5; u.brasG.rotation.z = 0.2;
+    u.brasG.userData.coude.rotation.x = -1.14;
+    u.brasD.rotation.x = -0.46; u.brasD.rotation.z = -0.24;
+    u.brasD.userData.coude.rotation.x = -1.2;
+    accessoire.objet = ardoise();
+    accessoire.bras = 'deux';
+  } else {
+    // révision : l'ardoise tenue d'une main, l'autre suit la lecture
+    u.torse.rotation.x = 0.05;
+    u.torse.rotation.y = 0.18;
+    u.tete.rotation.x = 0.26;
+    u.tete.rotation.y = -0.2;
+    u.brasG.rotation.x = -0.48; u.brasG.rotation.z = 0.2;
+    u.brasG.userData.coude.rotation.x = -1.16;
+    u.brasD.rotation.x = -0.34; u.brasD.rotation.z = -0.12;
+    u.brasD.userData.coude.rotation.x = -0.9;
+    accessoire.objet = ardoise();
+    accessoire.bras = 'gauche';
+  }
+  return accessoire;
+}
+
+/* Chaque niveau place le personnage à un endroit différent de la salle
+   et l'oriente autrement : le fond change, le cadrage ne bouge pas. */
+const CADRAGES_FINAL = {
+  '100': { x: 2.2,  z: -1.7, rot: -0.22 },
+  '80':  { x: 1.1,  z: -1.9, rot: -0.30 },
+  '60':  { x: 3.7,  z: -2.0, rot: -0.88 },
+  '45':  { x: -0.5, z: -1.8, rot: -0.34 },
+  '0':   { x: -1.8, z: -2.0, rot: -0.72 }
+};
+
+const ACCENTS_FINAL = {
+  '100': { couleur: 0x2FBE85, intensite: 1.1 },
+  '80':  { couleur: 0x2BB7C6, intensite: 0.95 },
+  '60':  { couleur: 0x22C5D6, intensite: 0.8 },
+  '45':  { couleur: 0x6D5FE0, intensite: 0.7 },
+  '0':   { couleur: 0x7F9BC4, intensite: 0.65 }
+};
+
+function sceneFinale(scene, renderer, L, H, niveau, feminin) {
+  construireLabo(scene, renderer, L, H);
+
+  const cadre = CADRAGES_FINAL[niveau] || CADRAGES_FINAL['60'];
+  const p = pharmacien(feminin ? { feminin: true, cheveux: 0x3A2A20 } : {});
+  const accessoire = poseFinale(p, niveau);
+  p.scale.setScalar(ECHELLE_PERSO);
+  p.position.set(cadre.x, 0, cadre.z);
+  p.rotation.y = cadre.rot;
+  scene.add(p);
+
+  if (accessoire.objet) {
+    // l'ardoise est accrochée à la main : elle suit la posture du bras,
+    // aucune pièce n'est ajoutée ni retirée au squelette
+    const main = p.userData.brasG.userData.main;
+    accessoire.objet.position.set(0.02, -0.15, 0.09);
+    accessoire.objet.rotation.set(-0.42, 0.06, -0.1);
+    main.add(accessoire.objet);
+  }
+
+  // appoint de lumière sur le personnage, teinté selon le niveau
+  const accent = ACCENTS_FINAL[niveau] || ACCENTS_FINAL['60'];
+  const cle = new THREE.SpotLight(0xF6FAFD, accent.intensite, 34, 0.52, 0.75, 1.5);
+  cle.position.set(cadre.x + 3.0, 8.6, cadre.z + 7.4);
+  cle.target.position.set(cadre.x, 2.2, cadre.z);
+  scene.add(cle); scene.add(cle.target);
+
+  // remplissage frontal doux : sans lui le visage reste dans l'ombre
+  const remplissage = new THREE.PointLight(0xCFE2EE, 0.42, 18, 2);
+  remplissage.position.set(cadre.x + 0.6, 3.6, cadre.z + 4.6);
+  scene.add(remplissage);
+
+  const teinte = new THREE.PointLight(accent.couleur, 0.6, 18, 2);
+  teinte.position.set(cadre.x - 3.0, 4.2, cadre.z + 2.6);
+  scene.add(teinte);
+
+  const cam = new THREE.PerspectiveCamera(33, L / H, 0.1, 120);
+  cam.position.set(cadre.x + 0.85, 3.3, cadre.z + 11.6);
+  cam.lookAt(cadre.x - 0.1, 2.45, cadre.z);
+  return cam;
+}
+
+['100', '80', '60', '45', '0'].forEach(function (niveau) {
+  [['h', false], ['f', true]].forEach(function (v) {
+    SCENES['final-' + niveau + '-' + v[0]] = function (scene, renderer, L, H) {
+      return sceneFinale(scene, renderer, L, H, niveau, v[1]);
+    };
+  });
+});
+
+/* =====================================================================
    Jeu d'icônes
    Toutes rendues sur fond transparent, avec le même banc d'éclairage :
    c'est ce qui leur donne une identité commune, là où les cliparts
