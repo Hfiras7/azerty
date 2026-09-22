@@ -5726,6 +5726,9 @@ addToM(h);
 }
 function launchHandArrowAnim(id,step,nam){
 var obj=CObjets[id];
+// l'animation se relance depuis une fin de transition jQuery : la
+// diapositive a pu changer entre-temps et l'objet ne plus exister
+if(!obj){return false;}
 var timeH=200;
 var xP=0.1;
 var yP=0.45;
