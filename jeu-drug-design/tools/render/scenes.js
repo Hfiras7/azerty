@@ -1119,9 +1119,11 @@ function poseFinale(perso, niveau) {
     u.bassin.rotation.z = 0.04;
     u.jambeG.rotation.x = 0.05; u.jambeD.rotation.x = -0.05;
   } else if (niveau === '60') {
-    // en activité : le bras tendu vers l'écran de modélisation
-    u.torse.rotation.y = -0.34;
-    u.tete.rotation.y = -0.26;
+    // en activité : le bras tendu vers l'écran de modélisation. Le buste
+    // se tourne vers l'écran mais le visage reste offert au joueur :
+    // c'est son propre personnage qu'il doit reconnaître.
+    u.torse.rotation.y = -0.30;
+    u.tete.rotation.y = 0.54;
     u.brasD.rotation.x = -1.24; u.brasD.rotation.z = 0.1;
     u.brasD.userData.coude.rotation.x = -0.24;
     u.brasG.rotation.x = 0.16;
@@ -1160,7 +1162,7 @@ function poseFinale(perso, niveau) {
 const CADRAGES_FINAL = {
   '100': { x: 2.2,  z: -1.7, rot: -0.22 },
   '80':  { x: 1.1,  z: -1.9, rot: -0.30 },
-  '60':  { x: 3.7,  z: -2.0, rot: -0.88 },
+  '60':  { x: 3.7,  z: -2.0, rot: -0.70 },
   '45':  { x: -0.5, z: -1.8, rot: -0.34 },
   '0':   { x: -1.8, z: -2.0, rot: -0.72 }
 };
