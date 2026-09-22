@@ -769,7 +769,215 @@ td[id^="table-inner"]{
 }
 
 /* ================================================================
-   12. Confort de lecture et accessibilité
+   12. Identité de l'étudiant et choix du personnage
+   Écran intercalé entre l'accueil et la première diapositive. Il est
+   posé à l'intérieur de #main : il hérite du cadre, des coins arrondis
+   et de l'ombre de la scène, et se lit donc comme une diapositive.
+   ================================================================ */
+#epos-identite{
+  position:absolute; inset:0; z-index:60;
+  display:flex; align-items:center; justify-content:flex-end;
+  background:
+    linear-gradient(90deg, rgba(3,12,21,.06) 0%, rgba(3,12,21,.30) 34%,
+                           rgba(3,12,21,.82) 70%, rgba(3,12,21,.92) 100%),
+    url("../images/accueil-identite.jpg") center/cover no-repeat,
+    #071627;
+  font-family:var(--epos-sans);
+  padding:0 4.2% 0 0;
+  box-sizing:border-box;
+}
+@keyframes epos-id-entree{
+  from{ opacity:0; transform:translateY(1.4em); }
+  to  { opacity:1; transform:translateY(0); }
+}
+@keyframes epos-id-voile{ from{ opacity:0; } to{ opacity:1; } }
+#epos-identite.epos-id-ouvert{ animation:epos-id-voile .32s ease-out both; }
+
+.epos-id-carte{
+  width:46%; min-width:19em; max-width:30em;
+  box-sizing:border-box;
+  padding:1.5em 1.7em 1.6em;
+  border-radius:20px;
+  background:linear-gradient(180deg,#FFFFFF 0%,#F2F8FB 100%);
+  box-shadow:
+    0 0 0 1px rgba(11,34,57,.12),
+    0 34px 70px -30px rgba(2,12,22,.9),
+    0 6px 18px -10px rgba(2,12,22,.6);
+  animation:epos-id-entree .42s .06s cubic-bezier(.2,.75,.25,1) both;
+}
+
+/* ---- en-tête ---- */
+.epos-id-entete{ display:flex; align-items:center; gap:.7em; }
+.epos-id-pastille{
+  flex:0 0 auto; width:2.3em; height:2.3em;
+  background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23036F7E' stroke-width='2.6'%3E%3Cpath d='M24 7 L38 15 L38 33 L24 41 L10 33 L10 15 Z'/%3E%3C/g%3E%3Cg fill='%230097A9'%3E%3Ccircle cx='24' cy='7' r='4'/%3E%3Ccircle cx='38' cy='33' r='4'/%3E%3Ccircle cx='10' cy='15' r='4'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+}
+.epos-id-titres{ min-width:0; }
+.epos-id-titre{
+  margin:0; font-size:1.5em; font-weight:700; letter-spacing:.06em;
+  color:var(--epos-encre);
+}
+.epos-id-soustitre{
+  margin:.1em 0 0; font-size:.92em; font-weight:600;
+  color:var(--epos-teal-sombre);
+}
+
+/* ---- fil des deux étapes ---- */
+.epos-id-fil{
+  display:flex; gap:1.3em; margin:1.15em 0 1.35em; padding:0;
+  list-style:none; counter-reset:epos-id;
+  border-top:1px solid rgba(11,34,57,.10);
+  border-bottom:1px solid rgba(11,34,57,.10);
+}
+.epos-id-fil li{
+  display:flex; align-items:center; gap:.5em;
+  padding:.62em 0;
+  font-size:.82em; font-weight:700; letter-spacing:.02em;
+  text-transform:uppercase; color:var(--epos-texte-doux);
+}
+.epos-id-fil li::before{
+  counter-increment:epos-id; content:counter(epos-id);
+  width:1.6em; height:1.6em; border-radius:50%;
+  background:#E6EEF5; color:var(--epos-texte-doux);
+  font-size:.95em; line-height:1.6em; text-align:center;
+}
+#epos-identite[data-etape="1"] .epos-id-fil-1,
+#epos-identite[data-etape="2"] .epos-id-fil-2{ color:var(--epos-encre); }
+#epos-identite[data-etape="1"] .epos-id-fil-1::before,
+#epos-identite[data-etape="2"] .epos-id-fil-2::before{
+  background:#02616F; color:#FFFFFF;
+}
+#epos-identite[data-etape="2"] .epos-id-fil-1::before{
+  background:#1B8159; color:#FFFFFF; content:"\2713";
+}
+
+/* ---- étapes ---- */
+.epos-id-etape{ display:none; }
+#epos-identite[data-etape="1"] .epos-id-etape1,
+#epos-identite[data-etape="2"] .epos-id-etape2{ display:block; }
+
+.epos-id-label{
+  display:block; margin:0 0 .5em;
+  font-size:1.02em; font-weight:700; color:var(--epos-encre);
+}
+.epos-id-champ{
+  display:block; width:100%; box-sizing:border-box;
+  padding:.62em .8em;
+  font-family:var(--epos-sans); font-size:1.1em; font-weight:600;
+  color:var(--epos-encre); background:#FFFFFF;
+  border:1.5px solid var(--epos-bordure);
+  border-bottom:2.5px solid var(--epos-teal);
+  border-radius:11px;
+  box-shadow:0 6px 16px -12px rgba(11,34,57,.6);
+  outline:none;
+  transition:border-color .15s ease,box-shadow .15s ease;
+}
+.epos-id-champ:focus{
+  border-color:var(--epos-teal);
+  box-shadow:0 0 0 3px rgba(0,151,169,.20);
+}
+.epos-id-aide{
+  margin:.6em 0 0; font-size:.84em; line-height:1.4;
+  color:var(--epos-texte-doux);
+}
+.epos-id-erreur{
+  display:none; margin:.6em 0 0;
+  font-size:.86em; font-weight:700; color:#B5262D;
+}
+#epos-identite.epos-id-invalide .epos-id-erreur{ display:block; }
+#epos-identite.epos-id-invalide .epos-id-champ{
+  border-color:#C22C33; border-bottom-color:#C22C33;
+  box-shadow:0 0 0 3px rgba(194,44,51,.16);
+}
+
+/* ---- choix du personnage ---- */
+.epos-id-choix{ display:flex; gap:.85em; }
+.epos-id-perso{
+  flex:1 1 0; min-width:0;
+  display:flex; flex-direction:column; align-items:center; gap:.45em;
+  padding:.7em .4em .75em;
+  font-family:var(--epos-sans);
+  background:linear-gradient(180deg,#FFFFFF 0%,#EEF5FA 100%);
+  border:1.5px solid rgba(11,34,57,.14);
+  border-radius:15px;
+  cursor:pointer;
+  transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease;
+}
+.epos-id-perso:hover{
+  transform:translateY(-2px);
+  border-color:rgba(0,151,169,.45);
+  box-shadow:0 14px 26px -18px rgba(11,34,57,.8);
+}
+.epos-id-perso:focus-visible{ outline:3px solid rgba(0,151,169,.45); outline-offset:2px; }
+.epos-id-vignette{
+  display:block; width:100%; height:10.4em;
+  display:flex; align-items:flex-end; justify-content:center;
+  overflow:hidden;
+}
+.epos-id-vignette img{
+  max-height:100%; width:auto;
+  filter:drop-shadow(0 10px 14px rgba(11,34,57,.22));
+}
+.epos-id-perso-nom{
+  font-size:.96em; font-weight:700; color:var(--epos-encre);
+  text-align:center;
+}
+.epos-id-perso{ position:relative; }
+.epos-id-perso-choisi::after{
+  content:"\2713";
+  position:absolute; right:.5em; top:.5em;
+  width:1.5em; height:1.5em; border-radius:50%;
+  background:#1B8159; color:#FFFFFF;
+  font-size:.82em; font-weight:700; line-height:1.5em; text-align:center;
+  box-shadow:0 4px 10px -4px rgba(11,34,57,.7);
+}
+.epos-id-perso-choisi{
+  border-color:#02616F;
+  background:linear-gradient(180deg,#FFFFFF 0%,#E4F2F5 100%);
+  box-shadow:0 0 0 3px rgba(2,97,111,.20),0 16px 28px -18px rgba(11,34,57,.85);
+}
+.epos-id-perso-choisi .epos-id-perso-nom{ color:#02515E; }
+
+.epos-id-rappel{
+  margin:.9em 0 0; font-size:.86em; font-weight:600;
+  color:var(--epos-texte-doux);
+}
+
+/* ---- boutons ---- */
+.epos-id-bouton{
+  display:block; width:100%; margin-top:1.15em;
+  padding:.72em 1em;
+  font-family:var(--epos-sans); font-size:1.02em; font-weight:700;
+  letter-spacing:.01em;
+  color:#FFFFFF; text-shadow:0 1px 2px rgba(2,24,32,.45);
+  background:linear-gradient(135deg,#097C8C 0%,#036C7A 55%,#02515E 100%);
+  border:0; border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 14px 28px -14px rgba(3,108,122,.95),0 2px 6px -2px rgba(11,34,57,.4);
+  transition:transform .14s ease,filter .14s ease;
+}
+.epos-id-bouton:hover:not(:disabled){ transform:translateY(-1px); filter:brightness(1.07); }
+.epos-id-bouton:active:not(:disabled){ transform:translateY(1px); }
+.epos-id-bouton:disabled{
+  background:#D6DFE7; color:#46596B; text-shadow:none;
+  box-shadow:none; cursor:not-allowed;
+}
+.epos-id-lien{
+  display:block; width:100%; margin:.7em 0 0; padding:.35em 0;
+  font-family:var(--epos-sans); font-size:.86em; font-weight:700;
+  color:var(--epos-teal-sombre);
+  background:none; border:0; cursor:pointer;
+  text-decoration:underline; text-underline-offset:2px;
+}
+.epos-id-lien:hover{ color:var(--epos-encre); }
+
+@media (prefers-reduced-motion:reduce){
+  #epos-identite.epos-id-ouvert,.epos-id-carte{ animation:none !important; }
+  .epos-id-perso,.epos-id-bouton{ transition:none !important; }
+}
+
+/* ================================================================
+   13. Confort de lecture et accessibilité
    ================================================================ */
 @media (prefers-reduced-motion:reduce){
   #main::after{ display:none; }

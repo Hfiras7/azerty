@@ -25,6 +25,7 @@ DECORS = [
     ('labo.png',         'labo-accueil.jpg', 'JPEG', 92),
     ('labo-station.png', 'labo-station.jpg', 'JPEG', 92),
     ('illus-molecule.png', 'illustration-molecule.jpg', 'JPEG', 92),
+    ('accueil-identite.png', 'accueil-identite.jpg', 'JPEG', 90),
 ]
 ICONES = [
     ('ico-objectifs.png',   'icone-objectifs.png'),
@@ -133,7 +134,9 @@ def installer():
         # Le moteur affiche d'abord une vignette basse définition pendant le
         # chargement du fond (images/low-<nom>.jpg) : sans elle, la
         # transition entre diapositives montre un cadre vide.
-        if dst.endswith('.jpg'):
+        # le fond de l'écran d'identité n'est pas un fond de diapositive :
+        # le moteur ne lui demande jamais de vignette basse définition
+        if dst.endswith('.jpg') and dst != 'accueil-identite.jpg':
             basse = im.resize((256, 256), Image.LANCZOS)
             chemin_basse = os.path.join(IMG, 'low-' + dst)
             basse.save(chemin_basse, 'JPEG', quality=62, optimize=True)

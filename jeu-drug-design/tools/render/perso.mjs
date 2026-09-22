@@ -26,13 +26,27 @@ async function rendre(direction, phase, repos, nom) {
   writeFileSync(resolve(ICI, 'out/perso', nom), Buffer.from(url.split(',')[1], 'base64'));
 }
 
-await rendre('bas', 0, true, 'pose.png');
-for (const dir of ['bas', 'haut', 'gauche', 'droite']) {
-  for (let i = 0; i < IMAGES; i++) {
-    await rendre(dir, i / IMAGES, false, `${dir}-${String(i).padStart(2, '0')}.png`);
+/* Deux jeux d'images : le pharmacien et la pharmacienne. L'étudiant
+   choisit son personnage au lancement ; le jeu charge l'un ou l'autre.
+   Les deux partagent la même blouse, la même chemise et le même
+   pantalon : c'est le même rôle, pas deux styles différents. */
+const VARIANTES = [
+  ['', {}],
+  ['f-', { feminin: true, cheveux: 0x3A2A20 }]
+];
+
+for (const [prefixe, variante] of VARIANTES) {
+  await page.evaluate(v => { window.__variante = v; }, variante);
+  await rendre('bas', 0, true, prefixe + 'pose.png');
+  for (const dir of ['bas', 'haut', 'gauche', 'droite']) {
+    for (let i = 0; i < IMAGES; i++) {
+      await rendre(dir, i / IMAGES, false,
+        `${prefixe}${dir}-${String(i).padStart(2, '0')}.png`);
+    }
+    console.log(`cycle de marche rendu : ${prefixe || 'pharmacien '}${dir}`);
   }
-  console.log('cycle de marche rendu :', dir);
 }
+await page.evaluate(() => { window.__variante = {}; });
 // pharmacienne : boucle de présentation pour la diapositive d'accueil
 {
   const nb = 14;

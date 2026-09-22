@@ -1038,6 +1038,21 @@ SCENES['labo-accueil'] = function (scene, renderer, L, H) {
   return cam;
 };
 
+/* Écran d'identification : le laboratoire vu de plus loin et de plus
+   haut, volontairement calme. Le panneau de saisie se pose dessus, à
+   droite : la moitié gauche garde la paillasse et les écrans, la droite
+   reste sombre et dégagée. */
+SCENES['accueil-identite'] = function (scene, renderer, L, H) {
+  construireLabo(scene, renderer, L, H);
+  // l'assombrissement est posé en CSS par-dessus l'image : le rendu
+  // reste net, et le dégradé suit la place réelle du panneau
+
+  const cam = new THREE.PerspectiveCamera(46, L / H, 0.1, 160);
+  cam.position.set(7.4, 5.1, 13.6);
+  cam.lookAt(-1.4, 3.1, -5);
+  return cam;
+};
+
 /* Plan de station : même laboratoire, cadré plus bas et plus frontalement.
    Le sol occupe le bas de l'image, où marche le personnage. */
 SCENES['labo-station'] = function (scene, renderer, L, H) {

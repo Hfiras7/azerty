@@ -591,6 +591,8 @@ LUDIguid='pxzmzfc36860120241';
     for (var i = 0; i < images.length; i++) {
       var im = images[i];
       if (im.getAttribute('data-epos-vu')) continue;
+      // le panneau d'identité a son propre habillage
+      if (im.closest && im.closest('#epos-identite')) continue;
       var src = im.getAttribute('src') || '';
       if (/fx\//.test(src) || im.className.indexOf('cocheimg') !== -1) continue;
       if (!im.complete || !im.naturalWidth) continue;   // on réessaie au tour suivant
