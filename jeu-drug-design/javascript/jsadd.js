@@ -535,10 +535,43 @@ LUDIguid='pxzmzfc36860120241';
     principal.appendChild(voile);
   }
 
+  /* La flèche du « Take home message » ramène au résultat : elle
+     annonce sa destination, pour qu'aucune commande ne paraisse mener
+     nulle part en fin de parcours. */
+  var LIBELLES_FLECHE = { 39: 'Revenir au r\u00e9sultat' };
+
+  function libellerFleche(texte) {
+    var principal = document.getElementById('main');
+    if (!principal) return;
+    var libelle = document.getElementById('epos-fleche-libelle');
+    var bouton = texte
+      ? principal.querySelector('button.mat-button, a.mat-button')
+      : null;
+    if (!bouton) {
+      if (libelle && libelle.parentNode) libelle.parentNode.removeChild(libelle);
+      return;
+    }
+    if (!libelle) {
+      libelle = document.createElement('p');
+      libelle.id = 'epos-fleche-libelle';
+      principal.appendChild(libelle);
+    }
+    if (libelle.firstChild) libelle.removeChild(libelle.firstChild);
+    libelle.appendChild(document.createTextNode(texte));
+    libelle.style.fontSize = tailleIndicateur();
+
+    // la flèche est posée en absolu dans la scène : on se cale dessus
+    var g = bouton.offsetLeft, h = bouton.offsetTop, t = bouton.offsetHeight;
+    libelle.style.left = '0px';
+    libelle.style.width = Math.max(0, g - Math.round(3 * (window.zoom || 1))) + 'px';
+    libelle.style.top = (h + Math.round((t - libelle.offsetHeight) / 2)) + 'px';
+  }
+
   function mettreEnScene() {
     var principal = document.getElementById('main');
     if (!principal) return;
     mettreEnSceneTransition(TRANSITIONS[pageCourante()] || null);
+    libellerFleche(LIBELLES_FLECHE[pageCourante()] || null);
     var zone = zoneReponses();
     if (!zone) {
       retirerClasse(principal, 'epos-question');

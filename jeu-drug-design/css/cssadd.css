@@ -593,6 +593,17 @@ button.mat-button{
 }
 button.mat-button:hover{ transform:translateY(-1px); filter:brightness(1.06); }
 
+/* Libellé de destination de la flèche (fin de parcours) : la commande
+   annonce où elle mène plutôt que de rester muette. */
+#epos-fleche-libelle{
+  position:absolute; margin:0;
+  padding-right:.9em; box-sizing:border-box;
+  text-align:right;
+  font-family:var(--epos-sans); font-size:1em; font-weight:700;
+  line-height:1.25; color:var(--epos-encre);
+  pointer-events:none;
+}
+
 /* ================================================================
    7. Textes à trous
    ================================================================ */
@@ -1125,14 +1136,92 @@ td[id^="table-inner"]{
   text-align:center; color:var(--epos-encre);
   animation:epos-res-paraitre .5s .42s ease-out both;
 }
-.epos-res-detail{ left:53.5%; width:15.6%; }
+.epos-res-detail{ left:50.6%; width:15.6%; }
 .epos-res-suite{ left:84.2%; width:14%; }
+
+/* ---- reprise du parcours ----
+   Troisième commande de la même rangée, en bouton secondaire : elle ne
+   doit pas concurrencer « Continuer », qui reste l'action principale. */
+.epos-res-reprise{
+  position:absolute; left:67.2%; top:79.2%; width:20.2%;
+  pointer-events:auto;
+  padding:.6em .4em;
+  font-family:var(--epos-sans); font-size:.86em; font-weight:700;
+  letter-spacing:.005em;
+  color:#02515E; background:#FFFFFF;
+  border:1.5px solid rgba(2,97,111,.45); border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 10px 22px -16px rgba(11,34,57,.85);
+  transition:transform .14s ease,border-color .14s ease,background-color .14s ease;
+  animation:epos-res-paraitre .5s .46s ease-out both;
+}
+.epos-res-reprise:hover{
+  transform:translateY(-1px);
+  border-color:#02515E; background:#F1F8FA;
+}
+.epos-res-reprise:active{ transform:translateY(1px); }
+.epos-res-reprise:focus-visible{ outline:3px solid rgba(2,97,111,.45); outline-offset:2px; }
+
+/* ---- confirmation ----
+   Le voile couvre le panneau ; la carte blanche est un vrai bloc qui
+   empile verticalement la question, la précision et les deux boutons. */
+.epos-res-demande{
+  position:absolute; inset:0;
+  display:none; align-items:center; justify-content:center;
+  pointer-events:auto;
+  background:rgba(6,20,32,.52);
+}
+#epos-resultat[data-demande="oui"] .epos-res-demande{
+  display:flex;
+  animation:epos-res-paraitre .2s ease-out both;
+}
+.epos-res-carte-demande{
+  display:flex; flex-direction:column; align-items:center;
+  width:52%; max-width:52%; box-sizing:border-box;
+  padding:2.1em 2.4em 2em;
+  text-align:center;
+  border-radius:20px;
+  background:linear-gradient(180deg,#FFFFFF 0%,#F2F8FB 100%);
+  box-shadow:0 0 0 1px rgba(11,34,57,.12),0 34px 64px -28px rgba(2,12,22,.9);
+}
+.epos-res-question{
+  margin:0; font-size:1.25em; font-weight:700; line-height:1.3;
+  color:var(--epos-encre);
+}
+.epos-res-precision{
+  margin:.6em 0 0; font-size:.88em; line-height:1.45;
+  color:var(--epos-texte-doux);
+}
+.epos-res-choix{
+  display:flex; gap:.7em; justify-content:center; margin-top:1.3em;
+}
+.epos-res-oui,.epos-res-non{
+  font-family:var(--epos-sans); font-size:.95em; font-weight:700;
+  padding:.62em 1.25em; border-radius:999px; cursor:pointer;
+  transition:transform .14s ease,filter .14s ease;
+}
+.epos-res-oui{
+  color:#FFFFFF; border:0;
+  text-shadow:0 1px 2px rgba(2,24,32,.45);
+  background:linear-gradient(135deg,#097C8C 0%,#036C7A 55%,#02515E 100%);
+  box-shadow:0 12px 24px -14px rgba(3,108,122,.95);
+}
+.epos-res-non{
+  color:var(--epos-encre); background:#FFFFFF;
+  border:1.5px solid rgba(11,34,57,.22);
+}
+.epos-res-oui:hover,.epos-res-non:hover{ transform:translateY(-1px); filter:brightness(1.04); }
+.epos-res-oui:focus-visible,.epos-res-non:focus-visible{
+  outline:3px solid rgba(2,97,111,.45); outline-offset:2px;
+}
 
 @media (prefers-reduced-motion:reduce){
   .epos-res-nom,.epos-res-titre,.epos-res-carte,.epos-res-message,
   .epos-res-domaines,.epos-res-droite,.epos-res-detail,.epos-res-suite,
+  .epos-res-reprise,
   #epos-resultat[data-niveau="100"] .epos-res-carte,
   #epos-resultat[data-niveau="80"] .epos-res-carte{ animation:none !important; }
+  #epos-resultat[data-demande="oui"] .epos-res-demande{ animation:none !important; }
 }
 
 /* ================================================================

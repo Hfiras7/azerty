@@ -93,7 +93,68 @@
   }
 
   /* =====================================================================
-     3. Mise en scène
+     3. Reprise du parcours
+     Le moteur décrit lui-même, dans getXmlInteractions(), l'état qui
+     constitue une progression : les réponses mémorisées et une poignée
+     d'indicateurs de session. On remet exactement cet ensemble à son
+     état de départ, puis on laisse le moteur recalculer. Le nom de
+     l'étudiant et le personnage choisi, eux, appartiennent à
+     window.EPOS et ne sont pas touchés.
+     ===================================================================== */
+
+  var PAGE_DEPART = 'data/page0.xml';
+
+  function reinitialiserProgression() {
+    try {
+      // réponses mémorisées, d'où découlent le score et tous les bilans
+      window.CObjetMems = [];
+      window.CObjetMems_count = 0;
+
+      // indicateurs de session listés par le moteur
+      window.ViewerAfterBilan = false;
+      window.ViewerAfterBilanList = '';
+      window.initExam = 0;
+      window.actualExamId = -1;
+      window.actualExamIdScreen = -1;
+      window.lastExamId = 0;
+      window.lastAfterExamId = 0;
+      window.LUDIlife = 0;
+      window.LUDImoney = 0;
+      window.LUDIscore = 0;
+      window.attemptProcess = 0;
+      window.scormProcessScore = 0;
+
+      // totaux dérivés : le moteur les reconstruit, on les remet à zéro
+      // pour qu'aucun reste ne s'affiche entre-temps
+      window.N_T = 0;
+      window.N_F = 0;
+      window.remarques = '';
+      window.fullBilanResult = '';
+      window.BilanXML = '';
+      if (typeof window.initializeDomaines === 'function') window.initializeDomaines();
+
+      // le rapport détaillé est reconstruit à chaque bilan : on retire
+      // celui de la partie précédente
+      var rapport = document.getElementById('bilanresult');
+      if (rapport && rapport.parentNode) rapport.parentNode.removeChild(rapport);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function recommencer() {
+    if (!reinitialiserProgression()) return;
+    scoreAffiche = null;
+    retirer();
+    if (typeof window.loaddata === 'function') {
+      window.haveANAvigation = true;
+      window.loaddata(PAGE_DEPART, '');
+    }
+  }
+
+  /* =====================================================================
+     4. Mise en scène
      ===================================================================== */
 
   var panneau = null, scoreAffiche = null, animation = null;
@@ -163,6 +224,59 @@
     panneau.appendChild(detail);
     var suite = el('p', 'epos-res-suite', 'Continuer');
     panneau.appendChild(suite);
+
+    /* ---- reprise du parcours ---- */
+    var reprise = el('button', 'epos-res-reprise', 'Recommencer le parcours');
+    reprise.type = 'button';
+    panneau.appendChild(reprise);
+
+    // Le voile porte le fond assombri ; la carte blanche est un véritable
+    // élément, pour que question, précision et boutons s'empilent dedans.
+    var demande = el('div', 'epos-res-demande');
+    var carte = el('div', 'epos-res-carte-demande');
+    carte.setAttribute('role', 'dialog');
+    carte.setAttribute('aria-modal', 'true');
+    var question = el('p', 'epos-res-question', 'Voulez-vous recommencer le parcours ?');
+    question.id = 'epos-res-question';
+    carte.setAttribute('aria-labelledby', 'epos-res-question');
+    carte.appendChild(question);
+    carte.appendChild(el('p', 'epos-res-precision',
+      'Vos réponses et votre score seront remis à zéro. Votre nom et votre ' +
+      'personnage sont conservés.'));
+    var choix = el('div', 'epos-res-choix');
+    var oui = el('button', 'epos-res-oui', 'Oui, recommencer');
+    oui.type = 'button';
+    var non = el('button', 'epos-res-non', 'Annuler');
+    non.type = 'button';
+    choix.appendChild(non);
+    choix.appendChild(oui);
+    carte.appendChild(choix);
+    demande.appendChild(carte);
+    panneau.appendChild(demande);
+
+    function ouvrirDemande(ouverte) {
+      panneau.setAttribute('data-demande', ouverte ? 'oui' : 'non');
+      if (ouverte) window.setTimeout(function () { non.focus(); }, 40);
+      else window.setTimeout(function () { reprise.focus(); }, 40);
+    }
+    ouvrirDemande(false);
+    reprise.onclick = function () { ouvrirDemande(true); };
+    non.onclick = function () { ouvrirDemande(false); };
+    oui.onclick = function () { recommencer(); };
+    demande.onkeydown = function (ev) {
+      if (ev.keyCode === 27) { ouvrirDemande(false); return; }
+      // la tabulation reste entre les deux réponses tant que la
+      // question est posée : rien d'autre n'est actionnable
+      if (ev.keyCode !== 9) return;
+      var premier = non, dernier = oui;
+      if (ev.shiftKey && document.activeElement === premier) {
+        dernier.focus(); ev.preventDefault();
+      } else if (!ev.shiftKey && document.activeElement === dernier) {
+        premier.focus(); ev.preventDefault();
+      }
+    };
+    // un clic à côté de la carte annule, comme dans tout dialogue simple
+    demande.onclick = function (ev) { if (ev.target === demande) ouvrirDemande(false); };
 
     panneau.__valeur = valeur;
     panneau.__jauge = jauge;
@@ -293,4 +407,5 @@
   // façade de test : niveau attendu pour un score donné
   window.EPOS = window.EPOS || {};
   window.EPOS.niveauDuScore = niveauDuScore;
+  window.EPOS.recommencer = recommencer;
 })();
