@@ -47,17 +47,18 @@ for (const [prefixe, variante] of VARIANTES) {
   }
 }
 await page.evaluate(() => { window.__variante = {}; });
-// pharmacienne : boucle de présentation pour la diapositive d'accueil
-{
+// boucle de présentation de la diapositive d'accueil, pour les deux
+// personnages : celui qui accueille doit être celui que l'étudiant choisit
+for (const [suffixe, feminin] of [['', true], ['h-', false]]) {
   const nb = 14;
   for (let i = 0; i < nb; i++) {
     // cadre plus large que celui de la marche : le bloc de la diapositive
     // d'accueil a un rapport 157x216, on évite ainsi toute déformation
-    const url = await page.evaluate(([l, h, ph]) => window.__presente(l, h, ph),
-      [Math.round(H * 157 / 216), H, i / nb]);
-    writeFileSync(resolve(ICI, 'out/perso', `presente-${String(i).padStart(2, '0')}.png`),
+    const url = await page.evaluate(([l, h, ph, f]) => window.__presente(l, h, ph, f),
+      [Math.round(H * 157 / 216), H, i / nb, feminin]);
+    writeFileSync(resolve(ICI, 'out/perso', `presente-${suffixe}${String(i).padStart(2, '0')}.png`),
       Buffer.from(url.split(',')[1], 'base64'));
   }
-  console.log('boucle de présentation rendue');
+  console.log(`boucle de présentation rendue : ${feminin ? 'pharmacienne' : 'pharmacien'}`);
 }
 await navigateur.close();

@@ -187,8 +187,13 @@ body{
   background:linear-gradient(120deg,#072338 0%,#0A4E68 52%,#0A6274 100%) !important;
   box-shadow:0 10px 26px -12px rgba(3,24,40,.85) !important;
 }
+/* La queue décorative du bandeau s'arrêtait net : elle se fond
+   désormais dans la page, pour que le bandeau se termine au lieu
+   d'être coupé. */
 .decoslideobject0{
-  background:linear-gradient(120deg,#0A4E68 0%,var(--epos-teal) 60%,var(--epos-teal-clair) 100%) !important;
+  background:linear-gradient(105deg,#0A4E68 0%,var(--epos-teal) 45%,
+             rgba(34,197,214,.55) 78%,rgba(34,197,214,0) 100%) !important;
+  box-shadow:none !important;
 }
 .textTop0{
   letter-spacing:.005em;
@@ -1129,6 +1134,11 @@ td[id^="table-inner"]{
 #main.epos-final .epos-res-histo{
   left:4.6% !important; top:63% !important;
   transform:scale(.86); transform-origin:top left;
+}
+/* graduations de l'axe : 10 px à l'écran, en limite de lisibilité.
+   L'histogramme est réduit à 86 %, d'où les 13 px demandés ici. */
+#main.epos-final .epos-res-histo .rptColHorizon{
+  font-size:13px !important; color:var(--epos-texte-doux) !important;
 }
 .epos-res-detail,.epos-res-suite{
   position:absolute; top:86.7%; margin:0;

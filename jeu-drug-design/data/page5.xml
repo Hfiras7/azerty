@@ -20,7 +20,7 @@
 <footer><data>0</data></footer>
 <tunik><d>0</d></tunik>
 <bloc><type>img</type>
-<src>images/pharmacienne-presente.png</src>
+<src>images/pharmacien-presente.png</src>
 <ids></ids><st><![CDATA[ onMouseDown="LaScr=true;LUDI.sound('data/170514989426454ug42kcvoicemaker.inspeech.mp3');LUDI.ra();" ]]></st><x>396</x><y>316</y><w>157</w><h>216</h><x2>162</x2><y2>270</y2><w2>157</w2><h2>216</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
 <cssadd></cssadd>
 <ind>1</ind>

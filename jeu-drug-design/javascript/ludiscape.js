@@ -5656,6 +5656,9 @@ $(sid).css({ opacity : 1});
 $("#handpencil").css("margin-top","-100px");
 var p=$("#cursorhandpencil" + id);
 var of1=p.position();
+// la diapositive a pu changer pendant l'animation : le curseur n'existe
+// alors plus, et la recursion doit s'arreter au lieu d'echouer
+if(!of1){return false;}
 var of2=$(selfObj).position();
 var rdm=Math.floor(Math.random() * fontSizeObj)
 if(actualObjHW==id){

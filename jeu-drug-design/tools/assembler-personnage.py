@@ -75,19 +75,23 @@ def main():
     assembler('f-', 'pharmacienne')
     vignette_choix('', 'pharmacien')
     vignette_choix('f-', 'pharmacienne')
-    presentation()
+    presentation('', 'pharmacienne')
+    presentation('h-', 'pharmacien')
 
 
-def presentation():
-    fichiers = sorted(glob.glob(os.path.join(SRC, 'presente-*.png')))
+def presentation(prefixe='', nom='pharmacienne'):
+    """Boucle d'accueil d'un personnage. Les deux variantes existent :
+    celui qui accueille l'étudiant est celui qu'il a choisi."""
+    motif = os.path.join(SRC, 'presente-%s[0-9]*.png' % prefixe)
+    fichiers = sorted(glob.glob(motif))
     if not fichiers:
-        raise SystemExit('images de présentation manquantes')
+        raise SystemExit('images de présentation manquantes : %s' % motif)
     images = [Image.open(f).convert('RGBA') for f in fichiers]
-    chemin = os.path.join(DST, 'pharmacienne-presente.png')
+    chemin = os.path.join(DST, '%s-presente.png' % nom)
     images[0].save(chemin, save_all=True, append_images=images[1:],
                    duration=max(40, round(1400 / len(images))), loop=0,
                    optimize=False, disposal=1, blend=0)
-    print(f"pharmacienne-presente.png {len(images)} images, {images[0].size}, "
+    print(f"{nom}-presente.png {len(images)} images, {images[0].size}, "
           f"{os.path.getsize(chemin)//1024} Kio")
 
 

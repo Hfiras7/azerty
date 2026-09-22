@@ -37,12 +37,15 @@ window.__perso = function (L, H, direction, phase, repos) {
   return renderer.domElement.toDataURL('image/png');
 };
 // Pose « présentation » : la pharmacienne s'adresse au joueur.
-window.__presente = function (L, H, phase) {
+window.__presente = function (L, H, phase, feminin) {
   const scene = new THREE.Scene();
   const renderer = creerRendu(L, H, true);
   bancPersonnage(scene);
-  const p = pharmacien({ feminin: true, cheveux: 0x4A2F22,
-                         chemise: 0x6D5FE0, pantalon: 0x1C3348 });
+  // le personnage qui accueille est celui que l'etudiant a choisi : les
+  // deux variantes sont rendues, la diapositive designe la bonne
+  const p = pharmacien(feminin === false
+    ? { cheveux: 0x2B2019, chemise: 0x0E7C8C, pantalon: 0x23394E }
+    : { feminin: true, cheveux: 0x4A2F22, chemise: 0x6D5FE0, pantalon: 0x1C3348 });
   const u = p.userData;
   const a = phase * Math.PI * 2;
   poserPharmacien(p, 0, true);

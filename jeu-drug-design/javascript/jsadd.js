@@ -706,7 +706,10 @@ LUDIguid='pxzmzfc36860120241';
       if (/fx\//.test(src) || im.className.indexOf('cocheimg') !== -1) continue;
       if (!im.complete || !im.naturalWidth) continue;   // on réessaie au tour suivant
       im.setAttribute('data-epos-vu', '1');
-      if (im.offsetWidth < 120 || im.offsetHeight < 90) continue;
+      // les logos sont larges mais peu hauts : le seuil en hauteur les
+      // laissait sans habillage, et ils restaient des rectangles blancs
+      // posés sur la page
+      if (im.offsetWidth < 120 || im.offsetHeight < 48) continue;
       if (/pharmacien|icone-|fond-white/.test(src)) continue;
       ajouterClasse(im, estDetoure(im, src) ? 'epos-visuel-detoure' : 'epos-visuel');
     }
