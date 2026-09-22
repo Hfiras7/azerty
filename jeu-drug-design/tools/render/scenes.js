@@ -235,6 +235,62 @@ SCENES['transition-4'] = function (scene, renderer, L, H) {
 };
 
 /* --------------------------------------------------------------------
+   Illustration de concept : molécule candidate
+   Remplace un clipart d'origine (molécules dessinées + titre en rouge,
+   bandes noires en haut et en bas) qui jurait avec le reste du jeu.
+   Purement décorative : aucune donnée, aucun libellé.
+   -------------------------------------------------------------------- */
+SCENES['illus-molecule'] = function (scene, renderer, L, H) {
+  scene.background = cielDegrade({
+    haut: '#05121F', milieu: '#0A2438', bas: '#071B2A',
+    haloX: 0.52, haloY: 0.46, halo: 'rgba(34,197,214,0.30)',
+    halo2: 'rgba(109,95,224,0.18)' });
+  scene.fog = new THREE.Fog(new THREE.Color(0x081A2B), 16, 40);
+  bancEclairage(scene, { intensite: 0.95 });
+  scene.add(poussiere(220, 11, PALETTE.tealClair, 0.06));
+
+  // hexagone en fil de fer : le motif qui court dans toute l'interface
+  [[2.62, 0.05, PALETTE.tealClair, 0.3], [3.25, 0.03, PALETTE.violet, 0.18]]
+    .forEach(function (h) {
+      const anneau = new THREE.Mesh(
+        new THREE.TorusGeometry(h[0], h[1], 8, 6),
+        new THREE.MeshBasicMaterial({ color: h[2], transparent: true, opacity: h[3] }));
+      anneau.rotation.z = Math.PI / 6;
+      anneau.position.z = -1.2;
+      scene.add(anneau);
+    });
+
+  const mol = molecule(ASPIRINE, { echelle: 1.0, facteurRayon: 1.12 });
+  mol.scale.setScalar(0.52);
+  mol.rotation.set(0.3, 0.62, 0.1);
+  mol.position.set(0.05, -0.15, 0);
+  scene.add(mol);
+
+  // molécules satellites, très en retrait
+  [[-3.5, 1.9, -6, 0.26, 0.5], [3.7, -1.7, -5.5, 0.22, -0.7],
+   [3.1, 2.3, -7, 0.18, 1.2], [-3.2, -2.1, -6.5, 0.2, -0.3]]
+    .forEach(function (p) {
+      const m = molecule(ACIDE_SALICYLIQUE, { echelle: 1, sansH: true, facteurRayon: 1.0 });
+      m.scale.setScalar(p[3]);
+      m.position.set(p[0], p[1], p[2]);
+      m.rotation.set(0.3, p[4], 0.1);
+      scene.add(m);
+    });
+
+  bokeh(scene, [
+    { x: -3.9, y: 2.2, z: -3, r: 2.6, c: PALETTE.violet, o: 0.16 },
+    { x: 4.1, y: -2.0, z: -3, r: 3.0, c: PALETTE.teal, o: 0.15 },
+    { x: 3.6, y: 2.4, z: -2, r: 1.5, c: PALETTE.tealClair, o: 0.15 },
+    { x: -3.4, y: -2.3, z: -2, r: 1.8, c: PALETTE.tealClair, o: 0.11 }
+  ]);
+
+  const cam = new THREE.PerspectiveCamera(34, L / H, 0.1, 80);
+  cam.position.set(0, 0.2, 11.2);
+  cam.lookAt(0, 0.05, 0);
+  return cam;
+};
+
+/* --------------------------------------------------------------------
    Laboratoire de chimie computationnelle — décor de la diapositive
    d'accueil et de toutes les stations.
 

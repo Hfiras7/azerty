@@ -279,14 +279,338 @@ LUDIguid='pxzmzfc36860120241';
     }
   }
 
+  /* =====================================================================
+     3. Mise en scène des questions
+     Le moteur pose chaque bloc en absolu, à des coordonnées fixées par
+     l'auteur. On ne déplace rien : on identifie les rôles (énoncé, zone
+     de réponses) et on laisse la feuille de style les mettre en valeur.
+     ===================================================================== */
+
+  // Rang de chaque question dans sa station, relevé une fois pour toutes
+  // sur les fichiers data/page*.xml : [station, rang, total].
+  var CARTE_QUESTIONS = {
+    7: [1, 1, 6],  8: [1, 2, 6], 10: [1, 3, 6], 11: [1, 4, 6],
+    13: [1, 5, 6], 14: [1, 6, 6],
+    17: [2, 1, 3], 19: [2, 2, 3], 21: [2, 3, 3],
+    24: [3, 1, 4], 26: [3, 2, 4], 28: [3, 3, 4], 29: [3, 4, 4],
+    32: [4, 1, 4], 33: [4, 2, 4], 35: [4, 3, 4], 37: [4, 4, 4]
+  };
+
+  function pageCourante() {
+    var n = window.lastPage0;
+    if (typeof n === 'number' && !isNaN(n)) return n;
+    var f = window.menu_global || '';
+    var m = /page(\d+)\.xml/.exec(f);
+    return m ? parseInt(m[1], 10) : -1;
+  }
+
+  function ajouterClasse(el, nom) {
+    if (!el) return;
+    if ((' ' + el.className + ' ').indexOf(' ' + nom + ' ') === -1) {
+      el.className = (el.className + ' ' + nom).trim();
+    }
+  }
+  function retirerClasse(el, nom) {
+    if (!el) return;
+    el.className = el.className.replace(
+      new RegExp('\\b' + nom + '\\b', 'g'), '').replace(/\s+/g, ' ').trim();
+  }
+
+  // Deux diapositives portent un bloc de texte à trous placé hors de
+  // l'écran par l'auteur. Il ne doit pas entrer dans les calculs de mise
+  // en page, sans quoi la zone de réponses remonterait au-dessus du
+  // cadre et plus aucun énoncé ne serait reconnu.
+  function dansLaScene(r) {
+    var principal = document.getElementById('main');
+    if (!principal) return false;
+    var m = principal.getBoundingClientRect();
+    return r.width > 0 && r.height > 0 &&
+           r.top >= m.top - 2 && r.bottom <= m.bottom + 2 &&
+           r.left >= m.left - 2 && r.right <= m.right + 2;
+  }
+
+  function celluleTexte(bloc) {
+    return bloc.querySelector('td.inner, td[id^="innerbloctext"]');
+  }
+
+  // Enveloppe de tous les éléments par lesquels l'étudiant répond.
+  function zoneReponses() {
+    var sel = '#main table.barBody, #main td.linkddinner,' +
+              ' #main select.selecttcm, #main select.reponseholetext';
+    var els = document.querySelectorAll(sel), boite = null;
+    for (var i = 0; i < els.length; i++) {
+      var r = els[i].getBoundingClientRect();
+      if (!dansLaScene(r)) continue;
+      boite = boite
+        ? { haut: Math.min(boite.haut, r.top), bas: Math.max(boite.bas, r.bottom),
+            gauche: Math.min(boite.gauche, r.left), droite: Math.max(boite.droite, r.right) }
+        : { haut: r.top, bas: r.bottom, gauche: r.left, droite: r.right };
+    }
+    return boite;
+  }
+
+  // L'énoncé est le bloc de texte qui précède immédiatement la zone de
+  // réponses : c'est la règle qui vaut sur les dix-sept questions du jeu,
+  // y compris celles précédées d'une consigne ou d'un tableau de données.
+  function marquerEnonce(zone) {
+    var blocs = document.querySelectorAll('#main > table');
+    var choisi = null, aListe = null, candidats = [];
+
+    for (var i = 0; i < blocs.length; i++) {
+      var t = blocs[i];
+      if (t.className.indexOf('barBody') !== -1) continue;
+      var cellule = celluleTexte(t);
+      if (!cellule || !(cellule.textContent || '').trim()) continue;
+      var r = t.getBoundingClientRect();
+      if (!dansLaScene(r) || r.width < 160) continue;   // étiquettes, blocs hors cadre
+      if (t.querySelector('select.selecttcm, select.reponseholetext')) {
+        if (!aListe) aListe = cellule;
+        continue;
+      }
+      if (r.bottom > zone.haut + 6) continue;           // pas au-dessus des réponses
+      candidats.push({ cellule: cellule, boite: r });
+    }
+    // L'énoncé est le bloc le plus bas — mais pas une légende de figure.
+    // Une légende se reconnaît à ce qu'elle partage sa ligne avec une
+    // autre légende, côte à côte ; un énoncé occupe sa ligne seul.
+    var tousTextes = [];
+    for (var u = 0; u < blocs.length; u++) {
+      var cu = celluleTexte(blocs[u]);
+      if (!cu || !(cu.textContent || '').trim()) continue;
+      var ru = blocs[u].getBoundingClientRect();
+      if (dansLaScene(ru)) tousTextes.push(ru);
+    }
+    function partageSaLigne(r) {
+      for (var v = 0; v < tousTextes.length; v++) {
+        var o = tousTextes[v];
+        if (o === r) continue;
+        var chevauche = Math.min(r.bottom, o.bottom) - Math.max(r.top, o.top);
+        var cote = o.left >= r.right - 2 || o.right <= r.left + 2;
+        if (chevauche > r.height * 0.6 && cote) return true;
+      }
+      return false;
+    }
+    var plusBas = -1e9;
+    for (var q = 0; q < candidats.length; q++) {
+      if (partageSaLigne(candidats[q].boite)) continue;
+      if (candidats[q].boite.bottom > plusBas) {
+        plusBas = candidats[q].boite.bottom;
+        choisi = candidats[q].cellule;
+      }
+    }
+    if (!choisi) {                       // toutes les lignes sont partagées
+      for (var w = 0; w < candidats.length; w++) {
+        if (candidats[w].boite.bottom > plusBas) {
+          plusBas = candidats[w].boite.bottom;
+          choisi = candidats[w].cellule;
+        }
+      }
+    }
+    // Question à liste déroulante sans phrase d'appel : c'est le bloc
+    // qui contient les listes qui porte l'énoncé, donc le cartouche.
+    if (!choisi && aListe) choisi = aListe;
+    if (choisi) ajouterClasse(choisi, 'epos-enonce');
+
+    // Certaines questions coupent l'énoncé en deux : une phrase au-dessus
+    // de l'illustration, une amorce placée à gauche des propositions.
+    // Cette amorce reçoit un traitement plus léger, sans cartouche.
+    for (var k = 0; k < blocs.length; k++) {
+      var b2 = blocs[k];
+      if (b2.className.indexOf('barBody') !== -1) continue;
+      var c2 = celluleTexte(b2);
+      if (!c2 || c2 === choisi || !(c2.textContent || '').trim()) continue;
+      var r2 = b2.getBoundingClientRect();
+      if (!dansLaScene(r2) || r2.width < 100) continue;
+      var memeHauteur = r2.bottom > zone.haut + 6 && r2.top < zone.bas - 6;
+      // le bloc peut être large tout en portant un texte court aligné à
+      // gauche : c'est son bord gauche qui dit s'il précède les réponses
+      if (memeHauteur && r2.left < zone.gauche - 24) ajouterClasse(c2, 'epos-consigne');
+    }
+  }
+
+  function tailleIndicateur() {
+    var z = window.zoom;
+    if (typeof z !== 'number' || !isFinite(z) || z <= 0) z = 1;
+    return (11.5 * z).toFixed(2) + 'px';
+  }
+
+  /* Le minuteur n'est pas à la même hauteur sur toutes les questions :
+     là où il remonte, l'indicateur se décale à sa gauche plutôt que de
+     le recouvrir. */
+  function eviterMinuteur(boite) {
+    var principal = document.getElementById('main');
+    if (!principal) return;
+    boite.style.right = '';               // revenir au placement de la feuille de style
+    var minuteur = document.querySelector('#main img[src*="fx/time"]');
+    if (!minuteur) return;
+    var rb = boite.getBoundingClientRect(), rt = minuteur.getBoundingClientRect();
+    if (!rt.width || !rt.height) return;
+    var chevauche = !(rb.right <= rt.left || rb.left >= rt.right ||
+                      rb.bottom <= rt.top || rb.top >= rt.bottom);
+    if (!chevauche) return;
+    var rm = principal.getBoundingClientRect();
+    boite.style.right = Math.round(rm.right - rt.left + 10) + 'px';
+  }
+
+  // Indicateur de progression, posé dans la bande libre du bandeau.
+  function indicateurProgression(rang) {
+    var principal = document.getElementById('main');
+    if (!principal) return;
+    var existant = document.getElementById('epos-progression');
+    if (!rang) { if (existant) existant.parentNode.removeChild(existant); return; }
+    if (existant && existant.getAttribute('data-rang') === rang.join('-')) {
+      existant.style.fontSize = tailleIndicateur();
+      eviterMinuteur(existant);
+      return;
+    }
+    if (existant) existant.parentNode.removeChild(existant);
+
+    var boite = document.createElement('div');
+    boite.id = 'epos-progression';
+    boite.setAttribute('data-rang', rang.join('-'));
+    var etiquette = document.createElement('span');
+    etiquette.className = 'epos-prog-texte';
+    etiquette.appendChild(document.createTextNode('Question ' + rang[1] + ' / ' + rang[2]));
+    boite.appendChild(etiquette);
+    var jalons = document.createElement('span');
+    jalons.className = 'epos-prog-jalons';
+    for (var i = 1; i <= rang[2]; i++) {
+      var j = document.createElement('i');
+      j.className = i < rang[1] ? 'fait' : (i === rang[1] ? 'actif' : '');
+      jalons.appendChild(j);
+    }
+    boite.appendChild(jalons);
+    // le moteur dimensionne toute la scène par la variable `zoom` :
+    // l'indicateur suit la même échelle, sinon il rétrécirait en plein écran
+    boite.style.fontSize = tailleIndicateur();
+    principal.appendChild(boite);
+    eviterMinuteur(boite);
+  }
+
+  /* ---- écrans de passage d'une station à l'autre ----
+     Le libellé de la station qui s'ouvre est repris mot pour mot du
+     bandeau de la diapositive suivante : rien n'est reformulé. */
+  var TRANSITIONS = {
+    15: 'Détermination des propriétés pharmacocinétiques de l\u2019acide salicylique',
+    22: 'Pharmacomodulation de l\u2019aspirine en acétylsalicylate de lysine',
+    30: 'Notions de base du docking moléculaire'
+  };
+
+  function mettreEnSceneTransition(nom) {
+    var principal = document.getElementById('main');
+    if (!principal) return;
+    var voile = document.getElementById('epos-transition');
+    if (!nom) {
+      retirerClasse(principal, 'epos-transition');
+      if (voile) voile.parentNode.removeChild(voile);
+      return;
+    }
+    ajouterClasse(principal, 'epos-transition');
+
+    // l'énoncé de passage reçoit sa propre mise en scène
+    var blocs = document.querySelectorAll('#main > table');
+    for (var i = 0; i < blocs.length; i++) {
+      var c = blocs[i].querySelector('td.inner');
+      if (c && (c.textContent || '').trim()) ajouterClasse(c, 'epos-trans-titre');
+    }
+
+    if (voile && voile.getAttribute('data-nom') === nom) {
+      voile.style.fontSize = tailleIndicateur();
+      return;
+    }
+    if (voile) voile.parentNode.removeChild(voile);
+
+    voile = document.createElement('div');
+    voile.id = 'epos-transition';
+    voile.setAttribute('data-nom', nom);
+    var sous = document.createElement('div');
+    sous.className = 'epos-trans-nom';
+    sous.appendChild(document.createTextNode(nom));
+    voile.appendChild(sous);
+    var action = document.createElement('div');
+    action.className = 'epos-trans-action';
+    action.appendChild(document.createTextNode('Cliquez pour entrer dans la station'));
+    voile.appendChild(action);
+    voile.style.fontSize = tailleIndicateur();
+    principal.appendChild(voile);
+  }
+
+  function mettreEnScene() {
+    var principal = document.getElementById('main');
+    if (!principal) return;
+    mettreEnSceneTransition(TRANSITIONS[pageCourante()] || null);
+    var zone = zoneReponses();
+    if (!zone) {
+      retirerClasse(principal, 'epos-question');
+      indicateurProgression(null);
+      return;
+    }
+    ajouterClasse(principal, 'epos-question');
+    marquerEnonce(zone);
+
+    // les rangées de réponses ne reçoivent les pastilles de lettre que si
+    // le tableau est assez large pour que l'énoncé ne se replie pas
+    var tables = document.querySelectorAll('#main table.barBody');
+    for (var i = 0; i < tables.length; i++) {
+      if (tables[i].offsetWidth >= 640) ajouterClasse(tables[i], 'epos-reponses-larges');
+    }
+    indicateurProgression(CARTE_QUESTIONS[pageCourante()] || null);
+  }
+
+  /* Les illustrations posées à même la diapositive paraissaient
+     découpées. On encadre les visuels pleins (captures d'outils,
+     schémas, photographies) et on laisse nus les logos détourés : un
+     cadre blanc autour d'un logo transparent se verrait comme une
+     vignette rapportée. La distinction se lit sur l'alpha des bords. */
+  var memoireDetoure = {};
+
+  function estDetoure(im, src) {
+    if (memoireDetoure.hasOwnProperty(src)) return memoireDetoure[src];
+    var reponse = false;
+    try {
+      var c = document.createElement('canvas');
+      var L = Math.min(im.naturalWidth, 64), H = Math.min(im.naturalHeight, 64);
+      c.width = L; c.height = H;
+      var ctx = c.getContext('2d');
+      ctx.drawImage(im, 0, 0, L, H);
+      var d = ctx.getImageData(0, 0, L, H).data;
+      var points = [[0, 0], [L - 1, 0], [0, H - 1], [L - 1, H - 1],
+                    [(L / 2) | 0, 0], [(L / 2) | 0, H - 1],
+                    [0, (H / 2) | 0], [L - 1, (H / 2) | 0]];
+      for (var i = 0; i < points.length; i++) {
+        var o = (points[i][1] * L + points[i][0]) * 4;
+        if (d[o + 3] < 200) { reponse = true; break; }
+      }
+    } catch (e) { reponse = false; }
+    memoireDetoure[src] = reponse;
+    return reponse;
+  }
+
+  function integrerImages() {
+    var images = document.querySelectorAll('#main img');
+    for (var i = 0; i < images.length; i++) {
+      var im = images[i];
+      if (im.getAttribute('data-epos-vu')) continue;
+      var src = im.getAttribute('src') || '';
+      if (/fx\//.test(src) || im.className.indexOf('cocheimg') !== -1) continue;
+      if (!im.complete || !im.naturalWidth) continue;   // on réessaie au tour suivant
+      im.setAttribute('data-epos-vu', '1');
+      if (im.offsetWidth < 120 || im.offsetHeight < 90) continue;
+      if (/pharmacien|icone-|fond-white/.test(src)) continue;
+      ajouterClasse(im, estDetoure(im, src) ? 'epos-visuel-detoure' : 'epos-visuel');
+    }
+  }
+
   function surveiller() {
     habillerPage();
     marquerFormules();
     nettoyerBilan();
+    mettreEnScene();
+    integrerImages();
   }
 
   /* =====================================================================
-     3. Enchaînement des diapositives
+     4. Enchaînement des diapositives
      Le moteur reconstruit entièrement #main à chaque changement de page.
      On repère cette reconstruction et on relance une courte apparition
      en fondu : le passage d'une diapositive à l'autre devient continu,
@@ -301,9 +625,11 @@ LUDIguid='pxzmzfc36860120241';
     void principal.offsetWidth;
     principal.className = (principal.className + ' epos-entree').trim();
     if (minuterieEntree) window.clearTimeout(minuterieEntree);
+    // la classe reste en place le temps que la dernière animation de la
+    // séquence (énoncé, réponses, bouton, indicateur) se termine
     minuterieEntree = window.setTimeout(function () {
       principal.className = principal.className.replace(/\bepos-entree\b/g, '').trim();
-    }, 520);
+    }, 900);
   }
 
   function demarrer() {

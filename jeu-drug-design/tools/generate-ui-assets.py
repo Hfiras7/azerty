@@ -11,7 +11,9 @@ import math, os
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SS = 4  # suréchantillonnage pour un rendu lissé
+SS = 8   # suréchantillonnage pour un rendu lissé
+NET = 2  # facteur de résolution des visuels du bilan : le moteur les
+         # affiche à ~1,1x, les sortir à 2x les garde nets en plein écran
 
 # ---------------------------------------------------------------- palette
 ENCRE       = (11, 34, 57)       # bleu nuit « laboratoire »
@@ -59,27 +61,34 @@ def degrade_vertical(draw, box, haut, bas, rayon=0):
 
 # ------------------------------------------------------- cases à cocher
 def case(cochee, ronde=False):
-    """Case à cocher 50x50 : carré arrondi (QCM) ou pastille (choix unique)."""
-    T = 50
+    """
+    Case à cocher (carré arrondi pour un QCM, pastille pour un choix
+    unique). Elle est affichée à 39 px par le moteur : on la dessine
+    nettement plus grande pour rester nette sur un écran à forte densité.
+    """
+    T = 120
     im, d = toile(T, T)
-    m = 3 * SS                      # marge
+    m = round(3 * SS * T / 50)      # marge
     box = [m, m, T * SS - m, T * SS - m]
-    rayon = (T * SS - 2 * m) // 2 if ronde else 13 * SS
+    rayon = (T * SS - 2 * m) // 2 if ronde else round(13 * SS * T / 50)
 
     if cochee:
         fond = degrade_vertical(d, box, TEAL_CLAIR, TEAL, rayon)
         im.alpha_composite(fond, (m, m))
-        d.rounded_rectangle(box, radius=rayon, outline=TEAL, width=2 * SS)
+        d.rounded_rectangle(box, radius=rayon, outline=TEAL, width=round(2 * SS * T / 50))
         # coche
-        pts = [(16.5 * SS, 25.5 * SS), (22 * SS, 31.5 * SS), (34 * SS, 18.5 * SS)]
-        d.line(pts, fill=BLANC, width=4 * SS, joint="curve")
+        k = SS * T / 50.0
+        pts = [(16.5 * k, 25.5 * k), (22 * k, 31.5 * k), (34 * k, 18.5 * k)]
+        d.line(pts, fill=BLANC, width=round(4 * k), joint="curve")
         for p in (pts[0], pts[2]):
-            r = 2 * SS
+            r = 2 * k
             d.ellipse([p[0] - r, p[1] - r, p[0] + r, p[1] + r], fill=BLANC)
     else:
-        d.rounded_rectangle(box, radius=rayon, fill=BLANC, outline=BORDURE, width=2 * SS)
-        d.rounded_rectangle([box[0] + 2 * SS, box[1] + 2 * SS, box[2] - 2 * SS, box[3] - 2 * SS],
-                            radius=max(1, rayon - 2 * SS), outline=(236, 242, 247), width=SS)
+        e = round(2 * SS * T / 50)
+        d.rounded_rectangle(box, radius=rayon, fill=BLANC, outline=BORDURE, width=e)
+        d.rounded_rectangle([box[0] + e, box[1] + e, box[2] - e, box[3] - e],
+                            radius=max(1, rayon - e), outline=(236, 242, 247),
+                            width=max(1, round(SS * T / 50)))
     return reduire(im, T, T)
 
 
@@ -142,7 +151,7 @@ def barre_fond():
     d.rounded_rectangle([15 * SS, 13 * SS, 321 * SS, 33 * SS], radius=10 * SS, fill=TRACE)
     d.rounded_rectangle([15 * SS, 13 * SS, 321 * SS, 33 * SS], radius=10 * SS,
                         outline=(196, 211, 224), width=SS)
-    return reduire(im, L, H)
+    return reduire(im, L * NET, H * NET)
 
 def barre_masque():
     L, H = 306, 20
@@ -151,7 +160,7 @@ def barre_masque():
     ImageDraw.Draw(masque).rounded_rectangle([SS, SS, L * SS - SS, H * SS - SS],
                                              radius=9 * SS, fill=0)
     im.putalpha(masque)
-    return reduire(im, L, H)
+    return reduire(im, L * NET, H * NET)
 
 
 def bilan_icone():
@@ -192,7 +201,7 @@ def bilan_icone():
     for i, n in enumerate(noeuds):
         col = TEAL if i % 3 == 0 else (ROUGE if i == 2 else (140, 162, 184))
         d.ellipse([n[0] - 7 * SS, n[1] - 7 * SS, n[0] + 7 * SS, n[1] + 7 * SS], fill=col)
-    return reduire(im, T, T)
+    return reduire(im, T * NET, T * NET)
 
 
 def libelles_domaines():
@@ -211,8 +220,8 @@ def libelles_domaines():
         (("Propriétés", "pharmacocinétiques"), AMBRE),
         (("Pharmaco-", "modulation"), VERT),
     ]
-    f = police(int(8 * SS), gras=False)
-    encre_libelle = melange(ENCRE, (96, 116, 136), .2)
+    f = police(int(8.8 * SS), gras=False)
+    encre_libelle = melange(ENCRE, (70, 92, 114), .15)
     for k, (lignes, couleur) in enumerate(libelles):
         x = (70.9 + 47.9 * k) * SS
         d.line([(x, 0), (x, 5 * SS)], fill=couleur, width=int(1.6 * SS))
@@ -229,7 +238,7 @@ def libelles_domaines():
                     font=f, fill=encre_libelle)
         tournee = vignette.rotate(45, expand=True, resample=Image.BICUBIC)
         im.alpha_composite(tournee, (int(x - tournee.width + 7 * SS), int(10 * SS)))
-    return reduire(im, L, H)
+    return reduire(im, L * 3, H * 3)
 
 
 def chargeur():
@@ -263,6 +272,89 @@ def chargeur():
     return reduire(im, L, H)
 
 
+# ------------------------------------------------- annotation « à la main »
+def fleche_annotation(indice, total=4):
+    """
+    Flèche d'annotation tracée progressivement (4 images).
+    Le moteur l'affiche à 100x50 : on la dessine à 400x200 pour rester
+    nette, et dans l'ambre de la charte plutôt que dans un rouge vif
+    étranger à la palette.
+    """
+    L, H = 100, 50
+    im, d = toile(L, H)
+    T = SS
+    couleur = (176, 107, 5)          # ambre sombre : lisible sur fond clair
+    # tracé légèrement irrégulier, comme une annotation à main levée
+    axe = [(6, 34), (24, 31), (46, 29.4), (68, 28.2), (86, 27.4)]
+    part = (indice + 1) / float(total)
+    n = max(2, int(round(len(axe) * min(1.0, part * 1.25))))
+    pts = [(x * T, y * T) for x, y in axe[:n]]
+    if len(pts) >= 2:
+        d.line(pts, fill=couleur, width=int(5.2 * T), joint="curve")
+        for p in (pts[0], pts[-1]):
+            r = 2.6 * T
+            d.ellipse([p[0] - r, p[1] - r, p[0] + r, p[1] + r], fill=couleur)
+    # pointe : seulement sur les deux dernières images, comme un tracé
+    if indice >= total - 2:
+        ouverture = 1.0 if indice == total - 1 else 0.55
+        bout = (88 * T, 27 * T)
+        for dx, dy in ((-17, -13), (-17, 15)):
+            d.line([bout, (bout[0] + dx * T * ouverture, bout[1] + dy * T * ouverture)],
+                   fill=couleur, width=int(5.2 * T), joint="curve")
+    return reduire(im, L * 4, H * 4)
+
+
+def stylet():
+    """
+    Repère d'annotation qui accompagne le tracé de la flèche.
+
+    L'export d'origine utilisait une main de dessin animé, très éloignée
+    du reste du jeu et assez grande pour recouvrir un bouton. Elle est
+    remplacée par un stylet aux couleurs de la charte, dont la pointe
+    occupe le même angle de l'image : l'animation du moteur reste calée.
+    """
+    T = 800
+    im, d = toile(T, T)
+    S = SS
+
+    def seg(p0, p1, largeur, couleur):
+        d.line([(p0[0] * S, p0[1] * S), (p1[0] * S, p1[1] * S)],
+               fill=couleur, width=int(largeur * S), joint="curve")
+
+    # axe du stylet : pointe en haut à gauche, comme dans l'image d'origine
+    pointe = (26, 104)
+    talon = (486, 296)
+    ux, uy = talon[0] - pointe[0], talon[1] - pointe[1]
+    lon = (ux * ux + uy * uy) ** 0.5
+    ux, uy = ux / lon, uy / lon
+    def le(t): return (pointe[0] + ux * t, pointe[1] + uy * t)
+
+    # ombre portée douce
+    ombre = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    do = ImageDraw.Draw(ombre)
+    do.line([((pointe[0] + 10) * S, (pointe[1] + 16) * S), ((talon[0] + 10) * S, (talon[1] + 16) * S)],
+            fill=(11, 34, 57, 60), width=int(30 * S), joint="curve")
+    im.alpha_composite(ombre)
+
+    seg(le(0), le(34), 9, (44, 58, 72))                 # nib
+    seg(le(30), le(58), 19, (150, 168, 184))            # cône métal
+    seg(le(54), le(150), 27, TEAL_CLAIR)                # zone de préhension
+    seg(le(146), le(360), 29, ENCRE_CLAIR)              # corps
+    seg(le(352), le(lon), 27, ENCRE)                    # talon
+    # liserés
+    seg(le(148), le(156), 30, TEAL)
+    seg(le(352), le(360), 30, TEAL)
+    # clip
+    a1, a2 = le(250), le(340)
+    d.line([(a1[0] * S - 13 * S, a1[1] * S + 12 * S), (a2[0] * S - 13 * S, a2[1] * S + 12 * S)],
+           fill=(178, 194, 208), width=int(7 * S), joint="curve")
+    # reflet longitudinal
+    b1, b2 = le(60), le(350)
+    d.line([(b1[0] * S, b1[1] * S - 8 * S), (b2[0] * S, b2[1] * S - 8 * S)],
+           fill=(255, 255, 255, 70), width=int(5 * S), joint="curve")
+    return reduire(im, T, T)
+
+
 def main():
     os.chdir(ROOT)
     os.makedirs("fx/qcm", exist_ok=True)
@@ -271,7 +363,7 @@ def main():
     case(False, ronde=True).save("fx/qcm/check0.png")
     case(True, ronde=True).save("fx/qcm/check1.png")
 
-    for prefixe, taille, accent in (("", 220, TEAL), ("b", 100, TEAL), ("c", 100, VERT)):
+    for prefixe, taille, accent in (("", 260, TEAL), ("b", 240, TEAL), ("c", 240, VERT)):
         for i in range(25):
             minuteur(i, taille=taille, accent_froid=accent).save(f"fx/time/time{prefixe}{i}.png")
 
@@ -279,6 +371,11 @@ def main():
     ch.save("css/ludiScapeLoad.png")
     ch.convert("P", palette=Image.ADAPTIVE, colors=255).save(
         "css/ludiScapeLoad.gif", transparency=255)
+    # le jeu n'utilise que la flèche horizontale : on s'en tient au jeu
+    # d'images présent dans l'export d'origine
+    for i in range(4):
+        fleche_annotation(i).save(f"images/hand-arrow-right{i}.png")
+    stylet().save("images/hand-cartoon.png")
     bilan_icone().save("images/bilan.png")
     libelles_domaines().save("images/LibellesDomaines.png")
     barre_fond().save("images/progress-bar-fond.png")

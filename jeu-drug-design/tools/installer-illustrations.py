@@ -24,6 +24,7 @@ DECORS = [
     ('t4.png',   'transition-station4.jpg', 'JPEG', 92),
     ('labo.png',         'labo-accueil.jpg', 'JPEG', 92),
     ('labo-station.png', 'labo-station.jpg', 'JPEG', 92),
+    ('illus-molecule.png', 'illustration-molecule.jpg', 'JPEG', 92),
 ]
 ICONES = [
     ('ico-objectifs.png',   'icone-objectifs.png'),
@@ -51,6 +52,9 @@ GLOBAUX = [
     ('images/imgubsatv345696.png',            'images/icone-deroulement.png'),
     ('images/images.jpg',                     'images/icone-message.png'),
     ('images/imgdvmnvl144550.png',            'images/formule-acide-salicylique.png'),
+    # clipart « Drug-Likeness » (molécules dessinées, titre rouge, bandes
+    # noires) remplacé par une illustration du même univers que le jeu
+    ('images/imgbkdfsm720434.png',            'images/illustration-molecule.jpg'),
 ]
 
 # La même photo de bureau servait aux trois transitions : chacune reçoit
