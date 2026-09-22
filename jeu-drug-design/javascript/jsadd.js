@@ -538,7 +538,7 @@ LUDIguid='pxzmzfc36860120241';
   /* La flèche du « Take home message » ramène au résultat : elle
      annonce sa destination, pour qu'aucune commande ne paraisse mener
      nulle part en fin de parcours. */
-  var LIBELLES_FLECHE = { 39: 'Revenir au r\u00e9sultat' };
+  var LIBELLES_FLECHE = { 39: 'Remerciements', 40: 'Revenir au r\u00e9sultat' };
 
   function libellerFleche(texte) {
     var principal = document.getElementById('main');
@@ -567,11 +567,87 @@ LUDIguid='pxzmzfc36860120241';
     libelle.style.top = (h + Math.round((t - libelle.offsetHeight) / 2)) + 'px';
   }
 
+  /* Remerciements : dernière diapositive du parcours. Comme l'écran de
+     résultat, la diapositive ne porte que sa commande de navigation ;
+     la composition est posée ici, pour garder la hiérarchie
+     typographique et le contraste du reste du jeu. */
+  var REMERCIEMENTS = [
+    ['Cr\u00e9ation', ['Dr. Nour El Houda BEN FATMA', 'Pr. Aimen ABBASSI']],
+    ['Validation scientifique', ['MCA Meriem LARIBI']],
+    ['Conception', ['Dr. Firas HFAIEDH']],
+    ['Outils utilis\u00e9s', ['Ludiscape (version gratuite)', 'ChatGPT (version gratuite)']]
+  ];
+
+  function taillePanneauFinal() {
+    var z = window.zoom;
+    if (typeof z !== 'number' || !isFinite(z) || z <= 0) z = 1;
+    return (15 * z).toFixed(2) + 'px';
+  }
+
+  function mettreEnSceneRemerciements(actif) {
+    var principal = document.getElementById('main');
+    if (!principal) return;
+    var panneau = document.getElementById('epos-remerciements');
+    if (!actif) {
+      if (panneau && panneau.parentNode) panneau.parentNode.removeChild(panneau);
+      retirerClasse(principal, 'epos-remerciements-actif');
+      return;
+    }
+    ajouterClasse(principal, 'epos-remerciements-actif');
+    if (panneau) {
+      panneau.style.fontSize = taillePanneauFinal();
+      return;
+    }
+
+    panneau = document.createElement('div');
+    panneau.id = 'epos-remerciements';
+
+    var corps = document.createElement('div');
+    corps.className = 'epos-rem-corps';
+
+    var titre = document.createElement('p');
+    titre.className = 'epos-rem-titre';
+    titre.appendChild(document.createTextNode('Remerciements'));
+    corps.appendChild(titre);
+
+    var regle = document.createElement('div');
+    regle.className = 'epos-rem-regle';
+    corps.appendChild(regle);
+
+    for (var i = 0; i < REMERCIEMENTS.length; i++) {
+      var bloc = document.createElement('div');
+      bloc.className = 'epos-rem-bloc';
+      var intitule = document.createElement('p');
+      intitule.className = 'epos-rem-intitule';
+      intitule.appendChild(document.createTextNode(REMERCIEMENTS[i][0]));
+      bloc.appendChild(intitule);
+      var noms = REMERCIEMENTS[i][1];
+      for (var j = 0; j < noms.length; j++) {
+        var nom = document.createElement('p');
+        nom.className = 'epos-rem-nom';
+        nom.appendChild(document.createTextNode(noms[j]));
+        bloc.appendChild(nom);
+      }
+      corps.appendChild(bloc);
+    }
+    panneau.appendChild(corps);
+
+    var visuel = document.createElement('img');
+    visuel.className = 'epos-rem-visuel';
+    visuel.src = 'images/remerciements.png';
+    visuel.alt = '';
+    panneau.appendChild(visuel);
+
+    panneau.style.fontSize = taillePanneauFinal();
+    principal.appendChild(panneau);
+  }
+
   function mettreEnScene() {
     var principal = document.getElementById('main');
     if (!principal) return;
     mettreEnSceneTransition(TRANSITIONS[pageCourante()] || null);
     libellerFleche(LIBELLES_FLECHE[pageCourante()] || null);
+    mettreEnSceneRemerciements(pageCourante() === 40);
     var zone = zoneReponses();
     if (!zone) {
       retirerClasse(principal, 'epos-question');

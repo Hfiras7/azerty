@@ -1245,6 +1245,119 @@ function matMat(couleur) {
 }
 
 /* Objectifs : une cible dont le centre est une molécule. */
+/* --------------------------------------------------------------------
+   Remerciements — vignette de clôture, colonne de droite.
+
+   Fond transparent : la verrerie et le modèle moléculaire se posent
+   directement sur le fond clair de la page plutôt que d'y être une
+   image rapportée. Les ombres sont des taches douces peintes au sol,
+   et non des ombres projetées : sur une page blanche, une ombre dure
+   se remarquerait plus que l'objet. */
+
+// tache de contact : un dégradé radial posé à plat sous un objet
+function ombreDouce(x, z, rayonX, rayonZ, opacite) {
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, 'rgba(24,52,78,0.55)');
+  g.addColorStop(0.45, 'rgba(24,52,78,0.22)');
+  g.addColorStop(1, 'rgba(24,52,78,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128);
+  const tache = new THREE.Mesh(
+    new THREE.PlaneGeometry(rayonX * 2, rayonZ * 2),
+    new THREE.MeshBasicMaterial({
+      map: new THREE.CanvasTexture(c), transparent: true,
+      opacity: opacite, depthWrite: false }));
+  tache.rotation.x = -Math.PI / 2;
+  tache.position.set(x, 0.005, z);
+  return tache;
+}
+
+SCENES['remerciements'] = function (scene, renderer, L, H) {
+  // éclairage clair, à l'opposé du banc nocturne des autres scènes :
+  // sur une page blanche, les dessous bouchés se verraient aussitôt
+  scene.add(new THREE.HemisphereLight(0xFFFFFF, 0xCBDEEC, 0.9));
+  const cle = new THREE.DirectionalLight(0xFFFFFF, 1.0);
+  cle.position.set(-5.5, 8.5, 6.5);
+  scene.add(cle);
+  const rim = new THREE.DirectionalLight(PALETTE.tealClair, 0.8);
+  rim.position.set(6, 3.5, -4.5);
+  scene.add(rim);
+  const contre = new THREE.DirectionalLight(PALETTE.violet, 0.3);
+  contre.position.set(-6, 2, -4);
+  scene.add(contre);
+  const appoint = new THREE.DirectionalLight(0xBFD6E6, 0.32);
+  appoint.position.set(2, -4, 5);
+  scene.add(appoint);
+
+  // verre plus dense que dans les scènes nocturnes : sur fond clair, la
+  // verrerie d'origine disparaissait presque entièrement
+  // seules les parois de verre sont redensifiées : reconnaissables à la
+  // teinte par défaut de matVerre(), pour ne pas décolorer les liquides
+  const densifierVerre = function (objet) {
+    objet.traverse(function (o) {
+      if (o.isMesh && o.material && o.material.color &&
+          o.material.color.getHex() === PALETTE.verre) {
+        o.material = new THREE.MeshStandardMaterial({
+          color: 0x7FB3CB, metalness: 0.10, roughness: 0.08,
+          transparent: true, opacity: 0.68, side: THREE.DoubleSide });
+      }
+    });
+  };
+
+  scene.add(ombreDouce(-1.62, -0.5, 1.5, 0.62, 0.5));
+  scene.add(ombreDouce(-0.28, 0.1, 1.1, 0.45, 0.42));
+  scene.add(ombreDouce(1.28, 0.1, 1.25, 0.5, 0.5));
+
+  const fiole = erlenmeyer(1.6, 0.86, PALETTE.teal);
+  densifierVerre(fiole);
+  fiole.position.set(-1.62, 0, -0.5);
+  scene.add(fiole);
+
+  [[-0.62, 1.58, 0.23, PALETTE.tealClair, 0.15],
+   [-0.08, 1.28, 0.21, PALETTE.violet, -0.12]].forEach(function (t) {
+    const tube = tubeEssai(t[1], t[2], t[3]);
+    densifierVerre(tube);
+    tube.position.set(t[0], 0, t[4]);
+    scene.add(tube);
+  });
+
+  // hexagone en fil de fer : le motif qui court dans toute l'interface
+  const anneau = new THREE.Mesh(
+    new THREE.TorusGeometry(1.42, 0.02, 8, 6),
+    new THREE.MeshBasicMaterial({
+      color: PALETTE.teal, transparent: true, opacity: 0.28 }));
+  anneau.rotation.z = Math.PI / 6;
+  anneau.position.set(1.28, 2.15, -1.3);
+  scene.add(anneau);
+
+  // le modèle moléculaire sur son support : sujet de la vignette
+  const socle = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.58, 0.68, 0.11, 48),
+    new THREE.MeshStandardMaterial({
+      color: 0xDCE9F1, metalness: 0.25, roughness: 0.5 }));
+  socle.position.set(1.28, 0.055, 0.1);
+  scene.add(socle);
+  const tige = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.042, 0.042, 1.05, 20),
+    new THREE.MeshStandardMaterial({
+      color: 0xB4CCDC, metalness: 0.55, roughness: 0.35 }));
+  tige.position.set(1.28, 0.62, 0.1);
+  scene.add(tige);
+
+  const mol = molecule(ASPIRINE, { echelle: 1.0, facteurRayon: 1.1 });
+  mol.scale.setScalar(0.37);
+  mol.rotation.set(0.24, 0.72, 0.07);
+  mol.position.set(1.28, 2.15, 0.1);
+  scene.add(mol);
+
+  const cam = new THREE.PerspectiveCamera(30, L / H, 0.1, 80);
+  cam.position.set(-0.24, 2.45, 9.9);
+  cam.lookAt(-0.24, 1.72, 0);
+  return cam;
+};
+
 SCENES['icone-objectifs'] = function (scene, renderer, L, H) {
   bancEclairage(scene, { intensite: 1.05 });
   const g = new THREE.Group();

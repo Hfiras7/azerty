@@ -30,7 +30,7 @@
 <field2></field2>
 <contenu7></contenu7>
 </bloc>
-<bloc><type>material-button</type><ids></ids><st></st><x>882</x><y>642</y><w>56</w><h>56</h><x2>212</x2><y2>642</y2><w2>56</w2><h2>56</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><url>data/page38.xml</url>
+<bloc><type>material-button</type><ids></ids><st></st><x>882</x><y>642</y><w>56</w><h>56</h><x2>212</x2><y2>642</y2><w2>56</w2><h2>56</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><url>data/page40.xml</url>
 <text><![CDATA[]]></text><contenu2><![CDATA[mat-right.png]]></contenu2><data><![CDATA[]]></data><color>White</color>
 <selectcolor>#0097A9</selectcolor>
 <ind>3</ind>

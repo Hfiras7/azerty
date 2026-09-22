@@ -1288,7 +1288,62 @@ td[id^="table-inner"]{
 }
 
 /* ================================================================
-   14. Confort de lecture et accessibilité
+   15. Remerciements — dernière diapositive
+   Même composition que l'écran de résultat : le texte à gauche, le
+   visuel à droite. La vignette est un PNG à fond transparent, qui se
+   pose sur le papier de la page au lieu d'y former un bloc rapporté.
+   ================================================================ */
+#main.epos-remerciements-actif{ overflow:hidden; }
+
+#epos-remerciements{
+  position:absolute; left:0; top:0; right:0; bottom:0;
+  pointer-events:none;
+  font-family:var(--epos-sans); color:var(--epos-texte);
+}
+.epos-rem-corps{
+  position:absolute; left:7.3%; top:50%; width:47%;
+  transform:translateY(-50%);
+}
+.epos-rem-titre{
+  margin:0; font-size:2.3em; font-weight:800; line-height:1.1;
+  letter-spacing:-.012em; color:var(--epos-encre);
+  animation:epos-res-paraitre .55s .05s ease-out both;
+}
+.epos-rem-regle{
+  width:5.2em; height:3px; margin:.62em 0 0; border-radius:2px;
+  background:linear-gradient(90deg,var(--epos-teal) 0%,var(--epos-violet) 100%);
+  animation:epos-res-paraitre .55s .14s ease-out both;
+}
+.epos-rem-bloc{
+  margin-top:1.75em;
+  animation:epos-res-paraitre .55s ease-out both;
+}
+.epos-rem-bloc:nth-of-type(1){ animation-delay:.22s; }
+.epos-rem-bloc:nth-of-type(2){ animation-delay:.30s; }
+.epos-rem-bloc:nth-of-type(3){ animation-delay:.38s; }
+.epos-rem-bloc:nth-of-type(4){ animation-delay:.46s; }
+.epos-rem-intitule{
+  margin:0 0 .42em; font-size:.76em; font-weight:700;
+  text-transform:uppercase; letter-spacing:.14em;
+  color:var(--epos-teal-sombre);
+}
+.epos-rem-nom{
+  margin:0 0 .18em; font-size:1.06em; font-weight:600; line-height:1.4;
+  color:var(--epos-encre);
+}
+.epos-rem-visuel{
+  position:absolute; right:2.6%; top:49%; width:43%;
+  transform:translateY(-50%);
+  animation:epos-res-paraitre .7s .2s ease-out both;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .epos-rem-titre,.epos-rem-regle,.epos-rem-bloc,
+  .epos-rem-visuel{ animation:none !important; }
+}
+
+/* ================================================================
+   16. Confort de lecture et accessibilité
    ================================================================ */
 @media (prefers-reduced-motion:reduce){
   #main::after{ display:none; }
