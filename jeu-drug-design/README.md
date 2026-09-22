@@ -11,6 +11,17 @@ déroulé, les questions, les réponses correctes et le barème sont inchangés.
 
 ## Lancer le jeu
 
+Pour un usage en salle, avec enregistrement automatique des résultats :
+
+| Système | Lanceur |
+| --- | --- |
+| Windows | double-clic sur `Lancer-EPOS.bat` |
+| macOS, Linux | `./Lancer-EPOS.sh` |
+
+Le lanceur démarre le service d'enregistrement, sert le jeu sur
+`http://127.0.0.1:8778/` et ouvre le navigateur. Fermer la fenêtre arrête
+l'ensemble. Voir « Enregistrement des résultats » plus bas.
+
 Le jeu est une application web statique : il suffit d'ouvrir `index.html`.
 Certains navigateurs bloquent la lecture de fichiers locaux (XML, polices) ;
 le plus simple est donc de servir le dossier :
@@ -29,6 +40,50 @@ communication SCORM 1.2 est en revanche intacte (`javascript/scorm*.js`,
 appel `ScormStartCom()`), de sorte qu'un manifeste ajouté autour du dossier
 suffirait à le déposer dans une plateforme.
 
+## Enregistrement des résultats
+
+À la fin d'une partie, le résultat est ajouté au classeur d'historique :
+
+```
+C:\Users\Public\Resultats_Jeu_Pharmacie.xlsx
+```
+
+(`/Users/Shared/` sous macOS, `~/EPOS-Resultats/` sous Linux, faute
+d'équivalent du dossier public de Windows.)
+
+**Pourquoi un service local.** Le jeu s'exécute dans un navigateur, et un
+navigateur ne peut pas écrire dans un dossier du système : c'est une
+restriction de sécurité, non un défaut de configuration. Le dossier
+`tools/` contient donc un service minimal — `serveur-resultats.py`, sans
+dépendance externe — qui écoute sur la boucle locale (`127.0.0.1:8779`,
+rien n'est exposé sur le réseau) et tient le classeur. Le jeu lui transmet
+le résultat une fois la partie terminée.
+
+```bash
+python3 tools/serveur-resultats.py                    # réglages par défaut
+python3 tools/serveur-resultats.py --port 8900        # autre port
+python3 tools/serveur-resultats.py --dossier "D:/Promotion 2026"
+```
+
+**Sans le service**, le jeu fonctionne normalement : seul
+l'enregistrement échoue, l'écran de résultat l'indique clairement et
+propose de réessayer ou de télécharger le résultat de la partie.
+
+**Structure du classeur.** Une ligne par partie, jamais fusionnée :
+le nom n'est pas un identifiant, un même étudiant produit autant de
+lignes qu'il joue de parties.
+
+| Nom de l'étudiant | Date | Heure | Score total (%) | Station 1 … (%) | Station 2 … (%) | … |
+| --- | --- | --- | --- | --- | --- | --- |
+
+Le nombre de colonnes de station suit le nombre de stations réellement
+jouées : il est déduit des domaines que le moteur a notés, classés dans
+l'ordre du parcours. Les scores sont ceux du moteur, repris tels quels.
+
+Un journal `Resultats_Jeu_Pharmacie.journal.jsonl` est tenu à côté du
+classeur : il est écrit avant celui-ci, de sorte qu'aucun résultat n'est
+perdu si le classeur est momentanément verrouillé par Excel.
+
 ## Organisation des fichiers
 
 | Chemin | Rôle |
@@ -42,6 +97,10 @@ suffirait à le déposer dans une plateforme.
 | `css/cssadd.css` | surcouche visuelle « chimie computationnelle » |
 | `css/fonts/` | polices Instrument Sans et JetBrains Mono (licence OFL, incluses) |
 | `fx/`, `images/` | éléments graphiques (cases à cocher, minuteur, illustrations) |
+| `javascript/epos-resultats.js` | relevé du résultat et transmission au service d'enregistrement |
+| `Lancer-EPOS.bat`, `Lancer-EPOS.sh` | lanceurs : service d'enregistrement + serveur local + navigateur |
+| `tools/serveur-resultats.py` | service local qui tient le classeur `.xlsx` d'historique |
+| `tools/xlsx_simple.py` | lecture et écriture `.xlsx` (bibliothèque standard seule) |
 | `tools/` | scripts de régénération des éléments d'interface et des illustrations |
 | `tools/render/` | chaîne de rendu 3D (three.js + Chromium) des illustrations |
 

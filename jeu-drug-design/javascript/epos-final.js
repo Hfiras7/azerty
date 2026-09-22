@@ -144,6 +144,11 @@
   }
 
   function recommencer() {
+    // l'enregistrement de la partie qui s'achève est déclenché tant que
+    // les réponses du moteur sont encore en place
+    if (window.EPOS && typeof window.EPOS.cloturerPartie === 'function') {
+      window.EPOS.cloturerPartie();
+    }
     if (!reinitialiserProgression()) return;
     scoreAffiche = null;
     retirer();
@@ -373,7 +378,13 @@
     var principal = document.getElementById('main');
     if (!principal) return;
     var objet = objetBarreFinale();
-    if (!objet) { if (panneau) retirer(); return; }
+    if (!objet) {
+      if (panneau) retirer();
+      if (window.EPOS && typeof window.EPOS.quitterEcranResultat === 'function') {
+        window.EPOS.quitterEcranResultat();
+      }
+      return;
+    }
 
     var score = scoreMoteur(objet);
     if (panneau && panneau.parentNode === principal && scoreAffiche === score) {
@@ -391,6 +402,12 @@
       principal.className = (principal.className + ' epos-final').trim();
     }
     animerScore(score);
+
+    // Le score affiché est celui que le moteur a arrêté : la partie peut
+    // être consignée dans le classeur d'historique (une seule fois).
+    if (window.EPOS && typeof window.EPOS.programmerEnregistrement === 'function') {
+      window.EPOS.programmerEnregistrement(score);
+    }
   }
 
   function demarrer() {

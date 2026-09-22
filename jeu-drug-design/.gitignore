@@ -1,0 +1,4 @@
+
+# caches Python des outils
+__pycache__/
+*.pyc
