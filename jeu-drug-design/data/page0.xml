@@ -26,8 +26,10 @@
 <field2></field2>
 <contenu7></contenu7>
 </bloc>
-<bloc><type>text</type><fts>16</fts><fts2>16</fts2>
-<ids></ids><st></st><x>488</x><y>634</y><w>124</w><h>27</h><x2>178</x2><y2>636</y2><w2>124</w2><h2>27</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<b><font color=#0000a0>2026-2027</font></b>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#000000</color><align>Justify</align>
+<bloc><type>text</type><fts>21</fts><fts2>21</fts2>
+<ids></ids><st></st><x>240</x><y>386</y><w>482</w><h>128</h><x2>0</x2><y2>390</y2><w2>482</w2><h2>124</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<font color=#104983><b>Création:</b><BR>Dr. Nour El Houda BEN FATMA<BR>Pr. Aimen ABBASSI<BR>MCA Meriem LARIBI<BR><b>Conception:</b><BR>Dr. Firas HFAIEDH</font>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#104983</color><align>Center</align>
+<css>border: solid 0px #808080;line-height:1.0;</css><ind>1</ind></bloc><bloc><type>text</type><fts>16</fts><fts2>16</fts2>
+<ids></ids><st></st><x>240</x><y>636</y><w>482</w><h>26</h><x2>0</x2><y2>636</y2><w2>482</w2><h2>26</h2><o>0</o><o2>0</o2><acl>0</acl><pp>0</pp><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<font color=#104983>Édition 2026</font>]]></text><contentpath></contentpath><contentpathsecond></contentpathsecond><color>#104983</color><align>Center</align>
 <css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>buttonarea</type>
 <url>data/page1.xml</url>
 <fts>16</fts><fts2>16</fts2>

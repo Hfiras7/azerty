@@ -51,6 +51,7 @@ livraison.
 | `fx/`, `images/` | éléments graphiques (cases à cocher, minuteur, illustrations) |
 | `javascript/epos-resultats.js` | relevé du résultat et transmission au service d'enregistrement |
 | `Lancer le jeu.bat`, `Lancer le jeu.sh` | ouverture du jeu dans le navigateur |
+| `images/epos.ico` | logo du jeu, porte par le raccourci Windows (`tools/generer-icone.py`) |
 | `javascript/epos-xlsx.js` | fabrication du classeur `.xlsx` dans le navigateur |
 
 | `tools/` | scripts de régénération des éléments d'interface et des illustrations |

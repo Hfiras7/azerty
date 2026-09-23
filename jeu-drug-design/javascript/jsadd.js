@@ -572,10 +572,10 @@ LUDIguid='pxzmzfc36860120241';
      la composition est posée ici, pour garder la hiérarchie
      typographique et le contraste du reste du jeu. */
   var REMERCIEMENTS = [
-    ['Cr\u00e9ation', ['Dr. Nour El Houda BEN FATMA', 'Pr. Aimen ABBASSI']],
-    ['Validation scientifique', ['MCA Meriem LARIBI']],
-    ['Conception', ['Dr. Firas HFAIEDH']],
-    ['Outils utilis\u00e9s', ['Ludiscape (version gratuite)', 'ChatGPT (version gratuite)']]
+    ['Cr\u00e9ation:', ['Dr. Nour El Houda BEN FATMA', 'Pr. Aimen ABBASSI',
+                       'MCA Meriem LARIBI']],
+    ['Conception:', ['Dr. Firas HFAIEDH']],
+    ['Outils utilis\u00e9s:', ['Ludiscape (version gratuite)', 'ChatGPT (version gratuite)']]
   ];
 
   function taillePanneauFinal() {
@@ -673,7 +673,30 @@ LUDIguid='pxzmzfc36860120241';
      vignette rapportée. La distinction se lit sur l'alpha des bords. */
   var memoireDetoure = {};
 
+  /* Visuels au fond transparent, relevés hors ligne sur les fichiers
+     eux-mêmes.
+
+     L'échantillonnage ci-dessous lit les pixels de l'image par un
+     canvas. Ouvert par double-clic (file://), le navigateur refuse
+     cette lecture — l'image locale « teinte » le canvas — et la
+     détection retombait alors sur « visuel plein » : chaque
+     illustration recevait un cadre blanc, y compris les schémas et les
+     vignettes détourés. La liste tranche le cas avant d'y recourir. */
+  var VISUELS_DETOURES = {
+    'bilan.png': 1, 'choix-pharmacien.png': 1, 'choix-pharmacienne.png': 1,
+    'elipse.png': 1, 'formule-acide-salicylique.png': 1, 'icone-action.png': 1,
+    'icone-deroulement.png': 1, 'icone-message.png': 1, 'icone-objectifs.png': 1,
+    'icone-prerequis.png': 1, 'icone-stations.png': 1, 'ludiscape1.png': 1,
+    'pharmacien-bas.png': 1, 'pharmacien-droite.png': 1, 'pharmacien-gauche.png': 1,
+    'pharmacien-haut.png': 1, 'pharmacien-pose.png': 1, 'pharmacien-presente.png': 1,
+    'pharmacienne-bas.png': 1, 'pharmacienne-droite.png': 1, 'pharmacienne-gauche.png': 1,
+    'pharmacienne-haut.png': 1, 'pharmacienne-pose.png': 1, 'pharmacienne-presente.png': 1,
+    'remerciements.png': 1
+  };
+
   function estDetoure(im, src) {
+    var nom = src.split('/').pop().split('?')[0];
+    if (VISUELS_DETOURES.hasOwnProperty(nom)) return true;
     if (memoireDetoure.hasOwnProperty(src)) return memoireDetoure[src];
     var reponse = false;
     try {

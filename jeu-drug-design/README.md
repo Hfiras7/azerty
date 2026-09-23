@@ -11,6 +11,10 @@ moléculaire, sur le cas de l'acide salicylique / de l'aspirine.
 
 Le jeu s'ouvre dans votre navigateur. C'est tout.
 
+Au premier lancement, un raccourci **EPOS — Initiation au Drug Design**
+apparaît dans le dossier, avec le logo du jeu. Vous pouvez l'utiliser
+ensuite à la place du `.bat`, ou le copier sur le Bureau.
+
 *(macOS et Linux : `Lancer le jeu.sh`, ou ouvrez `index.html`.)*
 
 ## 2. Télécharger les résultats
@@ -53,7 +57,8 @@ sur tout PC Windows.
 ## 5. Distribution
 
 Copiez le dossier entier (clé USB, réseau, dossier partagé). Le jeu
-fonctionne depuis n'importe quel emplacement.
+fonctionne depuis n'importe quel emplacement : le raccourci est refait
+à chaque lancement, il reste donc juste après une copie.
 
 ---
 
