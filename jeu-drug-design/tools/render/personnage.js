@@ -357,32 +357,39 @@ function pharmacien(variante) {
 
   /* ---- coiffure ---- */
   if (feminin) {
-    // carré mi-long avec une raie de côté
+    /* Carre mi-long avec une raie de cote.
+
+       La calotte s'arrete au-dessus des sourcils et bascule vers
+       l'arriere : posee plus bas, elle descendait sous la ligne des
+       yeux et le visage se reduisait a une fente, comme un masque. Les
+       masses laterales passent derriere le plan du visage, de sorte que
+       le crane les occulte : elles encadrent la figure au lieu de
+       mordre sur les joues. */
     const calotte = new THREE.Mesh(
-      new THREE.SphereGeometry(0.163, 36, 26, 0, Math.PI * 2, 0, Math.PI * 0.62), matCheveux);
-    calotte.scale.set(0.98, 1.06, 1.02);
-    calotte.position.set(0, 0.008, -0.008);
-    calotte.rotation.x = -0.12;
+      new THREE.SphereGeometry(0.165, 36, 26, 0, Math.PI * 2, 0, Math.PI * 0.52), matCheveux);
+    calotte.scale.set(0.99, 1.05, 1.02);
+    calotte.position.set(0, 0.010, -0.020);
+    calotte.rotation.x = -0.46;
     calotte.castShadow = true;
     tete.add(calotte);
-    // frange balayée sur le côté
-    const frange = new THREE.Mesh(new THREE.SphereGeometry(0.085, 20, 16), matCheveux);
-    frange.position.set(-0.055, 0.095, 0.094);
-    frange.scale.set(1.5, 0.55, 0.62);
-    frange.rotation.z = 0.32;
+    // frange balayee sur le cote, posee sur le haut du front
+    const frange = new THREE.Mesh(new THREE.SphereGeometry(0.070, 22, 16), matCheveux);
+    frange.position.set(-0.042, 0.077, 0.094);
+    frange.scale.set(1.38, 0.38, 0.50);
+    frange.rotation.z = 0.30;
     frange.castShadow = true;
     tete.add(frange);
-    // masses latérales descendant le long du visage
+    // masses laterales, en retrait derriere les pommettes
     [-1, 1].forEach(function (cote) {
-      const meche = new THREE.Mesh(new THREE.SphereGeometry(0.092, 22, 16), matCheveux);
-      meche.position.set(cote * 0.122, -0.078, -0.018);
-      meche.scale.set(0.6, 1.75, 0.98);
+      const meche = new THREE.Mesh(new THREE.SphereGeometry(0.088, 22, 16), matCheveux);
+      meche.position.set(cote * 0.133, -0.070, -0.046);
+      meche.scale.set(0.55, 1.70, 0.95);
       meche.castShadow = true;
       tete.add(meche);
     });
-    const arriere = new THREE.Mesh(new THREE.SphereGeometry(0.132, 26, 20), matCheveux);
-    arriere.position.set(0, -0.1, -0.095);
-    arriere.scale.set(1.02, 1.55, 0.8);
+    const arriere = new THREE.Mesh(new THREE.SphereGeometry(0.135, 26, 20), matCheveux);
+    arriere.position.set(0, -0.092, -0.078);
+    arriere.scale.set(1.0, 1.50, 0.86);
     arriere.castShadow = true;
     tete.add(arriere);
   } else {
